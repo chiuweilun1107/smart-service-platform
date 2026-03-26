@@ -77,7 +77,7 @@ export const FieldworkReport: React.FC = () => {
                     layout="split"
                 >
                     {/* 步驟計數 */}
-                    <div className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <div className="flex items-center gap-4 pl-5 pr-6 py-4 bg-white rounded-2xl border border-slate-200 shadow-sm border-l-4 border-l-amber-500">
                         <div>
                             <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">目前步驟</div>
                             <div className="flex items-baseline gap-1">
@@ -104,7 +104,7 @@ export const FieldworkReport: React.FC = () => {
                 </PageHeader>
 
                 {/* ── Step Indicator ──────────────────────────────────────────── */}
-                <div className="flex items-start gap-0 mb-8">
+                <div className="flex items-start gap-0 mb-10">
                     {STEPS.map((s, i) => (
                         <React.Fragment key={s.id}>
                             <div className="flex flex-col items-center gap-2 shrink-0">
@@ -146,7 +146,8 @@ export const FieldworkReport: React.FC = () => {
                             {step === 'gps' && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
-                                        <h2 className="text-xl font-black tracking-tighter text-slate-900 mb-1">現場簽到</h2>
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">步驟 01</div>
+                                        <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">現場簽到</h2>
                                         <p className="text-slate-500 text-sm font-medium">取得當前 GPS 位置，確認已到達案件現場。</p>
                                     </div>
 
@@ -154,7 +155,7 @@ export const FieldworkReport: React.FC = () => {
                                         <button
                                             onClick={handleGpsCapture}
                                             disabled={gpsStatus === 'loading'}
-                                            className="w-full py-12 rounded-2xl border-2 border-dashed border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all flex flex-col items-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-full py-12 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/60 hover:border-blue-400 hover:bg-blue-50/50 transition-all flex flex-col items-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
                                             {gpsStatus === 'loading' ? (
                                                 <>
@@ -211,7 +212,8 @@ export const FieldworkReport: React.FC = () => {
                             {step === 'form' && (
                                 <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
-                                        <h2 className="text-xl font-black tracking-tighter text-slate-900 mb-1">動物保護稽查紀錄單</h2>
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">步驟 02</div>
+                                        <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">動物保護稽查紀錄單</h2>
                                         <p className="text-slate-500 text-sm font-medium">
                                             案件 <span className="font-mono text-slate-600">{caseId}</span>
                                         </p>
@@ -279,7 +281,7 @@ export const FieldworkReport: React.FC = () => {
                                     </div>
 
                                     <div className="flex gap-3 pt-1">
-                                        <button onClick={() => setStep('gps')} className="py-3 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-600 hover:border-slate-300 hover:bg-slate-50 transition-all">
+                                        <button onClick={() => setStep('gps')} className="py-3 px-5 text-sm font-bold text-slate-400 hover:text-slate-700 transition-colors">
                                             上一步
                                         </button>
                                         <button onClick={() => setStep('photo')} className="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white font-black text-sm transition-all active:scale-[0.98] shadow-lg shadow-slate-900/10">
@@ -293,7 +295,8 @@ export const FieldworkReport: React.FC = () => {
                             {step === 'photo' && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
-                                        <h2 className="text-xl font-black tracking-tighter text-slate-900 mb-1">現場照片</h2>
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">步驟 03</div>
+                                        <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">現場照片</h2>
                                         <p className="text-slate-500 text-sm font-medium">照片將自動壓印 GPS 座標與時間浮水印。</p>
                                     </div>
 
@@ -301,7 +304,7 @@ export const FieldworkReport: React.FC = () => {
                                         <button
                                             type="button"
                                             onClick={() => setPhotoMock(true)}
-                                            className="w-full h-44 rounded-2xl border-2 border-dashed border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all flex flex-col items-center justify-center gap-3 group"
+                                            className="w-full h-44 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/60 hover:border-blue-400 hover:bg-blue-50/50 transition-all flex flex-col items-center justify-center gap-3 group"
                                         >
                                             <div className="w-14 h-14 rounded-2xl bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center text-slate-400 group-hover:text-blue-600 transition-all">
                                                 <Camera size={28} />
@@ -331,7 +334,7 @@ export const FieldworkReport: React.FC = () => {
                                     )}
 
                                     <div className="flex gap-3">
-                                        <button onClick={() => setStep('form')} className="py-3 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-600 hover:border-slate-300 hover:bg-slate-50 transition-all">
+                                        <button onClick={() => setStep('form')} className="py-3 px-5 text-sm font-bold text-slate-400 hover:text-slate-700 transition-colors">
                                             上一步
                                         </button>
                                         <button
@@ -349,7 +352,8 @@ export const FieldworkReport: React.FC = () => {
                             {step === 'sign' && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
-                                        <h2 className="text-xl font-black tracking-tighter text-slate-900 mb-1">電子簽核</h2>
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">步驟 04</div>
+                                        <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">電子簽核</h2>
                                         <p className="text-slate-500 text-sm font-medium">確認資料無誤後輸入姓名完成電子簽核並送出。</p>
                                     </div>
 
@@ -387,7 +391,7 @@ export const FieldworkReport: React.FC = () => {
                                     </div>
 
                                     <div className="flex gap-3">
-                                        <button onClick={() => setStep('photo')} className="py-3 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-600 hover:border-slate-300 hover:bg-slate-50 transition-all">
+                                        <button onClick={() => setStep('photo')} className="py-3 px-5 text-sm font-bold text-slate-400 hover:text-slate-700 transition-colors">
                                             上一步
                                         </button>
                                         <button
