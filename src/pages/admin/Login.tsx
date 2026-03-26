@@ -168,26 +168,49 @@ export const AdminLogin: React.FC = () => {
                 <div className="p-8 md:p-12 xl:p-16 flex flex-col justify-center bg-white relative">
                     <div className="max-w-md w-full mx-auto">
                         <div className="mb-8">
-                            <div className="flex gap-6 border-b-2 border-slate-50">
-                                {([
-                                    { id: 'citizen', label: '民眾服務', icon: Search },
-                                    { id: 'staff',   label: '人員登入', icon: Users },
-                                ] as const).map((tab) => {
-                                    const isActive = activeTab === tab.id;
-                                    return (
-                                        <button
-                                            key={tab.id}
-                                            onClick={() => setActiveTab(tab.id)}
-                                            className={`pb-4 flex items-center gap-2 text-sm font-black tracking-[0.15em] uppercase transition-all relative ${isActive ? 'text-blue-600' : 'text-slate-300 hover:text-slate-500'}`}
-                                        >
-                                            <tab.icon size={16} />
-                                            {tab.label}
-                                            {isActive && (
-                                                <div className="absolute bottom-[-2px] left-0 w-full h-[3px] bg-blue-600 rounded-full animate-in slide-in-from-left duration-300" />
-                                            )}
-                                        </button>
-                                    );
-                                })}
+                            <div className="flex items-end justify-between border-b-2 border-slate-50">
+                                {/* Tabs */}
+                                <div className="flex gap-6">
+                                    {([
+                                        { id: 'citizen', label: '民眾服務', icon: Search },
+                                        { id: 'staff',   label: '人員登入', icon: Users },
+                                    ] as const).map((tab) => {
+                                        const isActive = activeTab === tab.id;
+                                        return (
+                                            <button
+                                                key={tab.id}
+                                                onClick={() => setActiveTab(tab.id)}
+                                                className={`pb-4 flex items-center gap-2 text-sm font-black tracking-[0.15em] uppercase transition-all relative ${isActive ? 'text-blue-600' : 'text-slate-300 hover:text-slate-500'}`}
+                                            >
+                                                <tab.icon size={16} />
+                                                {tab.label}
+                                                {isActive && (
+                                                    <div className="absolute bottom-[-2px] left-0 w-full h-[3px] bg-blue-600 rounded-full animate-in slide-in-from-left duration-300" />
+                                                )}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Demo quick-fill — shown only on staff tab */}
+                                {activeTab === 'staff' && (
+                                    <div className="flex gap-1.5 pb-3">
+                                        {[
+                                            { label: '管理員', user: 'admin', pass: 'password' },
+                                            { label: '承辦', user: 'caseworker01', pass: 'password123' },
+                                            { label: '外包', user: 'contractor01', pass: 'contractor123' },
+                                        ].map(({ label, user, pass }) => (
+                                            <button
+                                                key={user}
+                                                type="button"
+                                                onClick={() => { setUsername(user); setPassword(pass); }}
+                                                className="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-500 transition-all whitespace-nowrap"
+                                            >
+                                                {label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -268,24 +291,6 @@ export const AdminLogin: React.FC = () => {
                                         <CaptchaField />
 
                                         {error && <div className="p-3 bg-red-50 text-red-500 text-xs font-black rounded-xl border border-red-100">{error}</div>}
-
-                                        {/* Demo account hints */}
-                                        <div className="flex flex-wrap gap-2">
-                                            {[
-                                                { label: '管理員', user: 'admin', pass: 'password' },
-                                                { label: '承辦', user: 'caseworker01', pass: 'password123' },
-                                                { label: '外包', user: 'contractor01', pass: 'contractor123' },
-                                            ].map(({ label, user, pass }) => (
-                                                <button
-                                                    key={user}
-                                                    type="button"
-                                                    onClick={() => { setUsername(user); setPassword(pass); }}
-                                                    className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-500 transition-all"
-                                                >
-                                                    Demo: {label}
-                                                </button>
-                                            ))}
-                                        </div>
 
                                         <button
                                             type="submit"
