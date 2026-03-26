@@ -56,8 +56,8 @@ export const Navbar: React.FC = () => {
                     </div>
                 </Link>
 
-                {/* Desktop Nav — xl and up */}
-                <div className="hidden xl:flex items-center bg-slate-100/60 p-1.5 rounded-full border border-slate-200/50 gap-0.5">
+                {/* Desktop Nav — lg and up */}
+                <div className="hidden lg:flex items-center bg-slate-100/60 p-1.5 rounded-full border border-slate-200/50 gap-0.5">
                     {navItems.map((item) => (
                         <Link
                             key={item.label}
@@ -78,18 +78,18 @@ export const Navbar: React.FC = () => {
 
                 {/* Right: Login + hamburger */}
                 <div className="flex items-center gap-2 shrink-0">
-                    {/* Login button — visible on md+ */}
+                    {/* Login button — visible on lg+ */}
                     <Link
                         to="/login"
-                        className="hidden md:inline-flex items-center px-5 py-2 rounded-xl bg-slate-950 text-white text-xs font-black tracking-widest hover:bg-blue-700 shadow-md hover:shadow-blue-700/30 transition-all uppercase whitespace-nowrap"
+                        className="hidden lg:inline-flex items-center px-5 py-2 rounded-xl bg-slate-950 text-white text-xs font-black tracking-widest hover:bg-blue-700 shadow-md hover:shadow-blue-700/30 transition-all uppercase whitespace-nowrap"
                     >
                         Login
                     </Link>
 
-                    {/* Hamburger — visible below xl */}
+                    {/* Hamburger — visible below lg */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="xl:hidden p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+                        className="lg:hidden p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
                         aria-label="選單"
                     >
                         {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -99,7 +99,7 @@ export const Navbar: React.FC = () => {
 
             {/* Mobile / Tablet Menu */}
             {isOpen && (
-                <div className="xl:hidden absolute top-full left-0 right-0 mt-1 mx-4 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-100 overflow-hidden animate-in slide-in-from-top-4 duration-200">
+                <div className="lg:hidden absolute top-full left-0 right-0 mt-1 mx-4 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-100 overflow-hidden animate-in slide-in-from-top-4 duration-200">
                     <div className="p-4 space-y-1">
                         {navItems.map((item) => (
                             <Link
