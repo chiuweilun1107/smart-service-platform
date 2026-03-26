@@ -21,21 +21,21 @@ type StatusFilter = 'all' | 'pending' | 'processing' | 'resolved';
 // ─── Mock Admin Cases ─────────────────────────────────────────────────────────
 
 const MOCK_CASES: CaseMarker[] = [
-    { id: 'C001', lat: 25.033, lng: 121.565, type: 'bee',     title: '虎頭蜂築巢 — 大安區',   status: 'pending',    address: '台北市大安區和平東路二段', reporter: '市民 A' },
-    { id: 'C002', lat: 25.048, lng: 121.514, type: 'general', title: '路樹傾倒 — 中山區',      status: 'processing', address: '台北市中山區中山北路三段', reporter: '市民 B' },
-    { id: 'C003', lat: 24.997, lng: 121.530, type: 'bee',     title: '蜂窩清除 — 文山區',      status: 'resolved',   address: '台北市文山區羅斯福路六段', reporter: '市民 C' },
+    { id: 'C001', lat: 25.033, lng: 121.565, type: 'bee',     title: '虎頭蜂築巢 — 大安區',   status: 'pending',    address: '台北市大安區和平東路二段', reporter: '市民 A', assignedTo: 'contractor01' },
+    { id: 'C002', lat: 25.048, lng: 121.514, type: 'general', title: '路樹傾倒 — 中山區',      status: 'processing', address: '台北市中山區中山北路三段', reporter: '市民 B', assignedTo: 'contractor02' },
+    { id: 'C003', lat: 24.997, lng: 121.530, type: 'bee',     title: '蜂窩清除 — 文山區',      status: 'resolved',   address: '台北市文山區羅斯福路六段', reporter: '市民 C', assignedTo: 'contractor01' },
     { id: 'C004', lat: 25.020, lng: 121.480, type: 'general', title: '積水清除通報 — 萬華區',   status: 'pending',    address: '台北市萬華區西藏路',      reporter: '市民 D' },
-    { id: 'C005', lat: 25.055, lng: 121.600, type: 'bee',     title: '胡蜂入侵 — 內湖區',      status: 'processing', address: '台北市內湖區成功路四段',   reporter: '市民 E' },
+    { id: 'C005', lat: 25.055, lng: 121.600, type: 'bee',     title: '胡蜂入侵 — 內湖區',      status: 'processing', address: '台北市內湖區成功路四段',   reporter: '市民 E', assignedTo: 'contractor01' },
     { id: 'C006', lat: 25.012, lng: 121.550, type: 'general', title: '流浪犬傷人 — 信義區',    status: 'pending',    address: '台北市信義區松仁路',      reporter: '市民 F' },
-    { id: 'C007', lat: 25.061, lng: 121.540, type: 'bee',     title: '黃蜂群聚 — 士林區',      status: 'pending',    address: '台北市士林區天母東路',    reporter: '市民 G' },
+    { id: 'C007', lat: 25.061, lng: 121.540, type: 'bee',     title: '黃蜂群聚 — 士林區',      status: 'pending',    address: '台北市士林區天母東路',    reporter: '市民 G', assignedTo: 'contractor02' },
     { id: 'C008', lat: 25.040, lng: 121.502, type: 'general', title: '危樹通報 — 中正區',      status: 'resolved',   address: '台北市中正區愛國西路',    reporter: '市民 H' },
-    { id: 'C009', lat: 24.988, lng: 121.560, type: 'bee',     title: '蜂巢移除 — 南港區',      status: 'processing', address: '台北市南港區研究院路',    reporter: '市民 I' },
+    { id: 'C009', lat: 24.988, lng: 121.560, type: 'bee',     title: '蜂巢移除 — 南港區',      status: 'processing', address: '台北市南港區研究院路',    reporter: '市民 I', assignedTo: 'contractor01' },
     { id: 'C010', lat: 25.015, lng: 121.510, type: 'general', title: '噪音投訴 — 大同區',      status: 'resolved',   address: '台北市大同區延平北路三段', reporter: '市民 J' },
-    { id: 'C011', lat: 25.052, lng: 121.458, type: 'bee',     title: '蜂螫事件 — 北投區',      status: 'pending',    address: '台北市北投區中山路',      reporter: '市民 K' },
-    { id: 'C012', lat: 25.003, lng: 121.494, type: 'general', title: '路面坑洞 — 中正區',      status: 'processing', address: '台北市中正區林森南路',    reporter: '市民 L' },
+    { id: 'C011', lat: 25.052, lng: 121.458, type: 'bee',     title: '蜂螫事件 — 北投區',      status: 'pending',    address: '台北市北投區中山路',      reporter: '市民 K', assignedTo: 'contractor01' },
+    { id: 'C012', lat: 25.003, lng: 121.494, type: 'general', title: '路面坑洞 — 中正區',      status: 'processing', address: '台北市中正區林森南路',    reporter: '市民 L', assignedTo: 'contractor02' },
     { id: 'C013', lat: 25.036, lng: 121.575, type: 'bee',     title: '蜂窩驅除 — 松山區',      status: 'pending',    address: '台北市松山區南京東路五段', reporter: '市民 M' },
     { id: 'C014', lat: 25.022, lng: 121.534, type: 'general', title: '野貓聚集 — 大安區',      status: 'resolved',   address: '台北市大安區敦化南路一段', reporter: '市民 N' },
-    { id: 'C015', lat: 25.044, lng: 121.527, type: 'bee',     title: '屋簷蜂窩 — 松山區',      status: 'processing', address: '台北市松山區八德路四段',   reporter: '市民 O' },
+    { id: 'C015', lat: 25.044, lng: 121.527, type: 'bee',     title: '屋簷蜂窩 — 松山區',      status: 'processing', address: '台北市松山區八德路四段',   reporter: '市民 O', assignedTo: 'contractor01' },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -166,10 +166,14 @@ export const MapView: React.FC = () => {
     // Auth
     const [isAdmin, setIsAdmin] = useState(false);
     const [isContractor, setIsContractor] = useState(false);
+    const [contractorId, setContractorId] = useState<string | null>(null);
     useEffect(() => {
         const role = localStorage.getItem('auth_role');
         setIsAdmin(role === 'admin' || role === 'caseworker');
         setIsContractor(role === 'contractor');
+        if (role === 'contractor') {
+            setContractorId(localStorage.getItem('auth_username'));
+        }
     }, []);
 
     // Map layer
@@ -195,11 +199,12 @@ export const MapView: React.FC = () => {
         if (isAdmin) {
             setCases(MOCK_CASES);
         } else if (isContractor) {
-            setCases(MOCK_CASES.filter(c => c.status !== 'resolved'));
+            // Only show cases assigned to this contractor
+            setCases(MOCK_CASES.filter(c => contractorId ? c.assignedTo === contractorId : c.assignedTo != null));
         } else {
             setCases([]);
         }
-    }, [isAdmin, isContractor]);
+    }, [isAdmin, isContractor, contractorId]);
 
     const filteredCases = useMemo(() => {
         return cases.filter(c => {
@@ -600,7 +605,7 @@ export const MapView: React.FC = () => {
                         </div>
                         <div className="mt-3 pt-3 border-t border-white/5 text-[11px] text-slate-500 flex items-center gap-1.5">
                             <div className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></div>
-                            共 {cases.length} 筆待處理派工
+                            共 {cases.length} 筆派工任務
                         </div>
                     </div>
                 )}

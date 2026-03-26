@@ -17,8 +17,9 @@ export interface CaseMarker {
     status: 'pending' | 'processing' | 'resolved';
     address: string;
     reporter: string;
-    photoUrl?: string; // Optional photo
+    photoUrl?: string;
     description?: string;
+    assignedTo?: string; // contractor ID assigned to this case
 }
 
 export interface MapHotspot {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Shield, Lock, User, Loader2, ArrowRight, Search, FileText, RefreshCw, Briefcase, Settings, ArrowLeft, HardHat } from 'lucide-react';
+import { Shield, Loader2, ArrowRight, Search, Briefcase, Settings, ArrowLeft, HardHat } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
 import { typo, input, btn } from '../../utils/typography';
 
@@ -68,6 +68,9 @@ export const AdminLogin: React.FC = () => {
             if (actualRole) {
                 localStorage.setItem('auth_token', `mock_${actualRole}_token`);
                 localStorage.setItem('auth_role', actualRole);
+                if (actualRole === 'contractor') {
+                    localStorage.setItem('auth_username', username);
+                }
                 navigate(actualRole === 'contractor' ? '/map' : '/admin/dashboard');
             } else {
                 setError('帳號或密碼錯誤');
@@ -98,13 +101,14 @@ export const AdminLogin: React.FC = () => {
 
     const CaptchaField = () => (
         <div className="space-y-3">
-            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">驗證碼 (Captcha)</label>
+            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">驗證碼 (Captcha)</label>
             <div className="flex gap-4">
                 <input
                     type="text"
                     value={captcha}
                     onChange={(e) => setCaptcha(e.target.value)}
                     placeholder="輸入驗證碼"
+                    autoComplete="off"
                     className={`flex-1 ${input.base} ${input.light} font-bold`}
                 />
                 <div
@@ -210,29 +214,25 @@ export const AdminLogin: React.FC = () => {
 
                                     <form onSubmit={handleCitizenQueryFast} className="space-y-8">
                                         <div className="space-y-3">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">案件編號 (Case ID)</label>
-                                            <div className="relative group">
-                                                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={24} />
-                                                <input
-                                                    type="text"
-                                                    value={caseId}
-                                                    onChange={(e) => setCaseId(e.target.value)}
-                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
-                                                />
-                                            </div>
+                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">案件編號 (Case ID)</label>
+                                            <input
+                                                type="text"
+                                                value={caseId}
+                                                onChange={(e) => setCaseId(e.target.value)}
+                                                autoComplete="off"
+                                                className={`${input.base} ${input.light} font-bold`}
+                                            />
                                         </div>
 
                                         <div className="space-y-3">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">驗證資訊 (Phone)</label>
-                                            <div className="relative group">
-                                                <User className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={24} />
-                                                <input
-                                                    type="text"
-                                                    value={phone}
-                                                    onChange={(e) => setPhone(e.target.value)}
-                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
-                                                />
-                                            </div>
+                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">驗證資訊 (Phone)</label>
+                                            <input
+                                                type="text"
+                                                value={phone}
+                                                onChange={(e) => setPhone(e.target.value)}
+                                                autoComplete="off"
+                                                className={`${input.base} ${input.light} font-bold`}
+                                            />
                                         </div>
 
                                         <CaptchaField />
@@ -258,29 +258,25 @@ export const AdminLogin: React.FC = () => {
 
                                     <form onSubmit={handleLogin} className="space-y-8">
                                         <div className="space-y-3">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">帳號 (Account)</label>
-                                            <div className="relative group">
-                                                <FileText className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={24} />
-                                                <input
-                                                    type="text"
-                                                    value={username}
-                                                    onChange={(e) => setUsername(e.target.value)}
-                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
-                                                />
-                                            </div>
+                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
+                                            <input
+                                                type="text"
+                                                value={username}
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                autoComplete="username"
+                                                className={`${input.base} ${input.light} font-bold`}
+                                            />
                                         </div>
 
                                         <div className="space-y-3">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">密碼 (Password)</label>
-                                            <div className="relative group">
-                                                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={24} />
-                                                <input
-                                                    type="password"
-                                                    value={password}
-                                                    onChange={(e) => setPassword(e.target.value)}
-                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
-                                                />
-                                            </div>
+                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
+                                            <input
+                                                type="password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                autoComplete="current-password"
+                                                className={`${input.base} ${input.light} font-bold`}
+                                            />
                                         </div>
 
                                         <CaptchaField />
@@ -307,29 +303,25 @@ export const AdminLogin: React.FC = () => {
 
                                     <form onSubmit={handleLogin} className="space-y-8">
                                         <div className="space-y-3">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">帳號 (Account)</label>
-                                            <div className="relative group">
-                                                <HardHat className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-orange-500 transition-colors" size={24} />
-                                                <input
-                                                    type="text"
-                                                    value={username}
-                                                    onChange={(e) => setUsername(e.target.value)}
-                                                    className={`${input.base} pl-14 pr-6 font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
-                                                />
-                                            </div>
+                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
+                                            <input
+                                                type="text"
+                                                value={username}
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                autoComplete="username"
+                                                className={`${input.base} font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
+                                            />
                                         </div>
 
                                         <div className="space-y-3">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">密碼 (Password)</label>
-                                            <div className="relative group">
-                                                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-orange-500 transition-colors" size={24} />
-                                                <input
-                                                    type="password"
-                                                    value={password}
-                                                    onChange={(e) => setPassword(e.target.value)}
-                                                    className={`${input.base} pl-14 pr-6 font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
-                                                />
-                                            </div>
+                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
+                                            <input
+                                                type="password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                autoComplete="current-password"
+                                                className={`${input.base} font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
+                                            />
                                         </div>
 
                                         <CaptchaField />
