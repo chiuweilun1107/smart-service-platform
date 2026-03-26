@@ -389,24 +389,6 @@ export const MapView: React.FC = () => {
                             </button>
                         )}
 
-                        {/* Guardian Shield — desktop only for public (not contractor or admin) */}
-                        {!isContractor && (
-                            <button
-                                onClick={() => { setShowGuardianPanel(!showGuardianPanel); setShowFilterPanel(false); setIsAddingZone(false); setPendingZoneCenter(null); }}
-                                className={`hidden lg:flex relative w-10 h-10 rounded-xl transition-all items-center justify-center cursor-pointer active:scale-95 ${showGuardianPanel || isAddingZone ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-slate-50 text-slate-400 hover:bg-blue-600 hover:text-white'}`}
-                                title="我的守護範圍"
-                            >
-                                <Shield size={20} />
-                                {totalGuardianAlerts > 0 && (
-                                    <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 items-center justify-center text-[8px] font-black text-white">
-                                            {totalGuardianAlerts > 9 ? '9+' : totalGuardianAlerts}
-                                        </span>
-                                    </span>
-                                )}
-                            </button>
-                        )}
 
                         {/* Zoom controls */}
                         <div className="h-px bg-slate-100 mx-1"></div>

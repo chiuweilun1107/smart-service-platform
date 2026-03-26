@@ -96,7 +96,7 @@ export const AdminLogin: React.FC = () => {
 
     const CaptchaField = () => (
         <div className="space-y-2">
-            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證碼 (Captcha)</label>
+            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證碼</label>
             <div className="flex gap-3">
                 <TextInput
                     type="text"
@@ -144,7 +144,7 @@ export const AdminLogin: React.FC = () => {
 
                     <div className="relative z-10 pt-16">
                         <div className="inline-block px-5 py-2 bg-blue-600/20 border border-blue-500/30 rounded-full text-[11px] font-black text-blue-400 uppercase tracking-[0.4em] mb-12">
-                            Secure Access Portal
+                            安全認證入口
                         </div>
                         <h1 className="text-5xl xl:text-7xl 2xl:text-8xl font-black text-white tracking-tighter leading-tight mb-10">
                             智慧勤務<br />
@@ -161,8 +161,8 @@ export const AdminLogin: React.FC = () => {
                                 <Shield size={32} />
                             </div>
                             <div>
-                                <div className="text-white font-black text-sm uppercase tracking-[0.3em] mb-1">Uncompromised</div>
-                                <div className="text-slate-500 text-xs font-bold uppercase tracking-widest">Security & Access Control</div>
+                                <div className="text-white font-black text-sm uppercase tracking-[0.3em] mb-1">全面防護</div>
+                                <div className="text-slate-500 text-xs font-bold uppercase tracking-widest">安全性與存取控制</div>
                             </div>
                         </div>
                     </div>
@@ -205,7 +205,7 @@ export const AdminLogin: React.FC = () => {
 
                                     <form onSubmit={handleCitizenQueryFast} className="space-y-4">
                                         <div className="space-y-2">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">案件編號 (Case ID)</label>
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">案件編號</label>
                                             <TextInput
                                                 type="text"
                                                 value={caseId}
@@ -216,7 +216,7 @@ export const AdminLogin: React.FC = () => {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證資訊 (Phone)</label>
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證資訊</label>
                                             <TextInput
                                                 type="text"
                                                 value={phone}
@@ -264,7 +264,7 @@ export const AdminLogin: React.FC = () => {
 
                                     <form onSubmit={handleLogin} className="space-y-4">
                                         <div className="space-y-2">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">帳號</label>
                                             <TextInput
                                                 type="text"
                                                 value={username}
@@ -275,7 +275,7 @@ export const AdminLogin: React.FC = () => {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">密碼</label>
                                             <TextInput
                                                 type="password"
                                                 value={password}
@@ -302,7 +302,7 @@ export const AdminLogin: React.FC = () => {
                         </div>
 
                         <div className="mt-8 text-center">
-                            <p className="text-[10px] font-black text-slate-200 uppercase tracking-[0.3em]">© 2024 New Taipei City Government • Dept. Animal Health</p>
+                            <p className="text-[10px] font-black text-slate-200 uppercase tracking-[0.3em]">© 2026 新北市政府動物保護防疫處</p>
                         </div>
                     </div>
                 </div>

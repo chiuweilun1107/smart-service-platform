@@ -171,7 +171,7 @@ export const Navbar: React.FC = () => {
                             to="/login"
                             className="hidden lg:inline-flex items-center px-5 py-2 rounded-xl bg-slate-950 text-white text-xs font-black tracking-widest hover:bg-blue-700 shadow-md hover:shadow-blue-700/30 transition-all uppercase whitespace-nowrap"
                         >
-                            Login
+                            登入
                         </Link>
                     )}
 
@@ -262,7 +262,7 @@ export const Navbar: React.FC = () => {
                                     onClick={() => setIsOpen(false)}
                                     className="flex items-center justify-center w-full py-3 rounded-xl bg-slate-950 text-white font-black text-sm tracking-widest hover:bg-blue-700 transition-all"
                                 >
-                                    LOGIN
+                                    登入
                                 </Link>
                             )}
                         </div>
