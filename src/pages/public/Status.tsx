@@ -243,7 +243,8 @@ export const Status: React.FC = () => {
                             </div>
 
                             <div className="lg:col-span-12">
-                                <Link to="/" className="w-full py-4 bg-white border border-slate-200 rounded-2xl text-slate-400 font-black text-[10px] tracking-[0.3em] hover:bg-slate-900 hover:text-white transition-all shadow-sm flex items-center justify-center gap-4">
+                                <Link to="/" className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] tracking-widest hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-slate-900/20 flex items-center justify-center gap-3">
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                                     返回首頁
                                 </Link>
                             </div>
