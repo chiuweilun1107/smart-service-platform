@@ -171,44 +171,70 @@ export const Status: React.FC = () => {
                                     })()}
 
                                     <div className="relative z-10">
-                                        {result.timeline.map((item, idx) => (
-                                            <div key={idx} className="relative flex gap-4 md:gap-6 pb-4 last:pb-0 group">
-                                                {/* Left Column: connector + node */}
-                                                <div className="flex flex-col items-center flex-shrink-0 w-8">
-                                                    <div className={`w-8 h-8 rounded-xl border-2 flex items-center justify-center bg-white z-10 flex-shrink-0 transition-all ${item.done ? 'border-blue-600 shadow-md shadow-blue-600/20' : 'border-slate-200'}`}>
-                                                        {item.done ? (
-                                                            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                                            </svg>
-                                                        ) : (
-                                                            <div className="w-2 h-2 bg-slate-200 rounded-full"></div>
+                                        {result.timeline.map((item, idx) => {
+                                            const isActive = !item.done && idx === result.timeline.findIndex(t => !t.done);
+                                            const isPending = !item.done && !isActive;
+                                            return (
+                                                <div key={idx} className="relative flex items-stretch gap-0 group">
+
+                                                    {/* 左欄：日期時間 */}
+                                                    <div className="hidden md:flex flex-col items-end justify-start pt-3 pr-5 w-32 flex-shrink-0">
+                                                        <span className={`text-xs font-bold leading-tight ${item.done ? 'text-slate-700' : 'text-slate-300'}`}>{item.date}</span>
+                                                        <span className={`text-[11px] font-black mt-0.5 ${item.done ? 'text-blue-500' : isActive ? 'text-blue-400' : 'text-slate-200'}`}>{item.time}</span>
+                                                    </div>
+
+                                                    {/* 中欄：步驟編號 + 連接線 */}
+                                                    <div className="flex flex-col items-center flex-shrink-0 w-10">
+                                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 z-10 font-black text-xs transition-all
+                                                            ${item.done ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+                                                            : isActive ? 'bg-slate-900 text-white shadow-md ring-2 ring-blue-400 ring-offset-2'
+                                                            : 'bg-slate-100 text-slate-300'}`}>
+                                                            {item.done
+                                                                ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                                                                : <span>{String(idx + 1).padStart(2, '0')}</span>
+                                                            }
+                                                        </div>
+                                                        {idx !== result.timeline.length - 1 && (
+                                                            <div className={`w-[2px] flex-1 my-1 ${item.done ? 'bg-blue-200' : 'bg-slate-100'}`} style={{ minHeight: '24px' }}></div>
                                                         )}
                                                     </div>
-                                                    {idx !== result.timeline.length - 1 && (
-                                                        <div className={`w-[2px] flex-1 mt-1 min-h-[16px] ${item.done ? 'bg-blue-200' : 'bg-slate-100'}`}></div>
-                                                    )}
-                                                </div>
 
-                                                {/* Right Column: content */}
-                                                <div className={`flex-1 pb-4 last:pb-0 ${idx !== result.timeline.length - 1 ? 'mb-0' : ''}`}>
-                                                    <div className={`rounded-xl border p-4 md:p-5 transition-all ${item.done ? 'bg-white border-slate-100 group-hover:border-blue-100 group-hover:shadow-sm' : 'bg-slate-50 border-transparent'} ${!item.done && idx === result.timeline.findIndex(t => !t.done) ? 'border-l-2 border-l-blue-400 bg-blue-50/30' : ''}`}>
-                                                        <div className="flex items-start justify-between gap-4 mb-1">
-                                                            <h4 className={`text-sm font-black tracking-tight uppercase ${item.done ? 'text-slate-900' : 'text-slate-400'}`}>{item.title}</h4>
-                                                            <div className="flex items-center gap-3 flex-shrink-0">
-                                                                {item.done && (
-                                                                    <span className="hidden sm:inline-flex text-[9px] font-black text-blue-600 tracking-widest bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">已確認</span>
-                                                                )}
-                                                                <div className="text-right">
-                                                                    <div className={`text-[10px] font-black uppercase tracking-wider ${item.done ? 'text-slate-500' : 'text-slate-300'}`}>{item.date}</div>
-                                                                    <div className={`text-[10px] font-black uppercase tracking-wider ${item.done ? 'text-blue-500' : 'text-slate-300'}`}>{item.time}</div>
-                                                                </div>
+                                                    {/* 右欄：內容卡片 */}
+                                                    <div className="flex-1 pb-3 last:pb-0 pl-4">
+                                                        <div className={`rounded-xl p-4 transition-all duration-300 mb-0
+                                                            ${item.done ? 'bg-slate-50 border border-slate-100 group-hover:bg-white group-hover:border-blue-100 group-hover:shadow-sm'
+                                                            : isActive ? 'bg-blue-600 border border-blue-500 shadow-lg shadow-blue-600/20'
+                                                            : 'bg-transparent border border-transparent'}`}>
+
+                                                            {/* 手機版日期 */}
+                                                            <div className={`md:hidden text-[10px] font-bold mb-1 ${item.done ? 'text-slate-400' : isActive ? 'text-blue-200' : 'text-slate-300'}`}>
+                                                                {item.date} {item.time}
                                                             </div>
+
+                                                            <div className="flex items-center justify-between gap-3 mb-1">
+                                                                <h4 className={`text-sm font-black tracking-tight
+                                                                    ${item.done ? 'text-slate-800' : isActive ? 'text-white' : 'text-slate-300'}`}>
+                                                                    {item.title}
+                                                                </h4>
+                                                                {item.done && (
+                                                                    <span className="hidden sm:inline-flex text-[9px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 flex-shrink-0">已確認</span>
+                                                                )}
+                                                                {isActive && (
+                                                                    <span className="flex items-center gap-1 text-[9px] font-black text-blue-200 flex-shrink-0">
+                                                                        <span className="w-1.5 h-1.5 bg-blue-300 rounded-full animate-pulse"></span>
+                                                                        處理中
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            <p className={`text-sm leading-relaxed
+                                                                ${item.done ? 'text-slate-500 font-medium' : isActive ? 'text-blue-100 font-medium' : 'text-slate-300 font-normal'}`}>
+                                                                {item.desc}
+                                                            </p>
                                                         </div>
-                                                        <p className={`text-sm font-medium leading-relaxed ${item.done ? 'text-slate-500' : 'text-slate-400'}`}>{item.desc}</p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Visual Backdrop */}
