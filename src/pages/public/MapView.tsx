@@ -200,6 +200,9 @@ export const MapView: React.FC = () => {
     const [filterStatus, setFilterStatus] = useState<StatusFilter>('all');
     const [dispatchTarget, setDispatchTarget] = useState<CaseMarker | null>(null);
 
+    // Public: toggle hotspot visibility
+    const [showHotspots, setShowHotspots] = useState(true);
+
     // Legend quick-filter: status maps directly to pin color (pending=red, processing=orange, resolved=green)
     type LegendKey = 'pending' | 'processing' | 'resolved';
     const [legendFilter, setLegendFilter] = useState<Set<LegendKey>>(
@@ -449,7 +452,7 @@ export const MapView: React.FC = () => {
                 <CaseMap
                     cases={filteredCases}
                     activeLayer={activeLayer}
-                    hotspots={isAdmin || isContractor ? [] : beeHotspots}
+                    hotspots={isAdmin || isContractor ? [] : (showHotspots ? beeHotspots : [])}
                     guardianZones={zones}
                     guardianAlerts={guardianAlerts}
                     isAddingZone={isAddingZone}
@@ -507,16 +510,24 @@ export const MapView: React.FC = () => {
                         {/* 民眾端才顯示危險熱點與守護範圍 */}
                         {!isAdmin && !isContractor && (
                             <>
-                                <div className="flex items-center gap-3 px-2 py-1.5">
-                                    <span className="w-3 h-3 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_8px_rgba(249,115,22,0.5)] shrink-0"></span>
+                                <button
+                                    onClick={() => setShowHotspots(v => !v)}
+                                    className={`w-full flex items-center gap-3 px-2 py-1.5 rounded-xl transition-all text-left group ${showHotspots ? 'hover:bg-white/5' : 'opacity-40 hover:opacity-60'}`}
+                                    title={showHotspots ? '點擊隱藏' : '點擊顯示'}
+                                >
+                                    <span className={`w-3 h-3 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_8px_rgba(249,115,22,0.5)] shrink-0 ${showHotspots ? '' : 'grayscale'}`}></span>
                                     <span className="text-sm font-bold text-white">危險熱點預警</span>
-                                </div>
-                                {zones.length > 0 && (
-                                    <button className="w-full flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-all group" onClick={() => setShowGuardianPanel(true)}>
-                                        <span className="w-3 h-3 rounded-full bg-blue-500 ring-2 ring-blue-500/30 shrink-0"></span>
-                                        <span className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">我的守護範圍</span>
-                                    </button>
-                                )}
+                                    {!showHotspots && <span className="ml-auto text-[10px] text-slate-500 font-bold">隱藏</span>}
+                                </button>
+                                <button
+                                    className="w-full flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-all group"
+                                    onClick={() => { setShowGuardianPanel(true); setShowFilterPanel(false); setIsAddingZone(false); }}
+                                >
+                                    <span className="w-3 h-3 rounded-full bg-blue-500 ring-2 ring-blue-500/30 shrink-0"></span>
+                                    <span className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">
+                                        {zones.length > 0 ? `守護範圍 (${zones.length})` : '新增守護訂閱'}
+                                    </span>
+                                </button>
                             </>
                         )}
                     </div>
@@ -819,34 +830,31 @@ export const MapView: React.FC = () => {
                     {/* 民眾端：熱點與守護範圍 */}
                     {!isAdmin && !isContractor && (
                         <>
-                            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                                <span className="w-4 h-4 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.5)] shrink-0"></span>
-                                <div>
+                            <button
+                                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all active:bg-white/10 ${showHotspots ? 'bg-white/5' : 'bg-white/5 opacity-50'}`}
+                                onClick={() => setShowHotspots(v => !v)}
+                            >
+                                <span className={`w-4 h-4 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.5)] shrink-0 ${showHotspots ? '' : 'grayscale'}`}></span>
+                                <div className="flex-1 text-left">
                                     <div className="text-sm font-bold text-white">危險熱點預警</div>
                                     <div className="text-[11px] text-slate-400 mt-0.5">虎頭蜂、流浪犬等已知危險活躍區域</div>
                                 </div>
-                            </div>
-                            {zones.length > 0 && (
-                                <div
-                                    className="flex items-center gap-3 p-3 rounded-xl bg-white/5 cursor-pointer active:bg-white/10 transition-all"
-                                    onClick={() => { closeSheet(); setTimeout(() => openGuardianSheet(), 100); }}
-                                >
-                                    <span className="w-4 h-4 rounded-full bg-blue-500 ring-2 ring-blue-500/30 shrink-0"></span>
-                                    <div>
-                                        <div className="text-sm font-bold text-white">我的守護範圍</div>
-                                        <div className="text-[11px] text-slate-400 mt-0.5">點擊查看 {zones.length} 個守護範圍</div>
+                                <span className="text-[10px] font-bold text-slate-500">{showHotspots ? '顯示中' : '隱藏'}</span>
+                            </button>
+                            <button
+                                className="w-full flex items-center gap-3 p-3 rounded-xl bg-white/5 active:bg-white/10 transition-all"
+                                onClick={() => { closeSheet(); setTimeout(() => openGuardianSheet(), 100); }}
+                            >
+                                <span className="w-4 h-4 rounded-full bg-blue-500 ring-2 ring-blue-500/30 shrink-0"></span>
+                                <div className="text-left">
+                                    <div className="text-sm font-bold text-white">
+                                        {zones.length > 0 ? `守護範圍 (${zones.length})` : '新增守護訂閱'}
+                                    </div>
+                                    <div className="text-[11px] text-slate-400 mt-0.5">
+                                        {zones.length > 0 ? `查看 ${zones.length} 個守護範圍` : '點擊設定守護範圍通知'}
                                     </div>
                                 </div>
-                            )}
-                            {zones.length === 0 && (
-                                <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 opacity-50">
-                                    <span className="w-4 h-4 rounded-full bg-blue-500/40 ring-2 ring-blue-500/20 shrink-0"></span>
-                                    <div>
-                                        <div className="text-sm font-bold text-white">我的守護範圍</div>
-                                        <div className="text-[11px] text-slate-400 mt-0.5">尚未設定守護範圍</div>
-                                    </div>
-                                </div>
-                            )}
+                            </button>
                         </>
                     )}
                     <div className="pt-2 text-[11px] text-slate-500 text-center">點擊地圖上的熱點可查看詳細資訊</div>
