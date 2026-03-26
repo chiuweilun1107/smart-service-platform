@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { PageHeader } from '../../components/common';
+import { PageHeader, SearchInput } from '../../components/common';
 import { typo } from '../../utils/typography';
 
 interface CaseStatus {
@@ -67,7 +67,7 @@ export const Status: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
             <div>
-                <div className="max-w-6xl mx-auto">
+                <div className="max-w-5xl mx-auto">
                     {/* Header Command Area */}
                     <PageHeader
                         badge="案件查詢系統"
@@ -77,24 +77,14 @@ export const Status: React.FC = () => {
                         layout="split"
                     >
                         <div>
-                            <div className="bg-white border-2 border-slate-200 p-1.5 rounded-2xl flex items-center shadow-sm">
-                                <div className="relative flex-1 group pl-2">
-                                    <input
-                                        type="text"
-                                        value={caseId}
-                                        onChange={(e) => setCaseId(e.target.value)}
-                                        placeholder="輸入案件編號..."
-                                        className="w-full px-4 py-2.5 bg-transparent text-slate-900 font-black text-base tracking-tight outline-none placeholder:text-slate-300"
-                                    />
-                                </div>
-                                <button
-                                    onClick={() => mockFetchStatus(caseId)}
-                                    disabled={!caseId || loading}
-                                    className="px-5 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-slate-900 transition-all font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-600/20 disabled:opacity-50"
-                                >
-                                    {loading ? '查詢中' : '查詢'}
-                                </button>
-                            </div>
+                            <SearchInput
+                                value={caseId}
+                                onChange={(e) => setCaseId(e.target.value)}
+                                placeholder="輸入案件編號..."
+                                onSearch={() => mockFetchStatus(caseId)}
+                                buttonLabel="查詢"
+                                loading={loading}
+                            />
                             {error && <p className="mt-6 text-red-600 font-bold flex items-center gap-2 animate-in fade-in slide-in-from-top-2 ml-6 text-sm">{error}</p>}
                         </div>
                     </PageHeader>

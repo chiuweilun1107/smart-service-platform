@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { SectionBadge } from '../../components/common';
+import { PageHeader } from '../../components/common';
 import { typo } from '../../utils/typography';
 
 type Step = 'start' | 'animal_v_bee' | 'animal_detail' | 'bee_detail' | 'result_emergency' | 'result_normal';
@@ -41,31 +41,26 @@ export const SmartGuide: React.FC = () => {
             case 'start':
                 return (
                     <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
-                        <div>
-                            <div className="mb-4">
-                                <SectionBadge label="智慧通報引導方案" color="blue" />
-                            </div>
-                            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-8 md:mb-12">
-                                您需要<br />
-                                <span className="text-blue-600">哪種協助？</span>
-                            </h2>
-                            <p className="text-base md:text-lg text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl leading-relaxed border-l-4 border-blue-600 pl-5">
-                                歡迎使用智慧勤務引導系統。請根據您現場觀察到的情況，選擇最符合的案件類型，我們將引導您完成正式通報。
-                            </p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <ChoiceCard
-                                    onClick={() => goTo('animal_detail')}
-                                    title="一般動保勤務"
-                                    description="包含受傷動物救援、受困案件、疑似虐待或棄養等動物福利相關事務。"
-                                    label="ANIMAL WELFARE"
-                                />
-                                <ChoiceCard
-                                    onClick={() => goTo('bee_detail')}
-                                    title="蜂蛇移除勤務"
-                                    description="發現具危險性之蜂巢、蛇類侵入住家或威脅公眾安全之緊急移除需求。"
-                                    label="HAZARD REMOVAL"
-                                />
-                            </div>
+                        <PageHeader
+                            badge="智慧通報引導方案"
+                            badgeColor="blue"
+                            title={<>您需要 <span className="text-blue-600">哪種協助？</span></>}
+                            subtitle="請根據現場狀況選擇最符合的案件類型，引導您完成正式通報。"
+                            layout="split"
+                        />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <ChoiceCard
+                                onClick={() => goTo('animal_detail')}
+                                title="一般動保勤務"
+                                description="包含受傷動物救援、受困案件、疑似虐待或棄養等動物福利相關事務。"
+                                label="動物福利"
+                            />
+                            <ChoiceCard
+                                onClick={() => goTo('bee_detail')}
+                                title="蜂蛇移除勤務"
+                                description="發現具危險性之蜂巢、蛇類侵入住家或威脅公眾安全之緊急移除需求。"
+                                label="危害移除"
+                            />
                         </div>
                     </div>
                 );
@@ -73,34 +68,36 @@ export const SmartGuide: React.FC = () => {
             case 'animal_detail':
                 return (
                     <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
-                        <div>
-                            <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
-                                返回上一步
-                            </button>
-                            <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-6 uppercase`}>動物狀況評估</h2>
-                            <p className="text-base md:text-lg text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl border-l-4 border-blue-600 pl-5">請進一步描述動物目前的具體狀況，這將幫助我們判斷派遣優先級。</p>
-
-                            <div className="grid grid-cols-1 gap-6">
-                                <ChoiceCard
-                                    onClick={() => navigate('/report/general?category=rescue')}
-                                    title="動物受傷或受困"
-                                    description="動物有明顯外傷、流血、無法移動，或受困於無法自行脫困的場所（如高處、溝渠）。"
-                                    label="RESCUE NEEDED"
-                                />
-                                <ChoiceCard
-                                    onClick={() => navigate('/report/general?category=abuse')}
-                                    title="疑似受虐或不當飼養"
-                                    description="發現有人為虐待動物行為，或飼養環境極其惡劣（無水無食、空間過小）。"
-                                    label="CRUELTY REPORT"
-                                />
-                                <ChoiceCard
-                                    onClick={() => goTo('result_emergency')}
-                                    title="具立即性攻擊威脅"
-                                    description="動物正在攻擊人類或其他動物，具有高度危險性。"
-                                    label="EMERGENCY"
-                                    warning={true}
-                                />
-                            </div>
+                        <button onClick={() => goTo('start')} className="mb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
+                            ← 返回上一步
+                        </button>
+                        <PageHeader
+                            badge="動物福利"
+                            badgeColor="blue"
+                            title={<>動物狀況 <span className="text-blue-600">評估</span></>}
+                            subtitle="描述動物目前狀況，協助系統判斷派遣優先級。"
+                            layout="split"
+                        />
+                        <div className="grid grid-cols-1 gap-6">
+                            <ChoiceCard
+                                onClick={() => navigate('/report/general?category=rescue')}
+                                title="動物受傷或受困"
+                                description="動物有明顯外傷、流血、無法移動，或受困於無法自行脫困的場所（如高處、溝渠）。"
+                                label="需要救援"
+                            />
+                            <ChoiceCard
+                                onClick={() => navigate('/report/general?category=abuse')}
+                                title="疑似受虐或不當飼養"
+                                description="發現有人為虐待動物行為，或飼養環境極其惡劣（無水無食、空間過小）。"
+                                label="虐待通報"
+                            />
+                            <ChoiceCard
+                                onClick={() => goTo('result_emergency')}
+                                title="具立即性攻擊威脅"
+                                description="動物正在攻擊人類或其他動物，具有高度危險性。"
+                                label="緊急案件"
+                                warning={true}
+                            />
                         </div>
                     </div>
                 );
@@ -108,34 +105,35 @@ export const SmartGuide: React.FC = () => {
             case 'bee_detail':
                 return (
                     <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
-                        <div>
-                            <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
-                                返回上一步
-                            </button>
-                            <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-6 uppercase`}>蜂蛇危害評估</h2>
-                            <p className="text-base md:text-lg text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl border-l-4 border-blue-600 pl-5">確認蜂巢或蛇類的位置與狀態，以利專業人員攜帶正確裝備。</p>
-
-                            <div className="grid grid-cols-1 gap-6">
-                                <ChoiceCard
-                                    onClick={() => navigate('/report/bee?category=indoor')}
-                                    title="位於室內或居住區"
-                                    description="目標位於住家內部、陽台、校園教室等人員密集活動區域。"
-                                    label="RESIDENTIAL"
-                                />
-                                <ChoiceCard
-                                    onClick={() => navigate('/report/bee?category=outdoor')}
-                                    title="位於戶外公共區域"
-                                    description="目標位於公園、行道樹、路燈桿等開放空間。"
-                                    label="PUBLIC AREA"
-                                />
-                                <ChoiceCard
-                                    onClick={() => goTo('result_emergency')}
-                                    title="造成人員受傷或休克"
-                                    description="現場已有民眾遭到叮咬或攻擊，出現過敏性休克或其他緊急醫療需求。"
-                                    label="MEDICAL EMERGENCY"
-                                    warning={true}
-                                />
-                            </div>
+                        <button onClick={() => goTo('start')} className="mb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
+                            ← 返回上一步
+                        </button>
+                        <PageHeader
+                            badge="危害移除"
+                            badgeColor="blue"
+                            title={<>蜂蛇危害 <span className="text-blue-600">評估</span></>}
+                            subtitle="確認目標位置與狀態，協助專業人員準備正確裝備。"
+                        />
+                        <div className="grid grid-cols-1 gap-6">
+                            <ChoiceCard
+                                onClick={() => navigate('/report/bee?category=indoor')}
+                                title="位於室內或居住區"
+                                description="目標位於住家內部、陽台、校園教室等人員密集活動區域。"
+                                label="住宅區域"
+                            />
+                            <ChoiceCard
+                                onClick={() => navigate('/report/bee?category=outdoor')}
+                                title="位於戶外公共區域"
+                                description="目標位於公園、行道樹、路燈桿等開放空間。"
+                                label="公共區域"
+                            />
+                            <ChoiceCard
+                                onClick={() => goTo('result_emergency')}
+                                title="造成人員受傷或休克"
+                                description="現場已有民眾遭到叮咬或攻擊，出現過敏性休克或其他緊急醫療需求。"
+                                label="醫療緊急"
+                                warning={true}
+                            />
                         </div>
                     </div>
                 );

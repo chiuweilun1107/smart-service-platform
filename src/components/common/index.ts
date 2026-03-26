@@ -3,7 +3,7 @@ export type { SnapPoint } from './BottomSheet';
 export { Captcha } from './Captcha';
 export type { CaptchaHandle } from './Captcha';
 export { FieldLabel } from './FieldLabel';
-export { FormField, TextInput, Textarea, SelectInput } from './FormField';
+export { FormField, TextInput, Textarea, SelectInput, SearchInput } from './FormField';
 export { FormSection } from './FormSection';
 export { PageHeader } from './PageHeader';
 export { PhotoUpload } from './PhotoUpload';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Download, FileText, Book, Shield, ArrowRight, Layers } from 'lucide-react';
-import { SectionBadge, TextInput } from '../../components/common';
+import { PageHeader, SearchInput } from '../../components/common';
 import { typo, btn } from '../../utils/typography';
 
 const CATEGORIES = [
@@ -33,40 +33,24 @@ export const Resources: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 pt-24 pb-20 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-5xl mx-auto px-6">
 
-                {/* Header Section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
-                    <div className="max-w-2xl">
-                        <div className="mb-6">
-                            <SectionBadge label="Government Open Data &amp; resources" color="blue" />
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-8">
-                            便民服務<br />
-                            <span className="text-blue-600">資源中心</span>
-                        </h1>
-                        <p className="text-slate-500 text-base md:text-xl font-medium leading-relaxed">
-                            我們致力於提供透明化資訊。您可以在此搜尋並下載最新的法令規章、通報手冊、以及各類行政案情報表。
-                        </p>
-                    </div>
-
-                    <div className="w-full md:w-96">
-                        <div className="relative group">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={20} />
-                            <TextInput
-                                type="text"
-                                placeholder="搜尋關鍵字 (例如: 法令、報表)..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                variant="light"
-                                className="pl-12 pr-4"
-                            />
-                        </div>
-                    </div>
-                </div>
+                <PageHeader
+                    badge="政府開放資料與便民資源"
+                    badgeColor="blue"
+                    title={<>便民服務 <span className="text-blue-600">資源中心</span></>}
+                    subtitle="搜尋並下載法令規章、操作手冊與各類行政報表。"
+                    layout="split"
+                >
+                    <SearchInput
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="搜尋關鍵字 (例如: 法令、報表)..."
+                    />
+                </PageHeader>
 
                 {/* Category Selection */}
-                <div className="flex flex-wrap gap-4 mb-12">
+                <div className="flex flex-wrap gap-4 mb-8">
                     {CATEGORIES.map(cat => (
                         <button
                             key={cat.id}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Activity, Phone, Info, Play, Pause } from 'lucide-react';
-import { typo, input } from '../../utils/typography';
+import { typo } from '../../utils/typography';
+import { SearchInput } from '../../components/common';
 
 import heroShiba from '../../assets/images/hero_shiba.png';
 import heroRescue from '../../assets/images/hero_rescue.png';
@@ -51,6 +52,7 @@ export const Home: React.FC = () => {
     const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
+    const [queryId, setQueryId] = useState('');
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const steps = [
@@ -166,7 +168,7 @@ export const Home: React.FC = () => {
                                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/20 backdrop-blur-md rounded-full text-[10px] font-black text-red-500 uppercase tracking-widest mb-6 border border-red-500/20">
                                     <Activity size={12} /> 即時勤務中心
                                 </div>
-                                <h3 className={`${typo.h2} md:text-5xl font-black tracking-tighter mb-4 leading-tight`}>緊急<br />通報專線</h3>
+                                <h3 className={`${typo.h2} md:text-5xl font-black tracking-tighter mb-4 leading-tight`}>緊急通報專線</h3>
                                 <p className="text-slate-400 text-sm font-medium leading-relaxed mb-8">
                                     發現緊急生命救援需求？請優先撥打智慧勤務熱線，由全球調度員直接為您部署。
                                 </p>
@@ -200,22 +202,14 @@ export const Home: React.FC = () => {
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">系統連線正常 • Sync: 100%</p>
                                         </div>
                                     </div>
-                                    <div className="flex-1 max-w-md relative">
-                                        <input
-                                            type="text"
+                                    <div className="flex-1 max-w-md">
+                                        <SearchInput
+                                            value={queryId}
+                                            onChange={(e) => setQueryId(e.target.value)}
                                             placeholder="輸入案件編號追蹤進度..."
-                                            id="home-query-input"
-                                            className={`${input.base} ${input.light} font-bold text-slate-900 placeholder:text-slate-400`}
+                                            onSearch={() => { if (queryId) navigate(`/status?id=${queryId}`); }}
+                                            buttonLabel="查詢"
                                         />
-                                        <button
-                                            onClick={() => {
-                                                const val = (document.getElementById('home-query-input') as HTMLInputElement)?.value;
-                                                if (val) navigate(`/status?id=${val}`);
-                                            }}
-                                            className="absolute right-2 top-2 bottom-2 px-6 bg-slate-900 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-95"
-                                        >
-                                            查詢
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +286,7 @@ export const Home: React.FC = () => {
                     </div>
 
                     <div className="flex justify-center mt-10">
-                        <Link to="/guide" className="group flex items-center gap-4 py-5 px-8 md:py-6 md:px-10 bg-slate-900 text-white rounded-[2rem] font-black text-base md:text-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95">
+                        <Link to="/smart-guide" className="group flex items-center gap-4 py-5 px-8 md:py-6 md:px-10 bg-slate-900 text-white rounded-[2rem] font-black text-base md:text-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95">
                             開始智慧引導 <ArrowRight size={24} className="group-hover:translate-x-3 transition-transform" />
                         </Link>
                     </div>

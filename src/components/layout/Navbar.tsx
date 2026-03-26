@@ -1,13 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, FileText, Search, Map, BookOpen, Globe } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Home, FileText, Search, Map, BookOpen, Globe, LogOut, LayoutDashboard } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+const ROLE_LABEL: Record<string, string> = {
+    admin:       '管理員',
+    caseworker:  '承辦人員',
+    contractor:  '外包人員',
+};
 
 export const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [fontSize, setFontSize] = useState<'standard' | 'large'>('standard');
     const [lang, setLang] = useState<'TW' | 'EN'>('TW');
+    const [authRole, setAuthRole] = useState<string | null>(null);
+    const [authDisplayName, setAuthDisplayName] = useState<string | null>(null);
     const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setAuthRole(localStorage.getItem('auth_role'));
+        setAuthDisplayName(localStorage.getItem('auth_display_name'));
+    }, [location.pathname]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_role');
+        localStorage.removeItem('auth_username');
+        localStorage.removeItem('auth_display_name');
+        setAuthRole(null);
+        setAuthDisplayName(null);
+        navigate('/');
+    };
 
     useEffect(() => {
         document.documentElement.style.fontSize = fontSize === 'large' ? '18px' : '';
@@ -116,13 +140,40 @@ export const Navbar: React.FC = () => {
 
                     <div className="hidden lg:block w-px h-5 bg-slate-200"></div>
 
-                    {/* Login button — visible on lg+ */}
-                    <Link
-                        to="/login"
-                        className="hidden lg:inline-flex items-center px-5 py-2 rounded-xl bg-slate-950 text-white text-xs font-black tracking-widest hover:bg-blue-700 shadow-md hover:shadow-blue-700/30 transition-all uppercase whitespace-nowrap"
-                    >
-                        Login
-                    </Link>
+                    {/* Auth area — visible on lg+ */}
+                    {authRole ? (
+                        <div className="hidden lg:flex items-center gap-2">
+                            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                                <span className="text-xs font-black text-slate-700 whitespace-nowrap">
+                                    {authDisplayName || ROLE_LABEL[authRole] || authRole}
+                                </span>
+                            </div>
+                            {(authRole === 'admin' || authRole === 'caseworker') && (
+                                <Link
+                                    to="/admin/dashboard"
+                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-black hover:bg-blue-700 transition-all whitespace-nowrap"
+                                >
+                                    <LayoutDashboard size={13} />
+                                    後台
+                                </Link>
+                            )}
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-200 text-slate-600 text-xs font-black hover:bg-rose-100 hover:text-rose-600 transition-all"
+                            >
+                                <LogOut size={13} />
+                                登出
+                            </button>
+                        </div>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="hidden lg:inline-flex items-center px-5 py-2 rounded-xl bg-slate-950 text-white text-xs font-black tracking-widest hover:bg-blue-700 shadow-md hover:shadow-blue-700/30 transition-all uppercase whitespace-nowrap"
+                        >
+                            Login
+                        </Link>
+                    )}
 
                     {/* Hamburger — visible below lg */}
                     <button
@@ -181,13 +232,39 @@ export const Navbar: React.FC = () => {
                                     {lang}
                                 </button>
                             </div>
-                            <Link
-                                to="/login"
-                                onClick={() => setIsOpen(false)}
-                                className="flex items-center justify-center w-full py-3 rounded-xl bg-slate-950 text-white font-black text-sm tracking-widest hover:bg-blue-700 transition-all"
-                            >
-                                LOGIN
-                            </Link>
+                            {authRole ? (
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span className="text-sm font-black text-slate-700">
+                                            {authDisplayName || ROLE_LABEL[authRole] || authRole}
+                                        </span>
+                                    </div>
+                                    {(authRole === 'admin' || authRole === 'caseworker') && (
+                                        <Link
+                                            to="/admin/dashboard"
+                                            onClick={() => setIsOpen(false)}
+                                            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all"
+                                        >
+                                            <LayoutDashboard size={15} /> 後台管理
+                                        </Link>
+                                    )}
+                                    <button
+                                        onClick={() => { handleLogout(); setIsOpen(false); }}
+                                        className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-200 text-slate-600 font-black text-sm hover:bg-rose-100 hover:text-rose-600 transition-all"
+                                    >
+                                        <LogOut size={15} /> 登出
+                                    </button>
+                                </div>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    onClick={() => setIsOpen(false)}
+                                    className="flex items-center justify-center w-full py-3 rounded-xl bg-slate-950 text-white font-black text-sm tracking-widest hover:bg-blue-700 transition-all"
+                                >
+                                    LOGIN
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -69,7 +69,7 @@ export const Report: React.FC = () => {
                             <p className="text-sm text-white/90 font-medium">此案件已標記為高優先級，將優先處理並立即派遣</p>
                         </div>
                         <div className="px-4 py-2 bg-white/20 rounded-full text-xs font-black uppercase tracking-widest">
-                            PRIORITY: URGENT
+                            優先級：緊急
                         </div>
                     </div>
                 </div>

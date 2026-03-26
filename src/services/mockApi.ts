@@ -18,6 +18,8 @@ const mockUsers: User[] = [
     { id: 'u3', name: '張主管', email: 'zhang.supervisor@gov.tw', role: 'supervisor', unit: '動保處', phone: '0923456789', status: 'active', createdAt: '2025-01-05' },
     { id: 'u4', name: '陳承辦人', email: 'chen.caseworker@gov.tw', role: 'caseworker', unit: '動保處', phone: '0934567890', status: 'active', createdAt: '2025-01-10' },
     { id: 'u5', name: '黃承辦人', email: 'huang.caseworker@gov.tw', role: 'caseworker', unit: '動保處', phone: '0945678901', status: 'inactive', createdAt: '2025-01-15' },
+    { id: 'u6', name: '林志遠', email: 'lin.contractor01@ntpc.gov.tw', role: 'contractor' as any, unit: '外包勤務隊', phone: '0956789012', status: 'active', createdAt: '2025-02-01' },
+    { id: 'u7', name: '吳建宏', email: 'wu.contractor02@ntpc.gov.tw', role: 'contractor' as any, unit: '外包勤務隊', phone: '0967890123', status: 'active', createdAt: '2025-02-01' },
 ];
 
 // 角色定義

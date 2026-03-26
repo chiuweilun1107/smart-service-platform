@@ -15,7 +15,8 @@ export const FormSection: React.FC<FormSectionProps> = ({
     headerRight,
 }) => {
     return (
-        <div className="bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden transition-all duration-300 hover:border-slate-200">
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden transition-all duration-300">
+            <div className="h-1 bg-blue-600 w-full"></div>
             <div className="p-8 md:p-12">
                 <div className={`flex items-center ${headerRight ? 'justify-between' : ''} gap-4 mb-8`}>
                     <div className="flex items-center gap-4">

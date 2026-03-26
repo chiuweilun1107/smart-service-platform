@@ -37,6 +37,15 @@ export const AdminLogin: React.FC = () => {
         setCaptcha(code);
     };
 
+    const ACCOUNT_DISPLAY: Record<string, { role: string; name: string }> = {
+        'admin':          { role: 'admin',      name: '王管理員' },
+        'caseworker01':   { role: 'caseworker', name: '李承辦人' },
+        'caseworker02':   { role: 'caseworker', name: '陳承辦人' },
+        'supervisor':     { role: 'supervisor', name: '張主管' },
+        'contractor01':   { role: 'contractor', name: '林志遠' },
+        'contractor02':   { role: 'contractor', name: '吳建宏' },
+    };
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -49,18 +58,13 @@ export const AdminLogin: React.FC = () => {
         }
 
         try {
-            let actualRole: string | null = null;
-            if (username === 'admin') actualRole = 'admin';
-            else if (username.includes('caseworker')) actualRole = 'caseworker';
-            else if (username.includes('contractor')) actualRole = 'contractor';
-
-            if (actualRole) {
-                localStorage.setItem('auth_token', `mock_${actualRole}_token`);
-                localStorage.setItem('auth_role', actualRole);
-                if (actualRole === 'contractor') {
-                    localStorage.setItem('auth_username', username);
-                }
-                navigate(actualRole === 'contractor' ? '/map' : '/admin/dashboard');
+            const account = ACCOUNT_DISPLAY[username];
+            if (account) {
+                localStorage.setItem('auth_token', `mock_${account.role}_token`);
+                localStorage.setItem('auth_role', account.role);
+                localStorage.setItem('auth_username', username);
+                localStorage.setItem('auth_display_name', account.name);
+                navigate(account.role === 'contractor' ? '/map' : '/admin/dashboard');
             } else {
                 setError('帳號或密碼錯誤');
             }

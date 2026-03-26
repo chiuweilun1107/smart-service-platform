@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHeader, TextInput } from '../../components/common';
+import { PageHeader, SearchInput } from '../../components/common';
 
 const FAQ_SECTIONS = [
     {
@@ -75,15 +75,11 @@ export const FAQ: React.FC = () => {
                         subtitle="智慧服務百科：整合新北市動保處所有業務流程、法規諮詢與常見問答，為您提供最即時的知識支援。"
                         subtitleBorderColor="blue"
                     >
-                        <div className="relative group">
-                            <TextInput
-                                type="text"
-                                placeholder="搜尋智慧索引..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="shadow-sm"
-                            />
-                        </div>
+                        <SearchInput
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="搜尋智慧索引..."
+                        />
                     </PageHeader>
 
                     {/* Category Filter Chips */}
@@ -113,7 +109,10 @@ export const FAQ: React.FC = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
                         {/* Main Questions List */}
-                        <div className="lg:col-span-8 space-y-12">
+                        <div className="lg:col-span-8">
+                            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+                                <div className="h-1 bg-blue-600 w-full"></div>
+                                <div className="p-8 md:p-10 space-y-12">
                             {filteredSections.map((section, sIdx) => (
                                 <div key={sIdx} className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
                                     <h2 className="text-[10px] font-black tracking-[0.4em] text-slate-500 uppercase flex items-center gap-4">
@@ -137,8 +136,8 @@ export const FAQ: React.FC = () => {
                                                                 {q.q}
                                                             </span>
                                                         </div>
-                                                        <div className={`shrink-0 font-black text-[10px] transition-all duration-500 ${isOpen ? 'text-blue-600 rotate-180' : 'text-slate-300'}`}>
-                                                            {isOpen ? 'CLOSE' : 'OPEN'}
+                                                        <div className={`shrink-0 transition-all duration-500 ${isOpen ? 'text-blue-600 rotate-180' : 'text-slate-300'}`}>
+                                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
                                                         </div>
                                                     </button>
                                                     <div className={`transition-all duration-500 ${isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
@@ -159,6 +158,8 @@ export const FAQ: React.FC = () => {
                                     </div>
                                 </div>
                             ))}
+                                </div>
+                            </div>
                         </div>
 
                         {/* Sidebar Widgets */}
