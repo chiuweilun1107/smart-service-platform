@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Zap } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { createMapIcon } from '../../utils/mapIcons';
-import { type LatLngTuple } from 'leaflet';
+import { type LatLngTuple, type Map as LeafletMap, type Marker as LeafletMarker } from 'leaflet';
 import type { GuardianZone, GuardianZoneAlert } from '../../types/guardianZone';
 import { GuardianZoneLayer, PendingZoneMarker, MapClickHandler } from './GuardianZoneLayer';
+
+// Captures the Leaflet map instance and passes it up
+const MapRefCapture: React.FC<{ onReady: (map: LeafletMap) => void }> = ({ onReady }) => {
+    const map = useMap();
+    useEffect(() => { onReady(map); }, [map, onReady]);
+    return null;
+};
+
+// Flies to the selected case and opens its popup
+const FlyToCase: React.FC<{
+    selectedCaseId: string | null;
+    cases: CaseMarker[];
+    markersRef: React.MutableRefObject<Record<string, LeafletMarker>>;
+}> = ({ selectedCaseId, cases, markersRef }) => {
+    const map = useMap();
+    useEffect(() => {
+        if (!selectedCaseId) return;
+        const c = cases.find(c => c.id === selectedCaseId);
+        if (!c) return;
+        map.flyTo([c.lat, c.lng], 16, { duration: 0.8 });
+        const t = setTimeout(() => markersRef.current[selectedCaseId]?.openPopup(), 900);
+        return () => clearTimeout(t);
+    }, [selectedCaseId]); // eslint-disable-line react-hooks/exhaustive-deps
+    return null;
+};
 
 
 export interface CaseMarker {
@@ -41,6 +66,11 @@ interface CaseMapProps {
     onMapClickForZone?: (lat: number, lng: number) => void;
     pendingZoneCenter?: [number, number] | null;
     pendingZoneRadius?: 500 | 1000 | 2000;
+    onMapReady?: (map: LeafletMap) => void;
+    selectedCaseId?: string | null;
+    isContractor?: boolean;
+    onStatusUpdate?: (id: string, newStatus: CaseMarker['status']) => void;
+    onOpenReport?: (caseItem: CaseMarker) => void;
 }
 
 const DEFAULT_CENTER: LatLngTuple = [25.0118, 121.4658];
@@ -56,12 +86,19 @@ export const CaseMap: React.FC<CaseMapProps> = ({
     onMapClickForZone,
     pendingZoneCenter,
     pendingZoneRadius = 1000,
+    onMapReady,
+    selectedCaseId = null,
+    isContractor = false,
+    onStatusUpdate,
+    onOpenReport,
 }) => {
 
-    const getIconColor = (type: string, status: string) => {
-        if (status === 'resolved') return 'green';
-        if (type === 'bee') return 'orange';
-        return 'red'; // general + pending/processing
+    const markersRef = useRef<Record<string, LeafletMarker>>({});
+
+    const getIconColor = (status: string) => {
+        if (status === 'resolved')   return 'green';
+        if (status === 'processing') return 'orange';
+        return 'red'; // pending
     };
 
     const handleRoutePlanning = (lat: number, lng: number) => {
@@ -115,14 +152,18 @@ export const CaseMap: React.FC<CaseMapProps> = ({
                 center={DEFAULT_CENTER}
                 zoom={12}
                 style={{ height: '100%', width: '100%' }}
+                zoomControl={false}
             >
+                {onMapReady && <MapRefCapture onReady={onMapReady} />}
+                <FlyToCase selectedCaseId={selectedCaseId} cases={cases} markersRef={markersRef} />
                 {getTileLayer()}
 
                 {cases.map((c) => (
                     <Marker
                         key={c.id}
                         position={[c.lat, c.lng]}
-                        icon={createMapIcon(getIconColor(c.type, c.status) as any, 24)}
+                        icon={createMapIcon(getIconColor(c.status) as any, 24)}
+                        ref={(el) => { if (el) markersRef.current[c.id] = el; else delete markersRef.current[c.id]; }}
                     >
                         <Popup className="custom-popup">
                             <div className="min-w-[240px] p-1">
@@ -133,14 +174,21 @@ export const CaseMap: React.FC<CaseMapProps> = ({
                                     </div>
                                 )}
 
+                                {/* Header — dot color matches pin (status-based) */}
                                 <div className="flex items-center gap-2 mb-3">
-                                    <span className={`w-2.5 h-2.5 rounded-full shadow-sm ${c.type === 'bee' ? 'bg-orange-500' : 'bg-red-500'}`}></span>
+                                    <span className={`w-2.5 h-2.5 rounded-full shadow-sm ${
+                                        c.status === 'resolved' ? 'bg-emerald-500' :
+                                        c.status === 'processing' ? 'bg-orange-500' : 'bg-red-500'
+                                    }`}></span>
                                     <span className="font-bold text-slate-800 text-sm">{c.type === 'bee' ? '蜂案通報' : '一般案件'}</span>
-                                    <span className={`ml-auto text-[10px] px-2 py-0.5 rounded-full border font-medium ${c.status === 'resolved' ? 'bg-green-50 border-green-200 text-green-700' :
-                                        c.status === 'processing' ? 'bg-blue-50 border-blue-200 text-blue-700' :
-                                            'bg-red-50 border-red-200 text-red-700'
-                                        }`}>
-                                        {c.status === 'resolved' ? '已結案' : c.status === 'processing' ? '處理中' : '待處理'}
+                                    <span className={`ml-auto text-[10px] px-2 py-0.5 rounded-full border font-medium ${
+                                        c.status === 'resolved'   ? 'bg-green-50 border-green-200 text-green-700' :
+                                        c.status === 'processing' ? 'bg-orange-50 border-orange-200 text-orange-700' :
+                                                                    'bg-red-50 border-red-200 text-red-700'
+                                    }`}>
+                                        {c.status === 'resolved' ? '已結案' :
+                                         c.status === 'processing' ? (isContractor ? '執行中' : '已派案') :
+                                         (isContractor ? '待處理' : '未派案')}
                                     </span>
                                 </div>
 
@@ -151,10 +199,18 @@ export const CaseMap: React.FC<CaseMapProps> = ({
                                         <span className="font-bold text-slate-400 shrink-0">地點</span>
                                         <span className="leading-relaxed">{c.address}</span>
                                     </div>
-                                    <div className="flex items-center gap-2 text-xs text-slate-600">
-                                        <span className="font-bold text-slate-400 shrink-0">通報</span>
-                                        <span>{c.reporter}</span>
-                                    </div>
+                                    {/* Contractor sees case ID; admin sees reporter */}
+                                    {isContractor ? (
+                                        <div className="flex items-center gap-2 text-xs text-slate-600">
+                                            <span className="font-bold text-slate-400 shrink-0">案件</span>
+                                            <span className="font-mono text-slate-400">{c.id}</span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center gap-2 text-xs text-slate-600">
+                                            <span className="font-bold text-slate-400 shrink-0">通報</span>
+                                            <span>{c.reporter}</span>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="flex gap-2 pt-2 border-t border-slate-100">
@@ -164,12 +220,42 @@ export const CaseMap: React.FC<CaseMapProps> = ({
                                     >
                                         路線規劃
                                     </button>
-                                    <button
-                                        onClick={() => handleDispatch(c.id, c.title)}
-                                        className="flex-1 bg-slate-900 text-white text-xs font-bold py-2 rounded-lg hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 transition-all shadow-md active:scale-95"
-                                    >
-                                        指派任務
-                                    </button>
+
+                                    {/* Admin: 指派任務 */}
+                                    {!isContractor && (
+                                        <button
+                                            onClick={() => handleDispatch(c.id, c.title)}
+                                            className="flex-1 bg-slate-900 text-white text-xs font-bold py-2 rounded-lg hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 transition-all shadow-md active:scale-95"
+                                        >
+                                            指派任務
+                                        </button>
+                                    )}
+
+                                    {/* Contractor: status-based action */}
+                                    {isContractor && c.status === 'pending' && (
+                                        <button
+                                            onClick={() => onStatusUpdate?.(c.id, 'processing')}
+                                            className="flex-1 bg-orange-500 text-white text-xs font-bold py-2 rounded-lg hover:bg-orange-400 transition-all shadow-md active:scale-95"
+                                        >
+                                            開始執行
+                                        </button>
+                                    )}
+                                    {isContractor && c.status === 'processing' && (
+                                        <button
+                                            onClick={() => onOpenReport?.(c)}
+                                            className="flex-1 bg-emerald-600 text-white text-xs font-bold py-2 rounded-lg hover:bg-emerald-500 transition-all shadow-md active:scale-95"
+                                        >
+                                            完成回報
+                                        </button>
+                                    )}
+                                    {isContractor && c.status === 'resolved' && (
+                                        <button
+                                            disabled
+                                            className="flex-1 bg-slate-100 text-slate-400 text-xs font-bold py-2 rounded-lg cursor-not-allowed"
+                                        >
+                                            已完成
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </Popup>

@@ -11,6 +11,7 @@ import { Resources } from './pages/public/Resources';
 import { FAQ } from './pages/public/FAQ';
 import { News } from './pages/public/News';
 import { SmartGuide } from './pages/public/SmartGuide';
+import { FieldworkReport } from './pages/public/FieldworkReport';
 import { AdminLogin } from './pages/admin/Login';
 import { AdminDashboard } from './pages/admin/Dashboard';
 import { CaseList } from './pages/admin/CaseList';
@@ -40,6 +41,7 @@ function App() {
         <Route path="/faq" element={<Layout><FAQ /></Layout>} />
         <Route path="/news" element={<Layout><News /></Layout>} />
         <Route path="/smart-guide" element={<Layout><SmartGuide /></Layout>} />
+        <Route path="/report/fieldwork/:caseId" element={<FieldworkReport />} />
 
         {/* 登入 */}
         <Route path="/login" element={<AdminLogin />} />

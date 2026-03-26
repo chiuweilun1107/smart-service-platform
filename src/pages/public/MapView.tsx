@@ -1,9 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { CaseMap, type MapHotspot, type CaseMarker } from '../../components/map/CaseMap';
 import {
     Layers, ArrowLeft, Shield, Zap, AlertCircle, MessageSquare,
-    Camera, BookOpen, Filter, X, MapPin, LogOut, List
+    Camera, BookOpen, Filter, X, MapPin, List, Plus, Minus
 } from 'lucide-react';
+import { type Map as LeafletMap } from 'leaflet';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGuardianZones } from '../../hooks/useGuardianZones';
 import { computeGuardianAlerts } from '../../utils/guardianAlerts';
@@ -188,12 +189,36 @@ export const MapView: React.FC = () => {
     const [pendingZoneCenter, setPendingZoneCenter] = useState<[number, number] | null>(null);
     const [pendingZoneRadius, setPendingZoneRadius] = useState<500 | 1000 | 2000>(1000);
 
+    // Selected case (fly-to + open popup)
+    const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
+    const selectCase = (id: string) => setSelectedCaseId(prev => prev === id ? null : id);
+
     // Admin: cases & filter state
     const [cases, setCases] = useState<CaseMarker[]>([]);
     const [showFilterPanel, setShowFilterPanel] = useState(false);
     const [filterType, setFilterType] = useState<CaseTypeFilter>('all');
     const [filterStatus, setFilterStatus] = useState<StatusFilter>('all');
     const [dispatchTarget, setDispatchTarget] = useState<CaseMarker | null>(null);
+
+    // Legend quick-filter: status maps directly to pin color (pending=red, processing=orange, resolved=green)
+    type LegendKey = 'pending' | 'processing' | 'resolved';
+    const [legendFilter, setLegendFilter] = useState<Set<LegendKey>>(
+        new Set<LegendKey>(['pending', 'processing', 'resolved'])
+    );
+    const toggleLegendKey = (key: LegendKey) => {
+        setLegendFilter(prev => {
+            const next = new Set(prev);
+            if (next.has(key)) {
+                if (next.size > 1) next.delete(key);
+            } else {
+                next.add(key);
+            }
+            return next;
+        });
+    };
+
+    // Leaflet map ref for programmatic zoom control
+    const mapRef = useRef<LeafletMap | null>(null);
 
     useEffect(() => {
         if (isAdmin) {
@@ -210,9 +235,10 @@ export const MapView: React.FC = () => {
         return cases.filter(c => {
             const typeMatch = filterType === 'all' || c.type === filterType;
             const statusMatch = filterStatus === 'all' || c.status === filterStatus;
-            return typeMatch && statusMatch;
+            const legendMatch = legendFilter.has(c.status);
+            return typeMatch && statusMatch && legendMatch;
         });
-    }, [cases, filterType, filterStatus]);
+    }, [cases, filterType, filterStatus, legendFilter]);
 
     const activeCasesCount = useMemo(
         () => cases.filter(c => c.status !== 'resolved').length,
@@ -243,6 +269,22 @@ export const MapView: React.FC = () => {
         0
     );
 
+    // Status update (contractor: 開始執行 / 完成回報)
+    const handleStatusUpdate = (id: string, newStatus: CaseMarker['status']) => {
+        setCases(prev => prev.map(c => c.id === id ? { ...c, status: newStatus } : c));
+    };
+
+    // Listen for 指派任務 event fired from CaseMap popup
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const { id } = (e as CustomEvent<{ id: string; title: string }>).detail;
+            const found = cases.find(c => c.id === id);
+            if (found) setDispatchTarget(found);
+        };
+        window.addEventListener('open-dispatch-dialog', handler);
+        return () => window.removeEventListener('open-dispatch-dialog', handler);
+    }, [cases]);
+
     // Handlers
     const handleStartAddZone = () => {
         setIsAddingZone(true);
@@ -271,12 +313,6 @@ export const MapView: React.FC = () => {
         setPendingZoneCenter([lat, lng]);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('auth_role');
-        navigate('/');
-    };
-
     const closeSheet = () => setActiveSheet(null);
 
     const openGuardianSheet = () => {
@@ -294,12 +330,12 @@ export const MapView: React.FC = () => {
             <div className="absolute top-4 left-4 right-4 z-[1000] flex items-start justify-between pointer-events-none lg:top-6 lg:left-6 lg:right-6">
 
                 {/* Left: Back + Title + Active Cases Badge */}
-                <div className="bg-slate-900/90 backdrop-blur-md border border-white/10 rounded-[2rem] shadow-2xl pointer-events-auto flex items-center gap-3 p-3 lg:p-6 lg:gap-6">
+                <div className="bg-slate-900/90 backdrop-blur-md border border-white/10 rounded-[2rem] shadow-2xl pointer-events-auto flex items-center gap-3 p-3 lg:p-4 lg:gap-4">
                     <Link
                         to="/"
-                        className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-white/5 flex items-center justify-center text-white hover:bg-white/20 transition-all border border-white/5"
+                        className="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-white/5 flex items-center justify-center text-white hover:bg-white/20 transition-all border border-white/5"
                     >
-                        <ArrowLeft size={18} />
+                        <ArrowLeft size={16} />
                     </Link>
                     <div>
                         <div className="hidden lg:flex items-center gap-2 mb-1">
@@ -317,10 +353,11 @@ export const MapView: React.FC = () => {
                                 </div>
                             )}
                         </div>
-                        <h1 className="text-base font-black tracking-tighter text-white lg:text-2xl">
+                        <h1 className="text-base font-black tracking-tighter text-white lg:text-lg">
                             {isAdmin ? '案件管理地圖' : isContractor ? '我的派工地圖' : '案件熱點地圖'}
                         </h1>
                     </div>
+
                 </div>
 
                 {/* Right: Controls */}
@@ -368,16 +405,23 @@ export const MapView: React.FC = () => {
                             </button>
                         )}
 
-                        {/* Admin / Contractor: Logout */}
-                        {(isAdmin || isContractor) && (
-                            <button
-                                onClick={handleLogout}
-                                className="hidden lg:flex w-10 h-10 rounded-xl transition-all items-center justify-center cursor-pointer active:scale-95 bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white"
-                                title="登出"
-                            >
-                                <LogOut size={18} />
-                            </button>
-                        )}
+                        {/* Zoom controls */}
+                        <div className="h-px bg-slate-100 mx-1"></div>
+                        <button
+                            onClick={() => mapRef.current?.zoomIn()}
+                            className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white flex items-center justify-center transition-all active:scale-95"
+                            title="放大"
+                        >
+                            <Plus size={20} />
+                        </button>
+                        <button
+                            onClick={() => mapRef.current?.zoomOut()}
+                            className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white flex items-center justify-center transition-all active:scale-95"
+                            title="縮小"
+                        >
+                            <Minus size={20} />
+                        </button>
+
                     </div>
 
                     {/* Layer Menu */}
@@ -405,49 +449,75 @@ export const MapView: React.FC = () => {
                 <CaseMap
                     cases={filteredCases}
                     activeLayer={activeLayer}
-                    hotspots={beeHotspots}
+                    hotspots={isAdmin || isContractor ? [] : beeHotspots}
                     guardianZones={zones}
                     guardianAlerts={guardianAlerts}
                     isAddingZone={isAddingZone}
                     onMapClickForZone={handleMapClickForZone}
                     pendingZoneCenter={pendingZoneCenter}
                     pendingZoneRadius={pendingZoneRadius}
+                    onMapReady={(map) => { mapRef.current = map; }}
+                    selectedCaseId={selectedCaseId}
+                    isContractor={isContractor}
+                    onStatusUpdate={handleStatusUpdate}
+                    onOpenReport={(c) => navigate(`/report/fieldwork/${c.id}`, { state: { caseItem: c } })}
                 />
 
                 {/* ===== DESKTOP OVERLAYS ===== */}
 
                 {/* Legend — desktop */}
-                <div className="hidden lg:block absolute bottom-6 left-6 bg-slate-900/90 backdrop-blur-md p-6 rounded-[2rem] shadow-2xl z-[1000] border border-white/10 min-w-[240px]">
-                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">地圖圖例</h3>
-                    <div className="space-y-3">
+                <div className="hidden lg:block absolute bottom-6 left-6 bg-slate-900/90 backdrop-blur-md p-5 rounded-[2rem] shadow-2xl z-[1000] border border-white/10 min-w-[200px]">
+                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">地圖圖例</h3>
+                    <div className="space-y-2">
                         {(isAdmin || isContractor) && (
                             <>
-                                <div className="flex items-center gap-3">
-                                    <span className="w-3 h-3 rounded-full bg-red-500 ring-2 ring-red-500/30 shadow-[0_0_10px_rgba(239,68,68,0.4)]"></span>
-                                    <span className="text-sm font-bold text-white">待處理案件</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <span className="w-3 h-3 rounded-full bg-yellow-400 ring-2 ring-yellow-400/30"></span>
-                                    <span className="text-sm font-bold text-white">處理中案件</span>
-                                </div>
-                                {isAdmin && (
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-emerald-500/30"></span>
-                                        <span className="text-sm font-bold text-white">已結案案件</span>
-                                    </div>
-                                )}
-                                <div className="h-px bg-white/10 my-1"></div>
+                                {([
+                                    {
+                                        key: 'pending'    as LegendKey,
+                                        label: isAdmin ? '未派案' : '待處理',
+                                        dot: 'bg-red-500 ring-red-500/30 shadow-[0_0_8px_rgba(239,68,68,0.4)]'
+                                    },
+                                    {
+                                        key: 'processing' as LegendKey,
+                                        label: isAdmin ? '已派案' : '執行中',
+                                        dot: 'bg-orange-500 ring-orange-500/30 shadow-[0_0_8px_rgba(249,115,22,0.4)]'
+                                    },
+                                    {
+                                        key: 'resolved'   as LegendKey,
+                                        label: isAdmin ? '結案' : '已結案',
+                                        dot: 'bg-emerald-500 ring-emerald-500/30'
+                                    },
+                                ]).map(({ key, label, dot }) => {
+                                    const active = legendFilter.has(key);
+                                    return (
+                                        <button
+                                            key={key}
+                                            onClick={() => toggleLegendKey(key)}
+                                            className={`w-full flex items-center gap-3 px-2 py-1.5 rounded-xl transition-all text-left group ${active ? 'hover:bg-white/5' : 'opacity-40 hover:opacity-60'}`}
+                                            title={active ? '點擊隱藏' : '點擊顯示'}
+                                        >
+                                            <span className={`w-3 h-3 rounded-full ring-2 shrink-0 ${dot} ${active ? '' : 'grayscale'}`}></span>
+                                            <span className="text-sm font-bold text-white">{label}</span>
+                                            {!active && <span className="ml-auto text-[10px] text-slate-500 font-bold">隱藏</span>}
+                                        </button>
+                                    );
+                                })}
                             </>
                         )}
-                        <div className="flex items-center gap-3 group cursor-pointer">
-                            <span className="w-3 h-3 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.5)]"></span>
-                            <span className="text-sm font-bold text-white group-hover:text-orange-400 transition-colors">危險熱點預警</span>
-                        </div>
-                        {!isContractor && zones.length > 0 && (
-                            <div className="flex items-center gap-3 group cursor-pointer" onClick={() => setShowGuardianPanel(true)}>
-                                <span className="w-3 h-3 rounded-full bg-blue-500 ring-2 ring-blue-500/30"></span>
-                                <span className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">我的守護範圍</span>
-                            </div>
+                        {/* 民眾端才顯示危險熱點與守護範圍 */}
+                        {!isAdmin && !isContractor && (
+                            <>
+                                <div className="flex items-center gap-3 px-2 py-1.5">
+                                    <span className="w-3 h-3 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_8px_rgba(249,115,22,0.5)] shrink-0"></span>
+                                    <span className="text-sm font-bold text-white">危險熱點預警</span>
+                                </div>
+                                {zones.length > 0 && (
+                                    <button className="w-full flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-all group" onClick={() => setShowGuardianPanel(true)}>
+                                        <span className="w-3 h-3 rounded-full bg-blue-500 ring-2 ring-blue-500/30 shrink-0"></span>
+                                        <span className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">我的守護範圍</span>
+                                    </button>
+                                )}
+                            </>
                         )}
                     </div>
                 </div>
@@ -591,16 +661,20 @@ export const MapView: React.FC = () => {
                                 <div className="text-center py-6 text-slate-500 text-sm">目前無派工任務</div>
                             )}
                             {cases.map(c => (
-                                <div key={c.id} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white/5 border border-white/5">
-                                    <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${c.status === 'pending' ? 'bg-red-500' : 'bg-yellow-400'}`}></div>
-                                    <div className="min-w-0">
+                                <button
+                                    key={c.id}
+                                    onClick={() => selectCase(c.id)}
+                                    className={`w-full flex items-start gap-2.5 p-2.5 rounded-xl border transition-all active:scale-[0.98] text-left ${selectedCaseId === c.id ? 'bg-white/15 border-white/20 ring-1 ring-white/20' : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10'}`}
+                                >
+                                    <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${c.status === 'pending' ? 'bg-red-500' : c.status === 'processing' ? 'bg-orange-500' : 'bg-emerald-500'}`}></div>
+                                    <div className="min-w-0 flex-1">
                                         <div className="text-[12px] font-bold text-white truncate">{c.title}</div>
                                         <div className="text-[10px] text-slate-400 truncate">{c.address}</div>
                                     </div>
                                     <span className={`text-[9px] font-black px-1.5 py-0.5 rounded border shrink-0 ${STATUS_COLOR[c.status]}`}>
                                         {STATUS_LABEL[c.status]}
                                     </span>
-                                </div>
+                                </button>
                             ))}
                         </div>
                         <div className="mt-3 pt-3 border-t border-white/5 text-[11px] text-slate-500 flex items-center gap-1.5">
@@ -690,16 +764,8 @@ export const MapView: React.FC = () => {
                         </button>
                     )}
 
-                    {/* Guardian (public only) / Logout (contractor) */}
-                    {isContractor ? (
-                        <button
-                            onClick={handleLogout}
-                            className="flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all text-slate-400 hover:text-red-400 active:bg-white/10"
-                        >
-                            <LogOut size={20} />
-                            <span className="text-[10px] font-bold">登出</span>
-                        </button>
-                    ) : (
+                    {/* Guardian (public only) */}
+                    {!isContractor && (
                         <button
                             onClick={() => setActiveSheet(activeSheet === 'guardian' ? null : 'guardian')}
                             className={`relative flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all ${activeSheet === 'guardian' ? 'bg-white/10 text-white' : 'text-slate-400'}`}
@@ -724,61 +790,64 @@ export const MapView: React.FC = () => {
             {/* Legend Sheet */}
             <BottomSheet isOpen={isMobile && activeSheet === 'legend'} onClose={closeSheet} title="地圖圖例" snapPoints={['half']} defaultSnap="half">
                 <div className="px-5 py-4 space-y-4">
+                    {/* 承辦人 / 外包人員：案件 pin 圖例 */}
                     {(isAdmin || isContractor) && (
                         <>
                             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                                <span className="w-4 h-4 rounded-full bg-red-500 ring-2 ring-red-500/30 shrink-0"></span>
+                                <span className="w-4 h-4 rounded-full bg-red-500 ring-2 ring-red-500/30 shadow-[0_0_8px_rgba(239,68,68,0.4)] shrink-0"></span>
                                 <div>
-                                    <div className="text-sm font-bold text-white">待處理案件</div>
-                                    <div className="text-[11px] text-slate-400 mt-0.5">{isContractor ? '尚未處理的派工任務' : '需立即指派處理'}</div>
+                                    <div className="text-sm font-bold text-white">{isAdmin ? '未派案' : '待處理'}</div>
+                                    <div className="text-[11px] text-slate-400 mt-0.5">{isAdmin ? '尚未指派處理人員' : '尚未開始執行的任務'}</div>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                                <span className="w-4 h-4 rounded-full bg-yellow-400 ring-2 ring-yellow-400/30 shrink-0"></span>
+                                <span className="w-4 h-4 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_8px_rgba(249,115,22,0.4)] shrink-0"></span>
                                 <div>
-                                    <div className="text-sm font-bold text-white">處理中案件</div>
-                                    <div className="text-[11px] text-slate-400 mt-0.5">人員已出勤處理中</div>
+                                    <div className="text-sm font-bold text-white">{isAdmin ? '已派案' : '執行中'}</div>
+                                    <div className="text-[11px] text-slate-400 mt-0.5">{isAdmin ? '已指派人員出勤中' : '已出勤處理中'}</div>
                                 </div>
                             </div>
-                            {isAdmin && (
-                                <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                                    <span className="w-4 h-4 rounded-full bg-emerald-500 ring-2 ring-emerald-500/30 shrink-0"></span>
+                            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                                <span className="w-4 h-4 rounded-full bg-emerald-500 ring-2 ring-emerald-500/30 shrink-0"></span>
+                                <div>
+                                    <div className="text-sm font-bold text-white">{isAdmin ? '結案' : '已結案'}</div>
+                                    <div className="text-[11px] text-slate-400 mt-0.5">處理完畢已結案</div>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                    {/* 民眾端：熱點與守護範圍 */}
+                    {!isAdmin && !isContractor && (
+                        <>
+                            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                                <span className="w-4 h-4 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.5)] shrink-0"></span>
+                                <div>
+                                    <div className="text-sm font-bold text-white">危險熱點預警</div>
+                                    <div className="text-[11px] text-slate-400 mt-0.5">虎頭蜂、流浪犬等已知危險活躍區域</div>
+                                </div>
+                            </div>
+                            {zones.length > 0 && (
+                                <div
+                                    className="flex items-center gap-3 p-3 rounded-xl bg-white/5 cursor-pointer active:bg-white/10 transition-all"
+                                    onClick={() => { closeSheet(); setTimeout(() => openGuardianSheet(), 100); }}
+                                >
+                                    <span className="w-4 h-4 rounded-full bg-blue-500 ring-2 ring-blue-500/30 shrink-0"></span>
                                     <div>
-                                        <div className="text-sm font-bold text-white">已結案案件</div>
-                                        <div className="text-[11px] text-slate-400 mt-0.5">處理完畢已結案</div>
+                                        <div className="text-sm font-bold text-white">我的守護範圍</div>
+                                        <div className="text-[11px] text-slate-400 mt-0.5">點擊查看 {zones.length} 個守護範圍</div>
                                     </div>
                                 </div>
                             )}
-                            <div className="h-px bg-white/10"></div>
+                            {zones.length === 0 && (
+                                <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 opacity-50">
+                                    <span className="w-4 h-4 rounded-full bg-blue-500/40 ring-2 ring-blue-500/20 shrink-0"></span>
+                                    <div>
+                                        <div className="text-sm font-bold text-white">我的守護範圍</div>
+                                        <div className="text-[11px] text-slate-400 mt-0.5">尚未設定守護範圍</div>
+                                    </div>
+                                </div>
+                            )}
                         </>
-                    )}
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                        <span className="w-4 h-4 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.5)] shrink-0"></span>
-                        <div>
-                            <div className="text-sm font-bold text-white">危險熱點預警</div>
-                            <div className="text-[11px] text-slate-400 mt-0.5">標示已知危險動物活躍區域</div>
-                        </div>
-                    </div>
-                    {!isContractor && zones.length > 0 && (
-                        <div
-                            className="flex items-center gap-3 p-3 rounded-xl bg-white/5 cursor-pointer active:bg-white/10 transition-all"
-                            onClick={() => { closeSheet(); setTimeout(() => openGuardianSheet(), 100); }}
-                        >
-                            <span className="w-4 h-4 rounded-full bg-blue-500 ring-2 ring-blue-500/30 shrink-0"></span>
-                            <div>
-                                <div className="text-sm font-bold text-white">我的守護範圍</div>
-                                <div className="text-[11px] text-slate-400 mt-0.5">點擊查看 {zones.length} 個守護範圍</div>
-                            </div>
-                        </div>
-                    )}
-                    {!isContractor && zones.length === 0 && (
-                        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 opacity-50">
-                            <span className="w-4 h-4 rounded-full bg-blue-500/40 ring-2 ring-blue-500/20 shrink-0"></span>
-                            <div>
-                                <div className="text-sm font-bold text-white">我的守護範圍</div>
-                                <div className="text-[11px] text-slate-400 mt-0.5">尚未設定守護範圍</div>
-                            </div>
-                        </div>
                     )}
                     <div className="pt-2 text-[11px] text-slate-500 text-center">點擊地圖上的熱點可查看詳細資訊</div>
                 </div>
@@ -846,11 +915,14 @@ export const MapView: React.FC = () => {
                                     if (isAdmin) {
                                         closeSheet();
                                         setDispatchTarget(c);
+                                    } else if (isContractor) {
+                                        closeSheet();
+                                        selectCase(c.id);
                                     }
                                 }}
                             >
                                 <div className="flex items-center gap-3 min-w-0">
-                                    <div className={`w-2 h-2 rounded-full shrink-0 ${c.status === 'pending' ? 'bg-red-500' : c.status === 'processing' ? 'bg-yellow-400' : 'bg-emerald-500'}`}></div>
+                                    <div className={`w-2 h-2 rounded-full shrink-0 ${c.status === 'pending' ? 'bg-red-500' : c.status === 'processing' ? 'bg-orange-500' : 'bg-emerald-500'}`}></div>
                                     <div className="min-w-0">
                                         <div className="text-sm font-bold text-white truncate">{c.title}</div>
                                         <div className="text-[11px] text-slate-400 truncate">{c.address}</div>
@@ -926,6 +998,7 @@ export const MapView: React.FC = () => {
                     onClose={() => setDispatchTarget(null)}
                 />
             )}
+
         </div>
     );
 };

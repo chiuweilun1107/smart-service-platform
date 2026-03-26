@@ -86,11 +86,11 @@ export const Navbar: React.FC = () => {
                 <div className="flex items-center gap-2 shrink-0">
 
                     {/* Font size toggle — desktop only */}
-                    <div className="hidden lg:flex items-center bg-slate-100/80 rounded-lg border border-slate-200/60 overflow-hidden">
+                    <div className="hidden lg:flex items-center bg-white rounded-lg border border-slate-300 shadow-sm overflow-hidden">
                         <button
                             onClick={() => setFontSize('standard')}
                             title="標準字體"
-                            className={`px-2.5 py-1.5 text-xs font-bold transition-all ${fontSize === 'standard' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-700'}`}
+                            className={`px-2.5 py-1.5 text-xs font-bold transition-all ${fontSize === 'standard' ? 'text-blue-600' : 'text-slate-400 hover:text-slate-700'}`}
                         >
                             A
                         </button>
@@ -98,7 +98,7 @@ export const Navbar: React.FC = () => {
                         <button
                             onClick={() => setFontSize('large')}
                             title="大字體"
-                            className={`px-2.5 py-1.5 text-base font-bold transition-all ${fontSize === 'large' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-700'}`}
+                            className={`px-2.5 py-1.5 text-base font-bold transition-all ${fontSize === 'large' ? 'text-blue-600' : 'text-slate-400 hover:text-slate-700'}`}
                         >
                             A
                         </button>
@@ -162,15 +162,15 @@ export const Navbar: React.FC = () => {
                         <div className="pt-3 mt-3 border-t border-slate-100 space-y-3">
                             {/* Utility row */}
                             <div className="flex items-center gap-3 px-1">
-                                <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 overflow-hidden">
+                                <div className="flex items-center bg-white rounded-lg border border-slate-300 shadow-sm overflow-hidden">
                                     <button
                                         onClick={() => setFontSize('standard')}
-                                        className={`px-3 py-1.5 text-xs font-bold transition-all ${fontSize === 'standard' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}
+                                        className={`px-3 py-1.5 text-xs font-bold transition-all ${fontSize === 'standard' ? 'text-blue-600' : 'text-slate-400'}`}
                                     >A</button>
                                     <div className="w-px h-3 bg-slate-300"></div>
                                     <button
                                         onClick={() => setFontSize('large')}
-                                        className={`px-3 py-1.5 text-base font-bold transition-all ${fontSize === 'large' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}
+                                        className={`px-3 py-1.5 text-base font-bold transition-all ${fontSize === 'large' ? 'text-blue-600' : 'text-slate-400'}`}
                                     >A</button>
                                 </div>
                                 <button
