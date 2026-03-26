@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { MapPin, Camera, FileText, CheckSquare, ArrowLeft, Loader2, Check, Clock, Shield, X } from 'lucide-react';
+import { MapPin, Camera, FileText, CheckSquare, Loader2, Check, Clock, Shield, X } from 'lucide-react';
 import type { CaseMarker } from '../../components/map/CaseMap';
-import { TextInput, Textarea } from '../../components/common';
-import { SectionBadge } from '../../components/common/SectionBadge';
+import { TextInput, Textarea, PageHeader } from '../../components/common';
 
 type Step = 'gps' | 'form' | 'photo' | 'sign';
 
@@ -70,35 +69,20 @@ export const FieldworkReport: React.FC = () => {
             <div className="max-w-5xl mx-auto">
 
                 {/* ── Page Header ─────────────────────────────────────────────── */}
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-10 animate-in fade-in slide-in-from-bottom-6 duration-500">
-                    <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-3">
-                            <button
-                                onClick={() => navigate(-1)}
-                                className="w-9 h-9 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:border-slate-300 transition-all shrink-0"
-                            >
-                                <ArrowLeft size={16} />
-                            </button>
-                            <SectionBadge label="外勤回報作業" color="amber" />
-                        </div>
-                        <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900 leading-tight">
-                            外勤回報 <span className="text-blue-600">作業記錄</span>
-                        </h1>
-                        <p className="mt-3 text-base text-slate-500 font-medium border-l-4 border-amber-500 pl-5">
-                            {caseItem?.title ?? `案件 ${caseId}`}
-                            <span className={`ml-2 text-xs font-black px-2 py-0.5 rounded-full ${isBee ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600'}`}>
-                                {isBee ? '蜂蛇移除' : '一般救援'}
-                            </span>
-                        </p>
-                    </div>
-
-                    {/* Step Counter */}
-                    <div className="flex items-center gap-3 px-5 py-4 bg-white rounded-2xl border border-slate-200 shadow-sm shrink-0">
-                        <div className="text-right">
+                <PageHeader
+                    badge="外勤回報作業"
+                    badgeColor="amber"
+                    title={<>外勤回報 <span className="text-blue-600">作業記錄</span></>}
+                    subtitle={`${caseItem?.title ?? `案件 ${caseId}`} · ${isBee ? '蜂蛇移除' : '一般救援'}`}
+                    layout="split"
+                >
+                    {/* 步驟計數 */}
+                    <div className="flex items-center gap-4 px-6 py-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                        <div>
                             <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">目前步驟</div>
-                            <div className="text-2xl font-black text-slate-900 leading-none">
-                                {stepIndex + 1}
-                                <span className="text-base text-slate-400 font-bold"> / {STEPS.length}</span>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-black text-slate-900 leading-none">{stepIndex + 1}</span>
+                                <span className="text-base font-bold text-slate-400">/ {STEPS.length}</span>
                             </div>
                         </div>
                         <div className="w-px h-10 bg-slate-100"></div>
@@ -106,50 +90,59 @@ export const FieldworkReport: React.FC = () => {
                             <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">當前</div>
                             <div className="text-sm font-black text-slate-700">{STEPS[stepIndex].label}</div>
                         </div>
+                        {/* Mini progress dots */}
+                        <div className="flex items-center gap-1.5 ml-2">
+                            {STEPS.map((_, i) => (
+                                <div key={i} className={`rounded-full transition-all duration-300 ${
+                                    i < stepIndex  ? 'w-2 h-2 bg-emerald-400' :
+                                    i === stepIndex ? 'w-3 h-3 bg-blue-600' :
+                                                      'w-2 h-2 bg-slate-200'
+                                }`} />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </PageHeader>
 
                 {/* ── Step Indicator ──────────────────────────────────────────── */}
-                <div className="max-w-xl mx-auto mb-8">
-                    <div className="flex items-start gap-0">
-                        {STEPS.map((s, i) => (
-                            <React.Fragment key={s.id}>
-                                <div className="flex flex-col items-center gap-2 shrink-0">
-                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                                        i < stepIndex
-                                            ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30'
-                                            : i === stepIndex
-                                            ? 'bg-slate-900 text-white shadow-md shadow-slate-900/20'
-                                            : 'bg-white border border-slate-200 text-slate-300'
-                                    }`}>
-                                        {i < stepIndex ? <Check size={15} /> : s.icon}
-                                    </div>
-                                    <span className={`text-[10px] font-black tracking-wide text-center whitespace-nowrap transition-colors ${
-                                        i < stepIndex ? 'text-emerald-500' :
-                                        i === stepIndex ? 'text-slate-900' : 'text-slate-300'
-                                    }`}>
-                                        {s.label}
-                                    </span>
+                <div className="flex items-start gap-0 mb-8">
+                    {STEPS.map((s, i) => (
+                        <React.Fragment key={s.id}>
+                            <div className="flex flex-col items-center gap-2 shrink-0">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                                    i < stepIndex
+                                        ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30'
+                                        : i === stepIndex
+                                        ? 'bg-slate-900 text-white shadow-md shadow-slate-900/20'
+                                        : 'bg-white border border-slate-200 text-slate-300'
+                                }`}>
+                                    {i < stepIndex ? <Check size={15} /> : s.icon}
                                 </div>
-                                {i < STEPS.length - 1 && (
-                                    <div className={`flex-1 h-px mt-5 mx-2 transition-all duration-300 ${
-                                        i < stepIndex ? 'bg-emerald-300' : 'bg-slate-200'
-                                    }`} />
-                                )}
-                            </React.Fragment>
-                        ))}
-                    </div>
+                                <span className={`text-[10px] font-black tracking-wide text-center whitespace-nowrap transition-colors ${
+                                    i < stepIndex ? 'text-emerald-500' :
+                                    i === stepIndex ? 'text-slate-900' : 'text-slate-300'
+                                }`}>
+                                    {s.label}
+                                </span>
+                            </div>
+                            {i < STEPS.length - 1 && (
+                                <div className={`flex-1 h-px mt-5 mx-3 transition-all duration-300 ${
+                                    i < stepIndex ? 'bg-emerald-300' : 'bg-slate-200'
+                                }`} />
+                            )}
+                        </React.Fragment>
+                    ))}
                 </div>
 
-                {/* ── Step Content ─────────────────────────────────────────────── */}
-                <div className="max-w-xl mx-auto">
-                    <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
-                        <div className={`h-1 w-full transition-colors duration-300 ${
-                            step === 'sign' ? 'bg-emerald-500' : 'bg-blue-600'
-                        }`}></div>
-                        <div className="p-6 md:p-8">
+                {/* ── Step Content Card ────────────────────────────────────────── */}
+                <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+                    <div className={`h-1 w-full transition-colors duration-300 ${
+                        step === 'sign' ? 'bg-emerald-500' : 'bg-blue-600'
+                    }`}></div>
 
-                            {/* ── Step 1: GPS 現場簽到 ─────────────────────────────── */}
+                    <div className="p-8 md:p-10">
+                        <div className="max-w-2xl mx-auto">
+
+                            {/* ── Step 1: GPS 現場簽到 ─────────────────────────── */}
                             {step === 'gps' && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
@@ -214,7 +207,7 @@ export const FieldworkReport: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* ── Step 2: 動物保護稽查紀錄單 ──────────────────────── */}
+                            {/* ── Step 2: 動物保護稽查紀錄單 ──────────────────── */}
                             {step === 'form' && (
                                 <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
@@ -296,7 +289,7 @@ export const FieldworkReport: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* ── Step 3: 現場照片 ─────────────────────────────────── */}
+                            {/* ── Step 3: 現場照片 ──────────────────────────────── */}
                             {step === 'photo' && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
@@ -352,7 +345,7 @@ export const FieldworkReport: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* ── Step 4: 電子簽核 ─────────────────────────────────── */}
+                            {/* ── Step 4: 電子簽核 ──────────────────────────────── */}
                             {step === 'sign' && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <div>
@@ -360,7 +353,6 @@ export const FieldworkReport: React.FC = () => {
                                         <p className="text-slate-500 text-sm font-medium">確認資料無誤後輸入姓名完成電子簽核並送出。</p>
                                     </div>
 
-                                    {/* Summary */}
                                     <div className="rounded-2xl bg-slate-50 border border-slate-200 overflow-hidden">
                                         <div className="px-5 py-3 border-b border-slate-200 bg-white">
                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">回報摘要</span>
