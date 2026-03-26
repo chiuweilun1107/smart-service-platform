@@ -72,7 +72,8 @@ export const Status: React.FC = () => {
                     <PageHeader
                         badge="案件查詢系統"
                         badgeColor="blue"
-                        title={<>案件進度<br /><span className="text-blue-600">查詢中心</span></>}
+                        title={<>案件進度 <span className="text-blue-600">查詢中心</span></>}
+                        layout="split"
                     >
                         <div>
                             <div className="bg-white border-2 border-slate-200 p-2 pr-2 rounded-3xl flex items-center shadow-sm">
