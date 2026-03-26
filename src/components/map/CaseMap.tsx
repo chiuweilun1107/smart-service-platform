@@ -2,10 +2,25 @@ import React, { useEffect, useRef } from 'react';
 import { Zap } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import { createMapIcon } from '../../utils/mapIcons';
 import { type LatLngTuple, type Map as LeafletMap, type Marker as LeafletMarker } from 'leaflet';
 import type { GuardianZone, GuardianZoneAlert } from '../../types/guardianZone';
 import { GuardianZoneLayer, PendingZoneMarker, MapClickHandler } from './GuardianZoneLayer';
+
+const createHotspotPingIcon = (color: string) => L.divIcon({
+  html: `
+    <div style="position:absolute;top:0;left:0;width:0;height:0;overflow:visible;">
+      <div style="position:absolute;width:24px;height:24px;top:-12px;left:-12px;border-radius:50%;border:1.5px solid ${color};opacity:0.6;animation:hotspot-ping 2.4s ease-out infinite;"></div>
+      <div style="position:absolute;width:24px;height:24px;top:-12px;left:-12px;border-radius:50%;border:1.5px solid ${color};opacity:0.6;animation:hotspot-ping 2.4s ease-out infinite;animation-delay:0.8s;"></div>
+      <div style="position:absolute;width:24px;height:24px;top:-12px;left:-12px;border-radius:50%;border:1.5px solid ${color};opacity:0.6;animation:hotspot-ping 2.4s ease-out infinite;animation-delay:1.6s;"></div>
+      <div style="position:absolute;width:10px;height:10px;top:-5px;left:-5px;border-radius:50%;background:${color};box-shadow:0 0 8px ${color}99,0 0 16px ${color}44;"></div>
+    </div>
+  `,
+  className: '',
+  iconSize: [0, 0],
+  iconAnchor: [0, 0],
+});
 
 // Captures the Leaflet map instance and passes it up
 const MapRefCapture: React.FC<{ onReady: (map: LeafletMap) => void }> = ({ onReady }) => {
@@ -263,32 +278,39 @@ export const CaseMap: React.FC<CaseMapProps> = ({
                 ))}
 
                 {hotspots.map((h) => (
-                    <Circle
-                        key={h.id}
-                        center={h.center}
-                        radius={h.radius}
-                        pathOptions={{
-                            fillColor: h.color,
-                            fillOpacity: 0.3,
-                            color: h.color,
-                            weight: 2,
-                            dashArray: '5, 10'
-                        }}
-                        eventHandlers={{
-                            click: () => handleHotspotInteraction(h.message)
-                        }}
-                    >
-                        <Popup>
-                            <div className="p-2">
-                                <div className="text-orange-600 font-black flex items-center gap-1 mb-1">
-                                    <Zap size={14} /> 警告區域
+                    <React.Fragment key={h.id}>
+                        <Circle
+                            center={h.center}
+                            radius={h.radius}
+                            pathOptions={{
+                                fillColor: h.color,
+                                fillOpacity: 0.07,
+                                color: h.color,
+                                weight: 1,
+                            }}
+                            eventHandlers={{
+                                click: () => handleHotspotInteraction(h.message)
+                            }}
+                        >
+                            <Popup>
+                                <div className="p-2">
+                                    <div className="text-orange-600 font-black flex items-center gap-1 mb-1">
+                                        <Zap size={14} /> 警告區域
+                                    </div>
+                                    <div className="text-xs font-bold text-slate-700">
+                                        此處為虎頭蜂活躍熱點，請小心經過。
+                                    </div>
                                 </div>
-                                <div className="text-xs font-bold text-slate-700">
-                                    此處為虎頭蜂活躍熱點，請小心經過。
-                                </div>
-                            </div>
-                        </Popup>
-                    </Circle>
+                            </Popup>
+                        </Circle>
+                        <Marker
+                            position={h.center}
+                            icon={createHotspotPingIcon(h.color)}
+                            eventHandlers={{
+                                click: () => handleHotspotInteraction(h.message)
+                            }}
+                        />
+                    </React.Fragment>
                 ))}
 
                 {/* Guardian Zones */}

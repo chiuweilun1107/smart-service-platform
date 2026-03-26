@@ -1,5 +1,5 @@
 import React from 'react';
-import { Circle, Tooltip, Marker, useMapEvents } from 'react-leaflet';
+import { Circle, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import type { GuardianZone, GuardianZoneAlert } from '../../types/guardianZone';
 
@@ -7,6 +7,55 @@ interface GuardianZoneLayerProps {
   zones: GuardianZone[];
   alerts: GuardianZoneAlert[];
 }
+
+const createGuardianLabelIcon = (name: string, hasAlert: boolean, alertCount: number) => {
+  const alertBadge = hasAlert
+    ? `<span style="background:rgba(239,68,68,0.9);color:white;padding:1px 6px;border-radius:10px;font-size:9px;margin-left:4px;font-weight:900;letter-spacing:0;">${alertCount}</span>`
+    : '';
+  const borderColor = hasAlert ? 'rgba(239,68,68,0.5)' : 'rgba(37,99,235,0.35)';
+  const dotColor = hasAlert ? '#f87171' : '#60a5fa';
+  const glowColor = hasAlert ? 'rgba(239,68,68,0.25)' : 'rgba(37,99,235,0.2)';
+
+  return L.divIcon({
+    html: `
+      <div style="
+        position: absolute;
+        transform: translate(-50%, -50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px 4px 8px;
+        background: rgba(15,23,42,0.88);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid ${borderColor};
+        border-radius: 20px;
+        color: white;
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+        box-shadow: 0 2px 16px ${glowColor}, 0 1px 4px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+        font-family: system-ui, -apple-system, sans-serif;
+        letter-spacing: 0.02em;
+        pointer-events: none;
+        user-select: none;
+      ">
+        <span style="
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: ${dotColor};
+          flex-shrink: 0;
+          box-shadow: 0 0 5px ${dotColor};
+        "></span>
+        ${name}${alertBadge}
+      </div>
+    `,
+    className: '',
+    iconSize: [0, 0],
+    iconAnchor: [0, 0],
+  });
+};
 
 export const GuardianZoneLayer: React.FC<GuardianZoneLayerProps> = ({
   zones,
@@ -23,30 +72,22 @@ export const GuardianZoneLayer: React.FC<GuardianZoneLayerProps> = ({
           const hasAlert = totalAlerts > 0;
 
           return (
-            <Circle
-              key={zone.id}
-              center={zone.center}
-              radius={zone.radius}
-              pathOptions={{
-                fillColor: '#2563EB',
-                fillOpacity: hasAlert ? 0.15 : 0.08,
-                color: hasAlert ? '#dc2626' : '#2563EB',
-                weight: 2,
-              }}
-            >
-              <Tooltip
-                permanent
-                direction="center"
-                className="guardian-zone-tooltip"
-              >
-                <span className="font-bold text-xs">
-                  {zone.name}
-                  {hasAlert && (
-                    <span className="ml-1 text-red-600">({totalAlerts} ⚠)</span>
-                  )}
-                </span>
-              </Tooltip>
-            </Circle>
+            <React.Fragment key={zone.id}>
+              <Circle
+                center={zone.center}
+                radius={zone.radius}
+                pathOptions={{
+                  fillColor: hasAlert ? '#dc2626' : '#2563EB',
+                  fillOpacity: hasAlert ? 0.08 : 0.05,
+                  color: hasAlert ? '#ef4444' : '#3b82f6',
+                  weight: 1.5,
+                }}
+              />
+              <Marker
+                position={zone.center}
+                icon={createGuardianLabelIcon(zone.name, hasAlert, totalAlerts)}
+              />
+            </React.Fragment>
           );
         })}
     </>
