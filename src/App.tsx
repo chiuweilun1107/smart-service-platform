@@ -1,5 +1,12 @@
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 import { Layout } from './components/layout/Layout';
 import { AdminLayout } from './components/layout/AdminLayout';
 import { Home } from './pages/public/Home';
@@ -30,6 +37,7 @@ import { GisAnalytics } from './pages/admin/GisAnalytics';
 function App() {
   return (
     <BrowserRouter basename="/smart-service-platform">
+      <ScrollToTop />
       <Routes>
         {/* 公開路由 */}
         <Route path="/" element={<Layout><Home /></Layout>} />
