@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Shield, Loader2, ArrowRight, Search, Briefcase, Settings, ArrowLeft, HardHat } from 'lucide-react';
+import { Shield, Loader2, ArrowRight, Search, Users, ArrowLeft } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
-import { input } from '../../utils/typography';
 
-type LoginRole = 'citizen' | 'caseworker' | 'admin' | 'contractor';
+type LoginTab = 'citizen' | 'staff';
 
 export const AdminLogin: React.FC = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState<LoginRole>('admin');
+    const [activeTab, setActiveTab] = useState<LoginTab>('citizen');
 
-    // Auth States - Prefilled for Demo
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    // Auth States
+    const [username, setUsername] = useState('admin');
+    const [password, setPassword] = useState('password');
     const [caseId, setCaseId] = useState('ANS-20231120001');
     const [phone, setPhone] = useState('0912-345-678');
     const [captcha, setCaptcha] = useState('8832');
@@ -21,24 +20,13 @@ export const AdminLogin: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    // Effect to prefill based on tab
     useEffect(() => {
         setError('');
         setCaptcha('8832');
         setCaptchaCode('8832');
-
-        if (activeTab === 'admin') {
+        if (activeTab === 'staff') {
             setUsername('admin');
             setPassword('password');
-        } else if (activeTab === 'caseworker') {
-            setUsername('caseworker01');
-            setPassword('password123');
-        } else if (activeTab === 'contractor') {
-            setUsername('contractor01');
-            setPassword('contractor123');
-        } else {
-            setUsername('');
-            setPassword('');
         }
     }, [activeTab]);
 
@@ -179,28 +167,23 @@ export const AdminLogin: React.FC = () => {
                 {/* Right Side Form */}
                 <div className="p-8 md:p-12 xl:p-16 flex flex-col justify-center bg-white relative">
                     <div className="max-w-md w-full mx-auto">
-                        <div className="mb-10 md:mb-16">
-                            <div className="flex flex-wrap gap-4 md:gap-8 border-b-2 border-slate-50">
+                        <div className="mb-8">
+                            <div className="flex gap-6 border-b-2 border-slate-50">
                                 {([
                                     { id: 'citizen', label: '民眾服務', icon: Search },
-                                    { id: 'caseworker', label: '承辦人員', icon: Briefcase },
-                                    { id: 'admin', label: '系統管理員', icon: Settings },
-                                    { id: 'contractor', label: '外包人員', icon: HardHat }
+                                    { id: 'staff',   label: '人員登入', icon: Users },
                                 ] as const).map((tab) => {
                                     const isActive = activeTab === tab.id;
-                                    const isContractorTab = tab.id === 'contractor';
-                                    const activeColor = isContractorTab ? 'text-orange-600' : 'text-blue-600';
-                                    const underlineColor = isContractorTab ? 'bg-orange-500' : 'bg-blue-600';
                                     return (
                                         <button
                                             key={tab.id}
-                                            onClick={() => { setActiveTab(tab.id); }}
-                                            className={`pb-4 md:pb-6 flex items-center gap-2 text-xs md:text-sm font-black tracking-[0.1em] md:tracking-[0.2em] uppercase transition-all relative ${isActive ? activeColor : 'text-slate-300 hover:text-slate-400'}`}
+                                            onClick={() => setActiveTab(tab.id)}
+                                            className={`pb-4 flex items-center gap-2 text-sm font-black tracking-[0.15em] uppercase transition-all relative ${isActive ? 'text-blue-600' : 'text-slate-300 hover:text-slate-500'}`}
                                         >
                                             <tab.icon size={16} />
                                             {tab.label}
                                             {isActive && (
-                                                <div className={`absolute bottom-[-2px] left-0 w-full h-[3px] ${underlineColor} rounded-full animate-in slide-in-from-left duration-300`}></div>
+                                                <div className="absolute bottom-[-2px] left-0 w-full h-[3px] bg-blue-600 rounded-full animate-in slide-in-from-left duration-300" />
                                             )}
                                         </button>
                                     );
@@ -252,12 +235,11 @@ export const AdminLogin: React.FC = () => {
                                 </div>
                             )}
 
-                            {(activeTab === 'caseworker' || activeTab === 'admin') && (
+                            {activeTab === 'staff' && (
                                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900">
-                                            {activeTab === 'admin' ? '系統管理員' : '承辦人員'}
-                                        </h2>
+                                        <h2 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900">人員登入</h2>
+                                        <p className="text-slate-400 text-sm font-medium mt-1">角色權限由帳號自動判別。</p>
                                     </div>
 
                                     <form onSubmit={handleLogin} className="space-y-4">
@@ -287,55 +269,28 @@ export const AdminLogin: React.FC = () => {
 
                                         {error && <div className="p-3 bg-red-50 text-red-500 text-xs font-black rounded-xl border border-red-100">{error}</div>}
 
-                                        <button
-                                            type="submit"
-                                            disabled={loading}
-                                            className={`${fb} text-white ${activeTab === 'admin' ? 'bg-indigo-600 hover:bg-indigo-500' : 'bg-blue-600 hover:bg-blue-500'}`}
-                                        >
-                                            {loading ? <Loader2 size={18} className="animate-spin" /> : <>立即登入 <ArrowRight size={16} /></>}
-                                        </button>
-                                    </form>
-                                </div>
-                            )}
-
-                            {activeTab === 'contractor' && (
-                                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                    <div>
-                                        <h2 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900">外包人員</h2>
-                                        <p className="text-slate-400 text-sm font-medium mt-1">查看您的派工任務與案件地圖。</p>
-                                    </div>
-
-                                    <form onSubmit={handleLogin} className="space-y-4">
-                                        <div className="space-y-2">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
-                                            <input
-                                                type="text"
-                                                value={username}
-                                                onChange={(e) => setUsername(e.target.value)}
-                                                autoComplete="username"
-                                                className={`${fi} focus:ring-orange-500/20 focus:border-orange-500`}
-                                            />
+                                        {/* Demo account hints */}
+                                        <div className="flex flex-wrap gap-2">
+                                            {[
+                                                { label: '管理員', user: 'admin', pass: 'password' },
+                                                { label: '承辦', user: 'caseworker01', pass: 'password123' },
+                                                { label: '外包', user: 'contractor01', pass: 'contractor123' },
+                                            ].map(({ label, user, pass }) => (
+                                                <button
+                                                    key={user}
+                                                    type="button"
+                                                    onClick={() => { setUsername(user); setPassword(pass); }}
+                                                    className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-500 transition-all"
+                                                >
+                                                    Demo: {label}
+                                                </button>
+                                            ))}
                                         </div>
-
-                                        <div className="space-y-2">
-                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
-                                            <input
-                                                type="password"
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                autoComplete="current-password"
-                                                className={`${fi} focus:ring-orange-500/20 focus:border-orange-500`}
-                                            />
-                                        </div>
-
-                                        <CaptchaField />
-
-                                        {error && <div className="p-3 bg-red-50 text-red-500 text-xs font-black rounded-xl border border-red-100">{error}</div>}
 
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`${fb} text-white bg-orange-500 hover:bg-orange-400`}
+                                            className={`${fb} text-white bg-blue-600 hover:bg-blue-500`}
                                         >
                                             {loading ? <Loader2 size={18} className="animate-spin" /> : <>立即登入 <ArrowRight size={16} /></>}
                                         </button>
