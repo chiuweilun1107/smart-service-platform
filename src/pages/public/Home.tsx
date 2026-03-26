@@ -158,82 +158,79 @@ export const Home: React.FC = () => {
                 </div>
             </section>
 
-            {/* 2. REPORTING HUB (Compact Version) */}
+            {/* 2. REPORTING HUB */}
             <section className="-mt-16 relative z-30 px-6 mb-10">
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white rounded-[2.5rem] shadow-2xl p-4 flex flex-col md:flex-row overflow-hidden border border-slate-100">
+
                         {/* Emergency Lines */}
-                        <div className="bg-slate-950 rounded-[2rem] p-8 md:p-14 text-white md:w-1/3 flex flex-col justify-between relative overflow-hidden group">
-                            <div className="relative z-10">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/20 backdrop-blur-md rounded-full text-[10px] font-black text-red-500 uppercase tracking-widest mb-6 border border-red-500/20">
+                        <div className="bg-slate-950 rounded-[2rem] p-6 text-white md:w-72 flex-shrink-0 flex flex-col gap-4">
+                            <div>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/20 rounded-full text-[10px] font-black text-red-500 uppercase tracking-widest mb-3 border border-red-500/20">
                                     <Activity size={12} /> 即時勤務中心
                                 </div>
-                                <h3 className={`${typo.h2} md:text-5xl font-black tracking-tighter mb-4 leading-tight`}>緊急通報專線</h3>
-                                <p className="text-slate-400 text-sm font-medium leading-relaxed mb-8">
-                                    發現緊急生命救援需求？請優先撥打智慧勤務熱線，由全球調度員直接為您部署。
+                                <h3 className="text-xl font-black tracking-tighter leading-tight text-white">緊急通報專線</h3>
+                                <p className="text-slate-500 text-[11px] font-medium leading-relaxed mt-1">
+                                    發現緊急救援需求？請優先撥打熱線。
                                 </p>
                             </div>
-                            <div className="space-y-4 relative z-10">
-                                <div className="group/btn flex items-center justify-between p-6 bg-rose-600 rounded-3xl hover:bg-rose-500 transition-all cursor-pointer shadow-lg shadow-rose-900/40 transform active:scale-95">
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-1">動物救援</span>
-                                        <span className="text-4xl font-black tracking-tighter">1959</span>
-                                    </div>
-                                    <Phone className="opacity-50 group-hover/btn:opacity-100 transition-opacity" size={32} />
+                            <div className="group/btn flex items-center justify-between px-4 py-3 bg-rose-600 rounded-xl hover:bg-rose-500 transition-all cursor-pointer active:scale-95">
+                                <div>
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-rose-200 block mb-0.5">動物救援</span>
+                                    <span className="text-2xl font-black tracking-tighter">1959</span>
                                 </div>
-                                <div className="group/btn flex items-center justify-between p-6 bg-slate-800 rounded-3xl hover:bg-slate-700 transition-all cursor-pointer border border-white/5 active:scale-95">
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 mb-1">市民服務</span>
-                                        <span className="text-4xl font-black tracking-tighter">1999</span>
-                                    </div>
-                                    <Info className="opacity-50 group-hover/btn:opacity-100 transition-opacity" size={32} />
+                                <Phone className="opacity-40 group-hover/btn:opacity-100 transition-opacity" size={18} />
+                            </div>
+                            <div className="group/btn flex items-center justify-between px-4 py-3 bg-slate-800 rounded-xl hover:bg-slate-700 transition-all cursor-pointer border border-white/5 active:scale-95">
+                                <div>
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-0.5">市民服務</span>
+                                    <span className="text-2xl font-black tracking-tighter">1999</span>
                                 </div>
+                                <Info className="opacity-40 group-hover/btn:opacity-100 transition-opacity" size={18} />
                             </div>
                         </div>
 
                         {/* Digital Reporting Field */}
-                        <div className="flex-1 p-6 md:p-14 bg-white">
-                            <div className="flex items-end justify-between mb-10 border-b border-slate-50 pb-6">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between w-full">
-                                    <div className="mb-6 md:mb-0">
-                                        <h3 className={`${typo.h2} md:text-4xl font-black tracking-tighter text-slate-900 uppercase`}>案件通報</h3>
-                                        <div className="flex items-center gap-3 mt-2">
-                                            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">系統連線正常 • Sync: 100%</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1 max-w-md">
-                                        <SearchInput
-                                            value={queryId}
-                                            onChange={(e) => setQueryId(e.target.value)}
-                                            placeholder="輸入案件編號追蹤進度..."
-                                            onSearch={() => { if (queryId) navigate(`/status?id=${queryId}`); }}
-                                            buttonLabel="查詢"
-                                        />
-                                    </div>
+                        <div className="flex-1 p-5 md:p-6 bg-white flex flex-col gap-4">
+                            {/* Header row */}
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                                <h3 className="text-2xl font-black tracking-tighter text-slate-900">案件通報</h3>
+                                <div className="flex-1 max-w-sm">
+                                    <SearchInput
+                                        value={queryId}
+                                        onChange={(e) => setQueryId(e.target.value)}
+                                        placeholder="輸入案件編號追蹤進度..."
+                                        onSearch={() => { if (queryId) navigate(`/status?id=${queryId}`); }}
+                                        buttonLabel="查詢"
+                                    />
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-                                <Link to="/smart-guide" className="group relative aspect-square rounded-[2rem] overflow-hidden">
+                            {/* Image Cards */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
+                                <Link to="/smart-guide" className="group relative h-44 md:h-52 rounded-2xl overflow-hidden">
                                     <img src={imgGeneralReport} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                    <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors"></div>
-                                    <div className="absolute bottom-6 left-6 text-white">
-                                        <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">一般案件通報</span>
-                                        <h4 className="text-3xl font-black tracking-tighter">動物救援</h4>
-                                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-                                            開始通報 <ArrowRight size={14} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent"></div>
+                                    <div className="absolute bottom-4 left-4 text-white">
+                                        <span className="inline-block px-2.5 py-1 bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-[9px] font-black uppercase tracking-widest mb-2">一般案件通報</span>
+                                        <h4 className="text-2xl font-black tracking-tighter">動物救援</h4>
+                                    </div>
+                                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                                        <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                            <ArrowRight size={14} className="text-white" />
                                         </div>
                                     </div>
                                 </Link>
-                                <Link to="/smart-guide" className="group relative aspect-square rounded-[2rem] overflow-hidden">
+                                <Link to="/smart-guide" className="group relative h-44 md:h-52 rounded-2xl overflow-hidden">
                                     <img src={imgBeeRemoval} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                    <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors"></div>
-                                    <div className="absolute bottom-6 left-6 text-white">
-                                        <span className="inline-block px-3 py-1 bg-amber-500/80 backdrop-blur-md border border-amber-400/20 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">特殊勤務</span>
-                                        <h4 className="text-3xl font-black tracking-tighter">蜂蛇案件</h4>
-                                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-                                            開始通報 <ArrowRight size={14} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent"></div>
+                                    <div className="absolute bottom-4 left-4 text-white">
+                                        <span className="inline-block px-2.5 py-1 bg-amber-500/80 backdrop-blur-md border border-amber-400/20 rounded-full text-[9px] font-black uppercase tracking-widest mb-2">特殊勤務</span>
+                                        <h4 className="text-2xl font-black tracking-tighter">蜂蛇案件</h4>
+                                    </div>
+                                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                                        <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                            <ArrowRight size={14} className="text-white" />
                                         </div>
                                     </div>
                                 </Link>
@@ -294,22 +291,43 @@ export const Home: React.FC = () => {
             </section>
 
             {/* 4. Global Map Experience */}
-            <section className="relative h-[650px] flex items-center justify-center bg-fixed bg-center bg-cover" style={{ backgroundImage: `url(${bgMapNtpc})` }}>
-                <div className="relative z-10 max-w-5xl mx-auto px-6">
-                    <div className="p-8 md:p-16 lg:p-20 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] md:rounded-[4rem] text-center shadow-2xl animate-in fade-in zoom-in duration-1000">
-                        <h2 className={`${typo.hero} md:text-6xl lg:text-8xl font-black text-white tracking-tighter mb-6 md:mb-8 drop-shadow-md`}>
+            <section className="relative flex flex-col bg-fixed bg-center bg-cover" style={{ backgroundImage: `url(${bgMapNtpc})` }}>
+                <div className="absolute inset-0 bg-black/50"></div>
+
+                {/* Center CTA */}
+                <div className="relative z-10 flex items-center justify-center py-20 md:py-28 px-6">
+                    <div className="p-8 md:p-12 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2rem] text-center shadow-2xl animate-in fade-in zoom-in duration-1000 max-w-xl w-full">
+                        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 drop-shadow-md">
                             即時動保地圖
                         </h2>
-                        <p className="text-base md:text-xl lg:text-2xl text-white/90 font-bold mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed">
-                            即時掌握全新北市動保案件熱點與勤務車輛動態，<br className="hidden md:block" />透明化數據助您了解城市脈動。
+                        <p className="text-sm md:text-base text-white/80 font-medium mb-8 leading-relaxed">
+                            即時掌握全新北市動保案件熱點與勤務車輛動態，透明化數據助您了解城市脈動。
                         </p>
-                        <Link to="/map" className="inline-flex h-16 items-center justify-center rounded-full bg-white px-10 text-lg font-black text-slate-950 uppercase tracking-widest hover:bg-slate-100 transition-colors shadow-lg">
-                            <Activity className="mr-3 h-5 w-5 text-rose-500 animate-pulse" />
+                        <Link to="/map" className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-black text-slate-950 uppercase tracking-widest hover:bg-slate-100 transition-colors shadow-lg">
+                            <Activity className="mr-2 h-4 w-4 text-rose-500 animate-pulse" />
                             進入地圖系統
                         </Link>
                     </div>
                 </div>
-                <div className="absolute inset-0 bg-black/40"></div>
+
+                {/* Stats Bar */}
+                <div className="relative z-10 border-t border-white/10 bg-black/40 backdrop-blur-md">
+                    <div className="max-w-5xl mx-auto px-6 py-5 grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
+                        {[
+                            { value: '847',  label: '案件熱點',   unit: '個' },
+                            { value: '23',   label: '即時出勤',   unit: '輛' },
+                            { value: '29',   label: '行政區覆蓋', unit: '區' },
+                            { value: '即時', label: '資料更新',   unit: '' },
+                        ].map((stat) => (
+                            <div key={stat.label} className="flex flex-col items-center py-2 px-4">
+                                <div className="text-white font-black text-2xl md:text-3xl tracking-tighter leading-none">
+                                    {stat.value}<span className="text-sm ml-0.5 text-white/60">{stat.unit}</span>
+                                </div>
+                                <div className="text-[10px] font-black text-white/40 uppercase tracking-widest mt-1">{stat.label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
 
 
