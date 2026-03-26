@@ -65,7 +65,7 @@ export const Status: React.FC = () => {
     }, [searchParams]);
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-20 px-6">
+        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
             <div>
                 <div className="max-w-6xl mx-auto">
                     {/* Header Command Area */}
@@ -92,7 +92,7 @@ export const Status: React.FC = () => {
                                     disabled={!caseId || loading}
                                     className="px-5 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-slate-900 transition-all font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-600/20 disabled:opacity-50"
                                 >
-                                    {loading ? 'LOADING' : 'SEARCH'}
+                                    {loading ? '查詢中' : '查詢'}
                                 </button>
                             </div>
                             {error && <p className="mt-6 text-red-600 font-bold flex items-center gap-2 animate-in fade-in slide-in-from-top-2 ml-6 text-sm">{error}</p>}
@@ -100,8 +100,8 @@ export const Status: React.FC = () => {
                     </PageHeader>
 
                     {!result && !loading && !error && (
-                        <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-200 rounded-3xl animate-in fade-in duration-500">
-                            <p className="text-xl font-black text-slate-400 uppercase tracking-widest">等待案件編號輸入</p>
+                        <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-200 rounded-3xl animate-in fade-in duration-500 bg-white">
+                            <p className="text-base font-black text-slate-400 tracking-widest">請輸入案件編號開始查詢</p>
                         </div>
                     )}
 
@@ -109,53 +109,66 @@ export const Status: React.FC = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
                             {/* Mission Intelligence Overlay */}
                             <div className="lg:col-span-12">
-                                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 relative overflow-hidden">
-                                    <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left border-r-0 md:border-r border-slate-100 pr-0 md:pr-8 md:min-w-[240px]">
-                                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-100 shadow-sm">
-                                            LIVE STATUS
+                                <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+                                    {/* Blue accent top bar */}
+                                    <div className="h-1 bg-blue-600 w-full"></div>
+                                    <div className="flex flex-col md:flex-row">
+                                        {/* Dark Left Panel */}
+                                        <div className="bg-slate-900 p-6 md:p-8 flex flex-col items-center md:items-start text-center md:text-left md:w-72 flex-shrink-0">
+                                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 text-blue-300 rounded-full text-[10px] font-black tracking-widest mb-4 border border-white/10">
+                                                即時狀態
+                                            </div>
+                                            <h2 className="text-2xl lg:text-3xl font-black tracking-tighter text-white mb-1 leading-none break-all">{result.id}</h2>
+                                            <div className="text-[10px] font-black text-white/30 tracking-[0.3em] mb-6">案件編號</div>
+                                            <div className={`px-4 py-2.5 rounded-xl font-black text-sm tracking-tight ${result.status === 'processing' ? 'bg-blue-600 text-white' : result.status === 'resolved' ? 'bg-emerald-600 text-white' : 'bg-white/10 text-white'}`}>
+                                                {result.status === 'processing' ? '執行中任務' : result.status === 'resolved' ? '已結案' : '待處理'}
+                                            </div>
                                         </div>
-                                        <h2 className={`${typo.h1} text-3xl lg:text-4xl font-black tracking-tighter text-slate-900 mb-2 uppercase leading-none break-all`}>{result.id}</h2>
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-4 pl-1">CASE IDENTIFIER</div>
 
-                                        <div className={`px-5 py-3 rounded-2xl font-black text-base md:text-lg tracking-tighter uppercase shadow-xl ${result.status === 'processing' ? 'bg-blue-600 text-white shadow-blue-600/20' : 'bg-slate-900 text-white'}`}>
-                                            {result.status === 'processing' ? '執行中任務' : result.status === 'resolved' ? '已結案' : '待處理'}
+                                        {/* Right Panel */}
+                                        <div className="flex-1 p-6 md:p-8 space-y-5">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                                <div className="space-y-2">
+                                                    <p className="text-[10px] font-black text-slate-400 tracking-widest">地理位置</p>
+                                                    <p className="text-base font-black text-slate-900 leading-tight">{result.location}</p>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <p className="text-[10px] font-black text-slate-400 tracking-widest">通報時間</p>
+                                                    <p className="text-base font-black text-slate-900">{result.createDate}</p>
+                                                </div>
+                                            </div>
+                                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:bg-white hover:border-blue-100 transition-all cursor-default group">
+                                                <p className="text-[10px] font-black text-slate-400 tracking-widest mb-2">情況摘要</p>
+                                                <p className="text-sm font-medium text-slate-600 leading-relaxed italic">{result.description}</p>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div className="flex-1 space-y-6 relative z-10">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div className="space-y-3">
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">地理位置</p>
-                                                <p className="text-base font-black text-slate-900 leading-tight">{result.location}</p>
-                                            </div>
-                                            <div className="space-y-3">
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">通報時間</p>
-                                                <p className="text-base font-black text-slate-900">{result.createDate}</p>
-                                            </div>
-                                        </div>
-                                        <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 relative group overflow-hidden transition-all hover:bg-white hover:border-blue-100 cursor-default">
-                                            <div className="relative z-10">
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">情況摘要</p>
-                                                <p className="text-base font-medium text-slate-600 leading-relaxed italic">{result.description}</p>
-                                            </div>
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                        </div>
-                                    </div>
-
-                                    {/* Decorative Element */}
-                                    <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -mr-20 pointer-events-none transform skew-x-12 border-l border-slate-100"></div>
                                 </div>
                             </div>
 
                             {/* Mission Timeline - Full Width */}
                             <div className="lg:col-span-12">
-                                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-6 md:p-10 relative overflow-hidden">
-                                    <div className="flex items-center justify-between mb-6 relative z-10">
-                                        <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.5em]">
-                                            歷程紀錄
-                                        </h3>
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">REAL-TIME UPDATES</div>
-                                    </div>
+                                <div className="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 md:p-10 relative overflow-hidden">
+                                    {/* Progress Bar */}
+                                    {(() => {
+                                        const doneCount = result.timeline.filter(t => t.done).length;
+                                        const totalCount = result.timeline.length;
+                                        const pct = Math.round((doneCount / totalCount) * 100);
+                                        return (
+                                            <div className="mb-6 relative z-10">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <h3 className="text-xs font-black text-slate-900 tracking-[0.5em]">歷程紀錄</h3>
+                                                    <div className="flex items-center gap-3">
+                                                        <span className="text-[10px] font-black text-blue-600">{doneCount}/{totalCount} 已完成</span>
+                                                        <span className="text-[10px] font-black text-slate-300 tracking-widest">即時更新</span>
+                                                    </div>
+                                                </div>
+                                                <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div className="h-full bg-blue-600 rounded-full transition-all duration-700" style={{ width: `${pct}%` }}></div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })()}
 
                                     <div className="relative z-10">
                                         {result.timeline.map((item, idx) => (
@@ -183,7 +196,7 @@ export const Status: React.FC = () => {
                                                             <h4 className={`text-sm font-black tracking-tight uppercase ${item.done ? 'text-slate-900' : 'text-slate-400'}`}>{item.title}</h4>
                                                             <div className="flex items-center gap-3 flex-shrink-0">
                                                                 {item.done && (
-                                                                    <span className="hidden sm:inline-flex text-[9px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">VERIFIED</span>
+                                                                    <span className="hidden sm:inline-flex text-[9px] font-black text-blue-600 tracking-widest bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">已確認</span>
                                                                 )}
                                                                 <div className="text-right">
                                                                     <div className={`text-[10px] font-black uppercase tracking-wider ${item.done ? 'text-slate-500' : 'text-slate-300'}`}>{item.date}</div>
@@ -204,8 +217,8 @@ export const Status: React.FC = () => {
                             </div>
 
                             <div className="lg:col-span-12">
-                                <Link to="/" className="w-full py-4 bg-white border border-slate-100 rounded-2xl text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-slate-900 hover:text-white transition-all shadow-sm flex items-center justify-center gap-4">
-                                    EXIT SYSTEM
+                                <Link to="/" className="w-full py-4 bg-white border border-slate-200 rounded-2xl text-slate-400 font-black text-[10px] tracking-[0.3em] hover:bg-slate-900 hover:text-white transition-all shadow-sm flex items-center justify-center gap-4">
+                                    返回首頁
                                 </Link>
                             </div>
                         </div>
