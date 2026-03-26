@@ -32,6 +32,10 @@
   }
 }
 
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom Scrollbar for Webkit */
 ::-webkit-scrollbar {
   width: 8px;

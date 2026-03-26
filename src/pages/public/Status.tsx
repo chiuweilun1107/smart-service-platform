@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { PageHeader } from '../../components/common';
 
 interface CaseStatus {
     id: string;
@@ -67,18 +68,12 @@ export const Status: React.FC = () => {
             <div className="pt-32 px-6">
                 <div className="max-w-6xl mx-auto">
                     {/* Header Command Area */}
-                    <div className="flex flex-col lg:flex-row items-end justify-between gap-12 mb-20 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-                        <div className="max-w-2xl">
-                            <Link to="/" className="inline-flex items-center gap-3 px-6 py-3 bg-slate-100 rounded-xl border border-slate-200 text-slate-600 font-black text-[10px] uppercase tracking-[0.2em] hover:bg-slate-900 hover:text-white transition-all mb-10">
-                                BACK TO PORTAL
-                            </Link>
-                            <h1 className="text-7xl md:text-8xl font-black tracking-tighter text-slate-950 leading-[0.85] uppercase">
-                                案件進度<br />
-                                <span className="text-blue-600">查詢中心</span>
-                            </h1>
-                        </div>
-
-                        <div className="w-full lg:w-[480px]">
+                    <PageHeader
+                        badge="案件查詢系統"
+                        badgeColor="blue"
+                        title={<>案件進度<br /><span className="text-blue-600">查詢中心</span></>}
+                    >
+                        <div>
                             <div className="bg-white border-2 border-slate-200 p-2 pr-2 rounded-[2.5rem] flex items-center shadow-xl">
                                 <div className="relative flex-1 group pl-4">
                                     <input
@@ -99,7 +94,7 @@ export const Status: React.FC = () => {
                             </div>
                             {error && <p className="mt-6 text-rose-500 font-bold flex items-center gap-2 animate-in fade-in slide-in-from-top-2 ml-6 text-sm">{error}</p>}
                         </div>
-                    </div>
+                    </PageHeader>
 
                     {!result && !loading && !error && (
                         <div className="flex flex-col items-center justify-center py-40 border-2 border-dashed border-slate-200 rounded-[4rem] animate-in fade-in duration-1000">

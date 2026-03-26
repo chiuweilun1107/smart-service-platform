@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PageHeader } from '../../components/common';
 
 const FAQ_SECTIONS = [
     {
@@ -67,31 +68,23 @@ export const FAQ: React.FC = () => {
             <div className="pt-32 px-6">
                 <div className="max-w-6xl mx-auto">
                     {/* Header */}
-                    <div className="flex flex-col lg:flex-row items-end justify-between gap-12 mb-20">
-                        <div className="max-w-2xl">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-blue-100">
-                                智慧服務門戶
-                            </div>
-                            <h1 className="text-7xl md:text-8xl font-black tracking-tighter text-slate-950 leading-[0.85] uppercase">
-                                服務<br />
-                                <span className="text-blue-600">百科手冊</span>
-                            </h1>
-                            <p className="mt-8 text-slate-500 text-xl font-medium border-l-4 border-blue-600 pl-6">
-                                智慧服務百科：整合新北市動保處所有業務流程、法規諮詢與常見問答，為您提供最即時的知識支援。
-                            </p>
+                    <PageHeader
+                        badge="智慧服務門戶"
+                        badgeColor="blue"
+                        title={<>服務<br /><span className="text-blue-600">百科手冊</span></>}
+                        subtitle="智慧服務百科：整合新北市動保處所有業務流程、法規諮詢與常見問答，為您提供最即時的知識支援。"
+                        subtitleBorderColor="blue"
+                    >
+                        <div className="relative group">
+                            <input
+                                type="text"
+                                placeholder="搜尋智慧索引..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full px-8 py-5 bg-white border-2 border-slate-200 rounded-[2rem] text-slate-900 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-bold placeholder:text-slate-300 shadow-sm"
+                            />
                         </div>
-                        <div className="w-full lg:w-96">
-                            <div className="relative group">
-                                <input
-                                    type="text"
-                                    placeholder="搜尋智慧索引..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full px-8 py-5 bg-white border-2 border-slate-200 rounded-[2rem] text-slate-900 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-bold placeholder:text-slate-300 shadow-sm"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    </PageHeader>
 
                     {/* Category Filter Chips */}
                     <div className="flex flex-wrap gap-4 mb-16">

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { SectionBadge } from '../../components/common';
 
 const NEWS_ARTICLES = [
     {
@@ -58,9 +59,7 @@ export const News: React.FC = () => {
                 {/* Header Container */}
                 <div className="mb-16">
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="px-4 py-1.5 rounded-full bg-slate-200 text-slate-600 text-[10px] font-black uppercase tracking-widest">
-                            官方新聞與即時通報
-                        </div>
+                        <SectionBadge label="官方新聞與即時通報" color="slate" />
                     </div>
                     <h1 className="text-6xl font-black tracking-tighter text-slate-900 leading-none mb-6">
                         最新公告

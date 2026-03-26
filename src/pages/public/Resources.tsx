@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Download, FileText, Book, Shield, ArrowRight, Layers } from 'lucide-react';
+import { SectionBadge } from '../../components/common';
 
 const CATEGORIES = [
     { id: 'all', label: '全部資源', icon: Layers },
@@ -36,7 +37,9 @@ export const Resources: React.FC = () => {
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                     <div className="max-w-2xl">
-                        <div className="inline-block px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Government Open Data & resources</div>
+                        <div className="mb-6">
+                            <SectionBadge label="Government Open Data &amp; resources" color="emerald" />
+                        </div>
                         <h1 className="text-6xl md:text-7xl font-black tracking-tighter text-slate-900 leading-[0.85] mb-8">
                             便民服務<br />
                             <span className="text-emerald-500">資源中心</span>

@@ -20,6 +20,7 @@ interface GuardianZonePanelProps {
   onToggleVisibility: (id: string) => void;
   onOpenAlerts: () => void;
   onClose: () => void;
+  variant?: 'floating' | 'sheet';
 }
 
 const radiusLabel = (r: number) => {
@@ -36,14 +37,16 @@ export const GuardianZonePanel: React.FC<GuardianZonePanelProps> = ({
   onToggleVisibility,
   onOpenAlerts,
   onClose,
+  variant = 'floating',
 }) => {
+  const isSheet = variant === 'sheet';
   const totalAlertCount = alerts.reduce(
     (sum, a) => sum + a.cases.length + a.hotspots.length,
     0
   );
 
   return (
-    <div className="bg-slate-900/90 backdrop-blur-md border border-white/10 rounded-[2rem] shadow-2xl w-[300px] overflow-hidden">
+    <div className={isSheet ? 'w-full overflow-hidden' : 'bg-slate-900/90 backdrop-blur-md border border-white/10 rounded-[2rem] shadow-2xl w-[300px] overflow-hidden'}>
       {/* Header */}
       <div className="p-5 pb-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -131,7 +134,7 @@ export const GuardianZonePanel: React.FC<GuardianZonePanelProps> = ({
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className={`flex items-center gap-1 transition-opacity ${isSheet ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                   <button
                     onClick={() => onToggleVisibility(zone.id)}
                     className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-all"
