@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHeader } from '../../components/common';
-import { input } from '../../utils/typography';
+import { PageHeader, TextInput } from '../../components/common';
 
 const FAQ_SECTIONS = [
     {
@@ -65,8 +64,8 @@ export const FAQ: React.FC = () => {
     );
 
     return (
-        <div className="min-h-screen bg-white pb-40">
-            <div className="pt-24 px-6">
+        <div className="min-h-screen bg-white pt-24 pb-20 px-6">
+            <div>
                 <div className="max-w-6xl mx-auto">
                     {/* Header */}
                     <PageHeader
@@ -77,12 +76,12 @@ export const FAQ: React.FC = () => {
                         subtitleBorderColor="blue"
                     >
                         <div className="relative group">
-                            <input
+                            <TextInput
                                 type="text"
                                 placeholder="搜尋智慧索引..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className={`${input.base} bg-white border-2 border-slate-200 rounded-xl text-slate-900 focus:ring-4 focus:ring-blue-600/20 focus:border-blue-600 font-bold placeholder:text-slate-300 shadow-sm`}
+                                className="shadow-sm"
                             />
                         </div>
                     </PageHeader>

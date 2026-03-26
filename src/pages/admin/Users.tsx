@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
 import type { User } from '../../types/schema';
+import { TextInput, SelectInput } from '../../components/common';
 
 export function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -107,12 +108,13 @@ export function UsersPage() {
       <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 flex flex-col lg:flex-row items-center gap-6">
         <div className="relative flex-1 w-full">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={20} />
-          <input
+          <TextInput
             type="text"
             placeholder="搜尋用戶、電子郵件或所屬單位..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-indigo-600/5 focus:border-indigo-600 outline-none transition-all font-bold text-sm"
+            variant="light"
+            className="pl-12 pr-4 py-4"
           />
         </div>
         <div className="flex items-center gap-4">
@@ -217,22 +219,24 @@ export function UsersPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">完整姓名</label>
-                  <input
+                  <TextInput
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 outline-none transition-all font-bold text-sm"
-                    placeholder="輸入姓名" required
+                    variant="light"
+                    placeholder="輸入姓名"
+                    required
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">公務信箱</label>
-                  <input
+                  <TextInput
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 outline-none transition-all font-bold text-sm"
-                    placeholder="email@unit.gov" required
+                    variant="light"
+                    placeholder="email@unit.gov"
+                    required
                   />
                 </div>
               </div>
@@ -240,23 +244,23 @@ export function UsersPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">存取層級</label>
-                  <select
+                  <SelectInput
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value as any })}
-                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 outline-none transition-all font-bold text-sm appearance-none"
-                  >
-                    <option value="admin">系統管理員</option>
-                    <option value="supervisor">地區主管</option>
-                    <option value="caseworker">業務執行官</option>
-                  </select>
+                    options={[
+                      { value: 'admin', label: '系統管理員' },
+                      { value: 'supervisor', label: '地區主管' },
+                      { value: 'caseworker', label: '業務執行官' },
+                    ]}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">組織單位</label>
-                  <input
+                  <TextInput
                     type="text"
                     value={formData.unit}
                     onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
-                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 outline-none transition-all font-bold text-sm"
+                    variant="light"
                     placeholder="分組 / 單位"
                   />
                 </div>

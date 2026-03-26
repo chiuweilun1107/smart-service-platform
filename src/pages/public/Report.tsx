@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { FormSection, FieldLabel, PhotoUpload, PageHeader } from '../../components/common';
-import { input, btn } from '../../utils/typography';
+import { FormSection, FieldLabel, PhotoUpload, PageHeader, TextInput, Textarea, SelectInput } from '../../components/common';
+import { btn } from '../../utils/typography';
 
 export const Report: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -127,25 +127,25 @@ export const Report: React.FC = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3">
                                         <FieldLabel>通報區域</FieldLabel>
-                                        <select
+                                        <SelectInput
                                             value={region}
                                             onChange={(e) => setRegion(e.target.value)}
-                                            className={`${input.base} ${input.light} font-bold`}
-                                        >
-                                            <option>新北市 - 板橋區</option>
-                                            <option>新北市 - 新莊區</option>
-                                            <option>新北市 - 中和區</option>
-                                            <option>新北市 - 永和區</option>
-                                        </select>
+                                            options={[
+                                                { value: '新北市 - 板橋區', label: '新北市 - 板橋區' },
+                                                { value: '新北市 - 新莊區', label: '新北市 - 新莊區' },
+                                                { value: '新北市 - 中和區', label: '新北市 - 中和區' },
+                                                { value: '新北市 - 永和區', label: '新北市 - 永和區' },
+                                            ]}
+                                        />
                                     </div>
                                     <div className="space-y-3">
                                         <FieldLabel>精確地址</FieldLabel>
-                                        <input
+                                        <TextInput
                                             type="text"
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                             placeholder="例如：四川路一段 157 巷口..."
-                                            className={`${input.base} ${input.light} font-bold placeholder:text-slate-300`}
+                                            variant="light"
                                         />
                                     </div>
                                 </div>
@@ -157,32 +157,31 @@ export const Report: React.FC = () => {
                             <div className="space-y-8">
                                 <div className="space-y-3">
                                     <FieldLabel>具體情況描述</FieldLabel>
-                                    <textarea
+                                    <Textarea
                                         rows={4}
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         placeholder="請描述現場動物狀況、數量、種類，或蜂巢概略位置高度..."
-                                        className={`${input.base} ${input.light} font-bold placeholder:text-slate-300`}
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3">
                                         <FieldLabel>聯絡人姓名 (選填)</FieldLabel>
-                                        <input
+                                        <TextInput
                                             type="text"
                                             value={contactName}
                                             onChange={(e) => setContactName(e.target.value)}
-                                            className={`${input.base} ${input.light} font-bold`}
+                                            variant="light"
                                         />
                                     </div>
                                     <div className="space-y-3">
                                         <FieldLabel>手機聯絡電話</FieldLabel>
-                                        <input
+                                        <TextInput
                                             type="tel"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
-                                            className={`${input.base} ${input.light} font-bold`}
+                                            variant="light"
                                         />
                                     </div>
                                 </div>

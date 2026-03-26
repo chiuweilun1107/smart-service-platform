@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { MapPin, Camera, FileText, CheckSquare, ArrowLeft, Loader2, Check, Clock, Shield, X } from 'lucide-react';
 import type { CaseMarker } from '../../components/map/CaseMap';
+import { TextInput, Textarea } from '../../components/common';
 
 type Step = 'gps' | 'form' | 'photo' | 'sign';
 
@@ -65,7 +66,6 @@ export const FieldworkReport: React.FC = () => {
 
     const isBee = caseItem?.type === 'bee';
 
-    const fieldStyle = 'w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/20 transition-all';
 
     return (
         <div className="min-h-screen bg-white font-sans flex flex-col pt-24 pb-20">
@@ -197,11 +197,11 @@ export const FieldworkReport: React.FC = () => {
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
                                     <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">處理人員</label>
-                                    <input type="text" value={handlerName} onChange={e => setHandlerName(e.target.value)} className={fieldStyle} />
+                                    <TextInput type="text" value={handlerName} onChange={e => setHandlerName(e.target.value)} />
                                 </div>
                                 <div>
                                     <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">識別編號</label>
-                                    <input type="text" value={handlerBadge} onChange={e => setHandlerBadge(e.target.value)} className={fieldStyle} />
+                                    <TextInput type="text" value={handlerBadge} onChange={e => setHandlerBadge(e.target.value)} />
                                 </div>
                             </div>
 
@@ -209,12 +209,11 @@ export const FieldworkReport: React.FC = () => {
                                 <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">
                                     {isBee ? '蜂窩數量（巢）' : '出動人數'}
                                 </label>
-                                <input
+                                <TextInput
                                     type="number"
                                     value={vehicleCount}
                                     onChange={e => setVehicleCount(e.target.value)}
                                     placeholder={isBee ? '例：2' : '例：3'}
-                                    className={fieldStyle}
                                 />
                             </div>
 
@@ -243,12 +242,11 @@ export const FieldworkReport: React.FC = () => {
 
                             <div>
                                 <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">現場備注</label>
-                                <textarea
+                                <Textarea
                                     value={note}
                                     onChange={e => setNote(e.target.value)}
                                     placeholder="輸入現場處理情況說明…"
                                     rows={3}
-                                    className={`${fieldStyle} resize-none`}
                                 />
                             </div>
                         </div>
@@ -349,12 +347,11 @@ export const FieldworkReport: React.FC = () => {
                             <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">
                                 簽核人姓名（電子簽核）
                             </label>
-                            <input
+                            <TextInput
                                 type="text"
                                 value={signName}
                                 onChange={e => setSignName(e.target.value)}
                                 placeholder="輸入姓名以確認送出"
-                                className={fieldStyle}
                             />
                         </div>
 

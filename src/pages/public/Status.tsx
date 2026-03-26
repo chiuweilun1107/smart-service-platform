@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { PageHeader } from '../../components/common';
-import { typo, input } from '../../utils/typography';
+import { typo } from '../../utils/typography';
 
 interface CaseStatus {
     id: string;
@@ -65,8 +65,8 @@ export const Status: React.FC = () => {
     }, [searchParams]);
 
     return (
-        <div className="min-h-screen bg-white pb-40">
-            <div className="pt-24 px-6">
+        <div className="min-h-screen bg-white pt-24 pb-20 px-6">
+            <div>
                 <div className="max-w-6xl mx-auto">
                     {/* Header Command Area */}
                     <PageHeader

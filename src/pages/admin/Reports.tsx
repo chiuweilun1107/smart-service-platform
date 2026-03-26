@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
 import type { Case } from '../../types/schema';
+import { TextInput, SelectInput } from '../../components/common';
 
 export function ReportsPage() {
   const [reportType, setReportType] = useState('inspection');
@@ -112,11 +113,12 @@ export function ReportsPage() {
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">時間範圍開始</label>
                 <div className="relative">
                   <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                  <input
+                  <TextInput
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-xs"
+                    variant="light"
+                    className="pl-12 pr-4 py-4 text-xs"
                   />
                 </div>
               </div>
@@ -124,39 +126,42 @@ export function ReportsPage() {
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">時間範圍結束</label>
                 <div className="relative">
                   <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                  <input
+                  <TextInput
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-xs"
+                    variant="light"
+                    className="pl-12 pr-4 py-4 text-xs"
                   />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">目標狀態</label>
-                <select
+                <SelectInput
                   value={caseStatus}
                   onChange={(e) => setCaseStatus(e.target.value)}
-                  className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-xs appearance-none"
-                >
-                  <option value="">全部狀態</option>
-                  <option value="pending">待審核</option>
-                  <option value="processing">進行中</option>
-                  <option value="resolved">已完成</option>
-                </select>
+                  options={[
+                    { value: 'pending', label: '待審核' },
+                    { value: 'processing', label: '進行中' },
+                    { value: 'resolved', label: '已完成' },
+                  ]}
+                  placeholder="全部狀態"
+                  className="py-4 text-xs"
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">優先級向量</label>
-                <select
+                <SelectInput
                   value={casePriority}
                   onChange={(e) => setCasePriority(e.target.value)}
-                  className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-xs appearance-none"
-                >
-                  <option value="">所有優先級</option>
-                  <option value="critical">CRITICAL</option>
-                  <option value="high">HIGH</option>
-                  <option value="medium">MEDIUM</option>
-                </select>
+                  options={[
+                    { value: 'critical', label: 'CRITICAL' },
+                    { value: 'high', label: 'HIGH' },
+                    { value: 'medium', label: 'MEDIUM' },
+                  ]}
+                  placeholder="所有優先級"
+                  className="py-4 text-xs"
+                />
               </div>
             </div>
 

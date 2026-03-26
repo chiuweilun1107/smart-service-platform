@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
 import type { SystemConfig } from '../../types/schema';
+import { TextInput, SelectInput } from '../../components/common';
 
 export function SettingsPage() {
   const [configs, setConfigs] = useState<SystemConfig[]>([]);
@@ -138,29 +139,32 @@ export function SettingsPage() {
                       <span className="text-[9px] font-mono text-slate-300 tracking-tight">{config.key}</span>
                     </div>
                     {config.key === 'system_language' ? (
-                      <select
+                      <SelectInput
                         value={formValues[config.key]}
                         onChange={(e) => handleChange(config.key, e.target.value)}
-                        className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-sm text-slate-900 appearance-none"
-                      >
-                        <option value="zh-TW">繁體中文 (Traditional Chinese)</option>
-                        <option value="en-US">English (US)</option>
-                      </select>
+                        options={[
+                          { value: 'zh-TW', label: '繁體中文 (Traditional Chinese)' },
+                          { value: 'en-US', label: 'English (US)' },
+                        ]}
+                        className="py-5"
+                      />
                     ) : config.key === 'system_timezone' ? (
-                      <select
+                      <SelectInput
                         value={formValues[config.key]}
                         onChange={(e) => handleChange(config.key, e.target.value)}
-                        className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-sm text-slate-900 appearance-none"
-                      >
-                        <option value="Asia/Taipei">Asia/Taipei (UTC+8)</option>
-                        <option value="UTC">Universal Coordinated Time (UTC)</option>
-                      </select>
+                        options={[
+                          { value: 'Asia/Taipei', label: 'Asia/Taipei (UTC+8)' },
+                          { value: 'UTC', label: 'Universal Coordinated Time (UTC)' },
+                        ]}
+                        className="py-5"
+                      />
                     ) : (
-                      <input
+                      <TextInput
                         type={typeof config.value === 'number' ? 'number' : 'text'}
                         value={formValues[config.key]}
                         onChange={(e) => handleChange(config.key, e.target.type === 'number' ? Number(e.target.value) : e.target.value)}
-                        className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 outline-none transition-all font-bold text-sm text-slate-900"
+                        variant="light"
+                        className="py-5"
                       />
                     )}
                   </div>

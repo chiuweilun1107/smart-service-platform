@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
 import type { Case, User as UserType, Workflow } from '../../types/schema';
+import { Textarea } from '../../components/common';
 
 export function CaseDetail() {
   const { id } = useParams<{ id: string }>();
@@ -261,11 +262,12 @@ export function CaseDetail() {
 
             {/* 3. Final Notes & Close */}
             <div className="mt-auto space-y-3 pt-4 border-t border-slate-50">
-              <textarea
-                className="w-full h-24 bg-slate-50 rounded-xl p-3 text-xs font-medium border border-slate-200 focus:outline-none focus:border-slate-400 resize-none"
+              <Textarea
+                className="h-24 text-xs"
                 placeholder="輸入救援備註 (Optional)..."
                 value={notes}
                 onChange={e => setNotes(e.target.value)}
+                rows={3}
               />
               <button
                 onClick={() => handleUpdateStatus('resolved')}

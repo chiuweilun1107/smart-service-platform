@@ -9,6 +9,7 @@ import { mockApi } from '../../services/mockApi';
 import { WorkflowSidebar } from '../../components/WorkflowSidebar';
 import { CaseDetailPanel } from '../../components/CaseDetailPanel';
 import type { Case } from '../../types/schema';
+import { TextInput } from '../../components/common';
 
 export function CaseList() {
     const [searchParams] = useSearchParams();
@@ -91,12 +92,13 @@ export function CaseList() {
             <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 flex flex-col lg:flex-row items-center gap-6">
                 <div className="relative flex-1 w-full">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={20} />
-                    <input
+                    <TextInput
                         type="text"
                         placeholder="搜尋案號、標題或報案人姓名..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 outline-none transition-all font-bold text-sm"
+                        variant="light"
+                        className="pl-12 pr-4 py-4"
                     />
                 </div>
 

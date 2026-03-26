@@ -29,7 +29,7 @@ import { GisAnalytics } from './pages/admin/GisAnalytics';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/smart-service-platform">
       <Routes>
         {/* 公開路由 */}
         <Route path="/" element={<Layout><Home /></Layout>} />

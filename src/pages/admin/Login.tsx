@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Loader2, ArrowRight, Search, Users, ArrowLeft } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
+import { TextInput } from '../../components/common';
 
 type LoginTab = 'citizen' | 'staff';
 
@@ -87,21 +88,20 @@ export const AdminLogin: React.FC = () => {
         }, 1200);
     };
 
-    // Compact form styles for login page
-    const fi = `w-full px-4 py-2.5 text-sm rounded-xl outline-none transition-all bg-slate-50 border border-slate-200 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 font-medium`;
     const fb = `w-full px-6 py-3 text-sm font-black rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-3`;
 
     const CaptchaField = () => (
         <div className="space-y-2">
             <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證碼 (Captcha)</label>
             <div className="flex gap-3">
-                <input
+                <TextInput
                     type="text"
                     value={captcha}
                     onChange={(e) => setCaptcha(e.target.value)}
                     placeholder="輸入驗證碼"
                     autoComplete="off"
-                    className={`flex-1 ${fi}`}
+                    variant="light"
+                    className="flex-1"
                 />
                 <div
                     onClick={refreshCaptcha}
@@ -202,23 +202,23 @@ export const AdminLogin: React.FC = () => {
                                     <form onSubmit={handleCitizenQueryFast} className="space-y-4">
                                         <div className="space-y-2">
                                             <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">案件編號 (Case ID)</label>
-                                            <input
+                                            <TextInput
                                                 type="text"
                                                 value={caseId}
                                                 onChange={(e) => setCaseId(e.target.value)}
                                                 autoComplete="off"
-                                                className={fi}
+                                                variant="light"
                                             />
                                         </div>
 
                                         <div className="space-y-2">
                                             <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證資訊 (Phone)</label>
-                                            <input
+                                            <TextInput
                                                 type="text"
                                                 value={phone}
                                                 onChange={(e) => setPhone(e.target.value)}
                                                 autoComplete="off"
-                                                className={fi}
+                                                variant="light"
                                             />
                                         </div>
 
@@ -261,23 +261,23 @@ export const AdminLogin: React.FC = () => {
                                     <form onSubmit={handleLogin} className="space-y-4">
                                         <div className="space-y-2">
                                             <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
-                                            <input
+                                            <TextInput
                                                 type="text"
                                                 value={username}
                                                 onChange={(e) => setUsername(e.target.value)}
                                                 autoComplete="username"
-                                                className={fi}
+                                                variant="light"
                                             />
                                         </div>
 
                                         <div className="space-y-2">
                                             <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
-                                            <input
+                                            <TextInput
                                                 type="password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="current-password"
-                                                className={fi}
+                                                variant="light"
                                             />
                                         </div>
 

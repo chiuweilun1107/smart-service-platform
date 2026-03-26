@@ -60,14 +60,14 @@ export const ReportSuccess: React.FC = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
                             to="/"
-                            className={`${btn.primary} bg-white border border-slate-200 text-slate-600 uppercase tracking-widest hover:border-slate-400 hover:text-slate-900 flex items-center justify-center gap-3 transition-all`}
+                            className={`${btn.primary} rounded-xl bg-white border border-slate-200 text-slate-600 uppercase tracking-widest hover:border-slate-400 hover:text-slate-900 flex items-center justify-center gap-3 transition-all`}
                         >
                             <Home size={18} />
                             返回首頁
                         </Link>
                         <Link
                             to={`/status?id=${caseId}`}
-                            className={`${btn.primary} bg-emerald-500 text-white uppercase tracking-widest hover:bg-emerald-600 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-3 transition-all`}
+                            className={`${btn.primary} rounded-xl bg-emerald-500 text-white uppercase tracking-widest hover:bg-emerald-600 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-3 transition-all`}
                         >
                             <Search size={18} />
                             查詢處理進度

@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import { mockApi } from '../../services/mockApi';
 import type { ProxyAssignment, User } from '../../types/schema';
+import { TextInput, SelectInput, Textarea } from '../../components/common';
 
 export function ProxyPage() {
   const [proxies, setProxies] = useState<ProxyAssignment[]>([]);
@@ -182,7 +183,7 @@ export function ProxyPage() {
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Issuer (From)</label>
                   <select
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-black text-[10px] uppercase tracking-widest outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all appearance-none"
                     value={formData.from}
                     onChange={e => setFormData({ ...formData, from: e.target.value })}
                   >
@@ -193,7 +194,7 @@ export function ProxyPage() {
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Proxy (To)</label>
                   <select
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-black text-[10px] uppercase tracking-widest outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all appearance-none"
                     value={formData.to}
                     onChange={e => setFormData({ ...formData, to: e.target.value })}
                   >
@@ -206,18 +207,18 @@ export function ProxyPage() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Start Cycle</label>
-                  <input
+                  <TextInput
                     type="date"
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                    variant="light"
                     value={formData.startDate}
                     onChange={e => setFormData({ ...formData, startDate: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">End Cycle</label>
-                  <input
+                  <TextInput
                     type="date"
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                    variant="light"
                     value={formData.endDate}
                     onChange={e => setFormData({ ...formData, endDate: e.target.value })}
                   />
@@ -226,12 +227,12 @@ export function ProxyPage() {
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Mission Justification</label>
-                <textarea
-                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-medium text-sm outline-none focus:ring-2 focus:ring-indigo-600 transition-all min-h-[100px]"
+                <Textarea
                   placeholder="Specify the reason for authority transfer..."
                   value={formData.reason}
                   onChange={e => setFormData({ ...formData, reason: e.target.value })}
-                ></textarea>
+                  rows={4}
+                />
               </div>
 
               <button type="submit" className="w-full py-5 bg-slate-900 text-white rounded-[1.5rem] font-black text-xs uppercase tracking-[0.3em] hover:bg-indigo-600 transition-all shadow-xl shadow-slate-900/20 active:scale-95">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Download, FileText, Book, Shield, ArrowRight, Layers } from 'lucide-react';
-import { SectionBadge } from '../../components/common';
-import { input, btn } from '../../utils/typography';
+import { SectionBadge, TextInput } from '../../components/common';
+import { typo, btn } from '../../utils/typography';
 
 const CATEGORIES = [
     { id: 'all', label: '全部資源', icon: Layers },
@@ -53,12 +53,13 @@ export const Resources: React.FC = () => {
                     <div className="w-full md:w-96">
                         <div className="relative group">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={20} />
-                            <input
+                            <TextInput
                                 type="text"
                                 placeholder="搜尋關鍵字 (例如: 法令、報表)..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className={`${input.base} pl-12 pr-4 bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 font-bold`}
+                                variant="light"
+                                className="pl-12 pr-4"
                             />
                         </div>
                     </div>

@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import { mockApi } from '../../services/mockApi';
 import type { IntegrationConfig } from '../../types/schema';
+import { TextInput } from '../../components/common';
 
 export function IntegrationPage() {
   const [integrations, setIntegrations] = useState<IntegrationConfig[]>([]);
@@ -213,11 +214,11 @@ export function IntegrationPage() {
                     <div key={key} className="flex flex-col gap-2">
                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">{key}</label>
                       <div className="relative">
-                        <input
+                        <TextInput
                           type="text"
                           value={String(value)}
                           readOnly
-                          className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 font-mono text-sm text-slate-700 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all"
+                          className="font-mono pr-8"
                         />
                         <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300">
                           <Terminal size={14} />
