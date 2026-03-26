@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
                 </div>
 
                 <div className="border-t border-slate-700 mt-8 pt-8 text-center text-xs">
-                    <p>&copy; 2026 新北市政府動物保護防疫處 版權所有 V0.1.0 (Demo)</p>
+                    <p>&copy; 2026 新北市政府動物保護防疫處 版權所有</p>
                 </div>
             </div>
         </footer>

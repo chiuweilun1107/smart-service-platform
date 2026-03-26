@@ -343,16 +343,16 @@ export const MapView: React.FC = () => {
                     <div>
                         <div className="hidden lg:flex items-center gap-2 mb-1">
                             <div className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest border ${isContractor ? 'bg-orange-500/20 text-orange-400 border-orange-500/20' : 'bg-blue-500/20 text-blue-400 border-blue-500/20'}`}>
-                                {isContractor ? 'CONTRACTOR VIEW' : 'LIVE MAP SYSTEM'}
+                                {isContractor ? '外勤視圖' : '即時地圖系統'}
                             </div>
                             {isAdmin && activeCasesCount > 0 && (
                                 <div className="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest border border-red-500/20 animate-pulse">
-                                    {activeCasesCount} ACTIVE CASES
+                                    {activeCasesCount} 個活躍案件
                                 </div>
                             )}
                             {isContractor && activeCasesCount > 0 && (
                                 <div className="bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest border border-orange-500/20 animate-pulse">
-                                    {activeCasesCount} PENDING TASKS
+                                    {activeCasesCount} 個待執行
                                 </div>
                             )}
                         </div>
