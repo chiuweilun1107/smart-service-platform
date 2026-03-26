@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
     return (
@@ -17,10 +18,10 @@ export const Footer: React.FC = () => {
                     <div>
                         <h3 className="text-white text-lg font-bold mb-4">快速連結</h3>
                         <ul className="space-y-2 text-sm">
-                            <li><a href="#" className="hover:text-white">常見問答 (QA)</a></li>
-                            <li><a href="#" className="hover:text-white">動物收容公告</a></li>
-                            <li><a href="#" className="hover:text-white">動保法規查詢</a></li>
-                            <li><a href="#" className="hover:text-white">隱私權政策</a></li>
+                            <li><Link to="/faq" className="hover:text-white">常見問答 (QA)</Link></li>
+                            <li><Link to="/news" className="hover:text-white">動物收容公告</Link></li>
+                            <li><Link to="/resources" className="hover:text-white">動保法規查詢</Link></li>
+                            <li><Link to="/smart-guide" className="hover:text-white">案件通報引導</Link></li>
                         </ul>
                     </div>
 
