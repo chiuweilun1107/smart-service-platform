@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, FileText, Search, Map, BookOpen } from 'lucide-react';
+import { Menu, X, Home, FileText, Search, Map, BookOpen, Globe } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [fontSize, setFontSize] = useState<'standard' | 'large'>('standard');
+    const [lang, setLang] = useState<'TW' | 'EN'>('TW');
     const location = useLocation();
+
+    useEffect(() => {
+        document.documentElement.style.fontSize = fontSize === 'large' ? '18px' : '';
+    }, [fontSize]);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -76,8 +82,40 @@ export const Navbar: React.FC = () => {
                     ))}
                 </div>
 
-                {/* Right: Login + hamburger */}
+                {/* Right: Utility + Login + hamburger */}
                 <div className="flex items-center gap-2 shrink-0">
+
+                    {/* Font size toggle — desktop only */}
+                    <div className="hidden lg:flex items-center bg-slate-100/80 rounded-lg border border-slate-200/60 overflow-hidden">
+                        <button
+                            onClick={() => setFontSize('standard')}
+                            title="標準字體"
+                            className={`px-2.5 py-1.5 text-xs font-bold transition-all ${fontSize === 'standard' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-700'}`}
+                        >
+                            A
+                        </button>
+                        <div className="w-px h-3 bg-slate-300"></div>
+                        <button
+                            onClick={() => setFontSize('large')}
+                            title="大字體"
+                            className={`px-2.5 py-1.5 text-base font-bold transition-all ${fontSize === 'large' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-700'}`}
+                        >
+                            A
+                        </button>
+                    </div>
+
+                    {/* Language toggle — desktop only */}
+                    <button
+                        onClick={() => setLang(lang === 'TW' ? 'EN' : 'TW')}
+                        className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 text-xs font-bold border border-transparent hover:border-slate-200 transition-all"
+                        title="切換語言"
+                    >
+                        <Globe size={14} />
+                        {lang}
+                    </button>
+
+                    <div className="hidden lg:block w-px h-5 bg-slate-200"></div>
+
                     {/* Login button — visible on lg+ */}
                     <Link
                         to="/login"
@@ -121,7 +159,28 @@ export const Navbar: React.FC = () => {
                             </Link>
                         ))}
 
-                        <div className="pt-3 mt-3 border-t border-slate-100">
+                        <div className="pt-3 mt-3 border-t border-slate-100 space-y-3">
+                            {/* Utility row */}
+                            <div className="flex items-center gap-3 px-1">
+                                <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 overflow-hidden">
+                                    <button
+                                        onClick={() => setFontSize('standard')}
+                                        className={`px-3 py-1.5 text-xs font-bold transition-all ${fontSize === 'standard' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}
+                                    >A</button>
+                                    <div className="w-px h-3 bg-slate-300"></div>
+                                    <button
+                                        onClick={() => setFontSize('large')}
+                                        className={`px-3 py-1.5 text-base font-bold transition-all ${fontSize === 'large' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}
+                                    >A</button>
+                                </div>
+                                <button
+                                    onClick={() => setLang(lang === 'TW' ? 'EN' : 'TW')}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 text-xs font-bold border border-slate-200 transition-all"
+                                >
+                                    <Globe size={14} />
+                                    {lang}
+                                </button>
+                            </div>
                             <Link
                                 to="/login"
                                 onClick={() => setIsOpen(false)}
