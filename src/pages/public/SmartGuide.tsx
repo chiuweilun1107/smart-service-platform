@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { SectionBadge } from '../../components/common';
+import { typo } from '../../utils/typography';
 
 type Step = 'start' | 'animal_v_bee' | 'animal_detail' | 'bee_detail' | 'result_emergency' | 'result_normal';
 
@@ -44,7 +45,7 @@ export const SmartGuide: React.FC = () => {
                             <div className="mb-10">
                                 <SectionBadge label="智慧通報引導方案" color="blue" />
                             </div>
-                            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-tight mb-8 md:mb-12 uppercase">
+                            <h2 className={`${typo.hero} md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 mb-8 md:mb-12 uppercase`}>
                                 您需要<br />
                                 <span className="text-blue-600">哪種協助？</span>
                             </h2>
@@ -76,7 +77,7 @@ export const SmartGuide: React.FC = () => {
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
                             </button>
-                            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6 uppercase">動物狀況評估</h2>
+                            <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-6 uppercase`}>動物狀況評估</h2>
                             <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl">請進一步描述動物目前的具體狀況，這將幫助我們判斷派遣優先級。</p>
 
                             <div className="grid grid-cols-1 gap-6">
@@ -111,7 +112,7 @@ export const SmartGuide: React.FC = () => {
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
                             </button>
-                            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6 uppercase">蜂蛇危害評估</h2>
+                            <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-6 uppercase`}>蜂蛇危害評估</h2>
                             <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl">確認蜂巢或蛇類的位置與狀態，以利專業人員攜帶正確裝備。</p>
 
                             <div className="grid grid-cols-1 gap-6">
@@ -146,7 +147,7 @@ export const SmartGuide: React.FC = () => {
                             <div className="w-24 h-24 md:w-32 md:h-32 bg-rose-600 text-white rounded-[2rem] md:rounded-[2.5rem] flex items-center justify-center mb-8 md:mb-12 shadow-2xl shadow-rose-600/50 font-black text-2xl">
                                 !!!
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-rose-950 mb-6 uppercase">緊急告警</h2>
+                            <h2 className={`${typo.h1} md:text-6xl font-black tracking-tighter text-rose-950 mb-6 uppercase`}>緊急告警</h2>
                             <p className="text-lg md:text-2xl text-rose-800 font-bold mb-10 md:mb-12 max-w-2xl px-4 md:px-10">
                                 基於您的描述，當前情況被判定為「極高危險」。請立即撥打動保 24 小時專線進行即時調度。
                             </p>

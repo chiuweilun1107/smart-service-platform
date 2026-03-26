@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Lock, User, Loader2, ArrowRight, Search, FileText, RefreshCw, Briefcase, Settings, ArrowLeft, HardHat } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
+import { typo, input, btn } from '../../utils/typography';
 
 type LoginRole = 'citizen' | 'caseworker' | 'admin' | 'contractor';
 
@@ -104,7 +105,7 @@ export const AdminLogin: React.FC = () => {
                     value={captcha}
                     onChange={(e) => setCaptcha(e.target.value)}
                     placeholder="輸入驗證碼"
-                    className="flex-1 px-5 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 outline-none transition-all font-bold text-lg"
+                    className={`flex-1 ${input.base} ${input.light} font-bold`}
                 />
                 <div
                     onClick={refreshCaptcha}
@@ -203,7 +204,7 @@ export const AdminLogin: React.FC = () => {
                             {activeTab === 'citizen' && (
                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-4">案件進度查詢</h2>
+                                        <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-4`}>案件進度查詢</h2>
                                         <p className="text-slate-400 text-lg font-medium">請點擊下方按鈕直接體驗案件追蹤功能。</p>
                                     </div>
 
@@ -216,7 +217,7 @@ export const AdminLogin: React.FC = () => {
                                                     type="text"
                                                     value={caseId}
                                                     onChange={(e) => setCaseId(e.target.value)}
-                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 outline-none transition-all font-bold text-lg"
+                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
                                                 />
                                             </div>
                                         </div>
@@ -229,7 +230,7 @@ export const AdminLogin: React.FC = () => {
                                                     type="text"
                                                     value={phone}
                                                     onChange={(e) => setPhone(e.target.value)}
-                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 outline-none transition-all font-bold text-lg"
+                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
                                                 />
                                             </div>
                                         </div>
@@ -239,7 +240,7 @@ export const AdminLogin: React.FC = () => {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className="w-full py-6 bg-slate-950 text-white rounded-2xl font-black text-xl hover:bg-blue-600 hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)] transition-all transform active:scale-[0.98] flex items-center justify-center gap-4"
+                                            className={`w-full ${btn.lg} bg-slate-950 text-white hover:bg-blue-600 hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)] flex items-center justify-center gap-4`}
                                         >
                                             {loading ? <Loader2 size={28} className="animate-spin" /> : <>確認查詢 <ArrowRight size={24} /></>}
                                         </button>
@@ -250,7 +251,7 @@ export const AdminLogin: React.FC = () => {
                             {(activeTab === 'caseworker' || activeTab === 'admin') && (
                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-4">
+                                        <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-4`}>
                                             {activeTab === 'admin' ? '系統管理員' : '承備人員'}
                                         </h2>
                                     </div>
@@ -264,7 +265,7 @@ export const AdminLogin: React.FC = () => {
                                                     type="text"
                                                     value={username}
                                                     onChange={(e) => setUsername(e.target.value)}
-                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 outline-none transition-all font-bold text-lg"
+                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
                                                 />
                                             </div>
                                         </div>
@@ -277,7 +278,7 @@ export const AdminLogin: React.FC = () => {
                                                     type="password"
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
-                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 outline-none transition-all font-bold text-lg"
+                                                    className={`${input.base} ${input.light} pl-14 pr-6 font-bold`}
                                                 />
                                             </div>
                                         </div>
@@ -289,7 +290,7 @@ export const AdminLogin: React.FC = () => {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`w-full py-6 text-white rounded-2xl font-black text-xl transition-all transform active:scale-[0.98] flex items-center justify-center gap-4 ${activeTab === 'admin' ? 'bg-indigo-600 hover:bg-indigo-500 hover:shadow-[0_20px_40px_rgba(79,70,229,0.25)]' : 'bg-blue-600 hover:bg-blue-500 hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)]'}`}
+                                            className={`w-full ${btn.lg} text-white flex items-center justify-center gap-4 ${activeTab === 'admin' ? 'bg-indigo-600 hover:bg-indigo-500 hover:shadow-[0_20px_40px_rgba(79,70,229,0.25)]' : 'bg-blue-600 hover:bg-blue-500 hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)]'}`}
                                         >
                                             {loading ? <Loader2 size={28} className="animate-spin" /> : <>立即登入 <ArrowRight size={24} /></>}
                                         </button>
@@ -300,7 +301,7 @@ export const AdminLogin: React.FC = () => {
                             {activeTab === 'contractor' && (
                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-4">外包人員</h2>
+                                        <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-4`}>外包人員</h2>
                                         <p className="text-slate-400 text-lg font-medium">查看您的派工任務與案件地圖。</p>
                                     </div>
 
@@ -313,7 +314,7 @@ export const AdminLogin: React.FC = () => {
                                                     type="text"
                                                     value={username}
                                                     onChange={(e) => setUsername(e.target.value)}
-                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500 outline-none transition-all font-bold text-lg"
+                                                    className={`${input.base} pl-14 pr-6 font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
                                                 />
                                             </div>
                                         </div>
@@ -326,7 +327,7 @@ export const AdminLogin: React.FC = () => {
                                                     type="password"
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
-                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500 outline-none transition-all font-bold text-lg"
+                                                    className={`${input.base} pl-14 pr-6 font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
                                                 />
                                             </div>
                                         </div>
@@ -338,7 +339,7 @@ export const AdminLogin: React.FC = () => {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className="w-full py-6 text-white rounded-2xl font-black text-xl transition-all transform active:scale-[0.98] flex items-center justify-center gap-4 bg-orange-500 hover:bg-orange-400 hover:shadow-[0_20px_40px_rgba(249,115,22,0.25)]"
+                                            className={`w-full ${btn.lg} text-white flex items-center justify-center gap-4 bg-orange-500 hover:bg-orange-400 hover:shadow-[0_20px_40px_rgba(249,115,22,0.25)]`}
                                         >
                                             {loading ? <Loader2 size={28} className="animate-spin" /> : <>立即登入 <ArrowRight size={24} /></>}
                                         </button>

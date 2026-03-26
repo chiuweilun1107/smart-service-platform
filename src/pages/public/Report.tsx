@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { FormSection, FieldLabel, PhotoUpload } from '../../components/common';
+import { typo, input, btn } from '../../utils/typography';
 
 export const Report: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -94,7 +95,7 @@ export const Report: React.FC = () => {
                             {isEmergency ? '!!!' : isBee ? 'B' : 'A'}
                         </div>
                         <div className="flex-1 text-center md:text-left">
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white uppercase mb-4 leading-tight">
+                            <h1 className={`${typo.h1} lg:text-6xl font-black tracking-tighter text-white uppercase mb-4`}>
                                 {isEmergency ? '緊急案件' : isBee ? '蜂蛇移除' : '一般案件'}<br />
                                 <span className={isEmergency ? 'text-red-200' : isBee ? 'text-orange-200' : 'text-blue-500'}>通報程序系統</span>
                             </h1>
@@ -149,7 +150,7 @@ export const Report: React.FC = () => {
                                         <select
                                             value={region}
                                             onChange={(e) => setRegion(e.target.value)}
-                                            className="w-full px-8 py-5 bg-slate-50 border border-slate-100 rounded-3xl font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                            className={`${input.base} ${input.light} font-bold rounded-3xl`}
                                         >
                                             <option>新北市 - 板橋區</option>
                                             <option>新北市 - 新莊區</option>
@@ -164,7 +165,7 @@ export const Report: React.FC = () => {
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                             placeholder="例如：四川路一段 157 巷口..."
-                                            className="w-full px-8 py-5 bg-slate-50 border border-slate-100 rounded-3xl font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-300"
+                                            className={`${input.base} ${input.light} font-bold rounded-3xl placeholder:text-slate-300`}
                                         />
                                     </div>
                                 </div>
@@ -181,7 +182,7 @@ export const Report: React.FC = () => {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         placeholder="請描述現場動物狀況、數量、種類，或蜂巢概略位置高度..."
-                                        className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-3xl font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-300"
+                                        className={`${input.base} ${input.light} font-bold rounded-3xl placeholder:text-slate-300`}
                                     />
                                 </div>
 
@@ -192,7 +193,7 @@ export const Report: React.FC = () => {
                                             type="text"
                                             value={contactName}
                                             onChange={(e) => setContactName(e.target.value)}
-                                            className="w-full px-8 py-5 bg-slate-50 border border-slate-100 rounded-3xl font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                            className={`${input.base} ${input.light} font-bold rounded-3xl`}
                                         />
                                     </div>
                                     <div className="space-y-3">
@@ -201,7 +202,7 @@ export const Report: React.FC = () => {
                                             type="tel"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
-                                            className="w-full px-8 py-5 bg-slate-50 border border-slate-100 rounded-3xl font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                            className={`${input.base} ${input.light} font-bold rounded-3xl`}
                                         />
                                     </div>
                                 </div>
@@ -226,14 +227,14 @@ export const Report: React.FC = () => {
 
                         {/* Submit Button */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pt-8 md:pt-10">
-                            <Link to="/smart-guide" className="w-full py-5 md:py-8 rounded-[2rem] md:rounded-[2.5rem] bg-white border border-slate-100 font-black text-base md:text-xl uppercase tracking-[0.2em] text-slate-400 flex items-center justify-center hover:bg-slate-50 transition-all">
+                            <Link to="/smart-guide" className={`w-full ${btn.lg} rounded-[2rem] md:rounded-[2.5rem] bg-white border border-slate-100 uppercase tracking-[0.2em] text-slate-400 flex items-center justify-center hover:bg-slate-50`}>
                                 STEP BACK
                             </Link>
 
                             <button
                                 type="submit"
                                 disabled={isSubmitting || (isBee ? false : photos.length === 0)}
-                                className={`md:col-span-2 w-full py-5 md:py-8 rounded-[2rem] md:rounded-[2.5rem] font-black text-base md:text-xl uppercase tracking-[0.2em] text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-center justify-center gap-4 transition-all active:scale-95
+                                className={`md:col-span-2 w-full ${btn.lg} rounded-[2rem] md:rounded-[2.5rem] uppercase tracking-[0.2em] text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-center justify-center gap-4 active:scale-95
                                     ${isSubmitting
                                         ? 'bg-slate-300 cursor-not-allowed'
                                         : isBee

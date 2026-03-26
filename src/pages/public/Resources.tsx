@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Download, FileText, Book, Shield, ArrowRight, Layers } from 'lucide-react';
 import { SectionBadge } from '../../components/common';
+import { typo, input, btn } from '../../utils/typography';
 
 const CATEGORIES = [
     { id: 'all', label: '全部資源', icon: Layers },
@@ -40,7 +41,7 @@ export const Resources: React.FC = () => {
                         <div className="mb-6">
                             <SectionBadge label="Government Open Data &amp; resources" color="emerald" />
                         </div>
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-tight mb-8">
+                        <h1 className={`${typo.hero} md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 mb-8`}>
                             便民服務<br />
                             <span className="text-emerald-500">資源中心</span>
                         </h1>
@@ -57,7 +58,7 @@ export const Resources: React.FC = () => {
                                 placeholder="搜尋關鍵字 (例如: 法令、報表)..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all font-bold text-sm"
+                                className={`${input.base} pl-12 pr-4 bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 font-bold`}
                             />
                         </div>
                     </div>
@@ -114,10 +115,10 @@ export const Resources: React.FC = () => {
                 {/* FAQ Quick Link Banner */}
                 <div className="mt-16 md:mt-32 p-8 md:p-12 bg-slate-950 rounded-[2rem] md:rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 relative overflow-hidden group">
                     <div className="relative z-10 text-center md:text-left">
-                        <h2 className="text-2xl md:text-4xl font-black tracking-tighter mb-4">還有其他疑問嗎？</h2>
+                        <h2 className={`${typo.h2} md:text-4xl font-black tracking-tighter mb-4`}>還有其他疑問嗎？</h2>
                         <p className="text-slate-400 text-base md:text-lg font-medium">查看服務百科，了解更多關於系統運作、通報規範與相關權責說明。</p>
                     </div>
-                    <button className="relative z-10 w-full md:w-auto px-8 md:px-10 py-4 md:py-5 bg-white text-slate-950 rounded-2xl font-black text-base md:text-lg hover:bg-emerald-500 hover:text-white transition-all shadow-xl flex items-center justify-center gap-3">
+                    <button className={`relative z-10 w-full md:w-auto ${btn.lg} bg-white text-slate-950 hover:bg-emerald-500 hover:text-white shadow-xl flex items-center justify-center gap-3`}>
                         進入服務百科 <ArrowRight size={20} />
                     </button>
                     <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-600/10 blur-[100px] rounded-full group-hover:bg-emerald-600/20 transition-all"></div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { SectionBadge } from '../../components/common';
+import { typo } from '../../utils/typography';
 
 const NEWS_ARTICLES = [
     {
@@ -61,7 +62,7 @@ export const News: React.FC = () => {
                     <div className="flex items-center gap-4 mb-6">
                         <SectionBadge label="官方新聞與即時通報" color="slate" />
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-tight mb-6">
+                    <h1 className={`${typo.hero} md:text-6xl font-black tracking-tighter text-slate-900 mb-6`}>
                         最新公告
                     </h1>
                     <p className="text-slate-500 text-base md:text-lg font-medium max-w-2xl leading-relaxed border-l-4 border-slate-200 pl-6">
@@ -82,7 +83,7 @@ export const News: React.FC = () => {
                                         </div>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-lg md:text-2xl font-black tracking-tight text-slate-900 mb-3 group-hover:text-blue-600 transition-colors leading-tight">
+                                        <h3 className={`${typo.h3} md:text-2xl font-black tracking-tight text-slate-900 mb-3 group-hover:text-blue-600 transition-colors`}>
                                             {article.title}
                                         </h3>
                                         <p className="text-slate-500 font-medium leading-relaxed max-w-2xl">

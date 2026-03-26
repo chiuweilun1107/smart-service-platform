@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { PageHeader } from '../../components/common';
+import { typo, input } from '../../utils/typography';
 
 interface CaseStatus {
     id: string;
@@ -81,7 +82,7 @@ export const Status: React.FC = () => {
                                         value={caseId}
                                         onChange={(e) => setCaseId(e.target.value)}
                                         placeholder="輸入案件編號..."
-                                        className="w-full px-6 py-5 bg-transparent text-slate-900 font-black text-xl tracking-tight outline-none placeholder:text-slate-300"
+                                        className="w-full px-6 py-3 md:py-4 bg-transparent text-slate-900 font-black text-base md:text-xl tracking-tight outline-none placeholder:text-slate-300"
                                     />
                                 </div>
                                 <button
@@ -111,7 +112,7 @@ export const Status: React.FC = () => {
                                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 border border-blue-100 shadow-sm">
                                             LIVE STATUS
                                         </div>
-                                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 mb-2 uppercase leading-none break-all">{result.id}</h2>
+                                        <h2 className={`${typo.h1} lg:text-6xl font-black tracking-tighter text-slate-900 mb-2 uppercase leading-none break-all`}>{result.id}</h2>
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-10 pl-1">CASE IDENTIFIER</div>
 
                                         <div className={`px-6 md:px-10 py-4 md:py-6 rounded-3xl font-black text-xl md:text-3xl tracking-tighter uppercase shadow-xl ${result.status === 'processing' ? 'bg-blue-600 text-white shadow-blue-600/30' : 'bg-slate-900 text-white'}`}>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { CheckCircle2, Home, Search } from 'lucide-react';
+import { typo, btn } from '../../utils/typography';
 
 export const ReportSuccess: React.FC = () => {
     const location = useLocation();
@@ -28,7 +29,7 @@ export const ReportSuccess: React.FC = () => {
                         <CheckCircle2 size={48} />
                     </div>
 
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6">
+                    <h1 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-6`}>
                         案件通報成功！
                     </h1>
                     <p className="text-slate-500 text-lg font-medium leading-relaxed mb-12 max-w-lg mx-auto">
@@ -52,14 +53,14 @@ export const ReportSuccess: React.FC = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
                             to="/"
-                            className="px-8 py-4 border border-slate-200 text-slate-400 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 transition-all flex items-center justify-center gap-3"
+                            className={`${btn.primary} border border-slate-200 text-slate-400 uppercase tracking-widest hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 flex items-center justify-center gap-3`}
                         >
                             <Home size={18} />
                             返回首頁
                         </Link>
                         <Link
                             to={`/status?id=${caseId}`}
-                            className="px-8 py-4 bg-emerald-500 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-emerald-600 shadow-xl shadow-emerald-500/20 transition-all flex items-center justify-center gap-3"
+                            className={`${btn.primary} bg-emerald-500 text-white uppercase tracking-widest hover:bg-emerald-600 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-3`}
                         >
                             <Search size={18} />
                             查詢處理進度

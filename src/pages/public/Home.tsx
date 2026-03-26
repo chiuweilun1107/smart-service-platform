@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Activity, Phone, Info, Play, Pause } from 'lucide-react';
+import { typo, input } from '../../utils/typography';
 
 import heroShiba from '../../assets/images/hero_shiba.png';
 import heroRescue from '../../assets/images/hero_rescue.png';
@@ -117,7 +118,7 @@ export const Home: React.FC = () => {
                                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                                 {HERO_SLIDES[currentSlide].tag}
                             </div>
-                            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tighter leading-tight md:leading-[0.9] uppercase mix-blend-overlay">
+                            <h1 className={`${typo.hero} md:text-7xl font-black text-white tracking-tighter md:leading-[0.9] uppercase mix-blend-overlay`}>
                                 {HERO_SLIDES[currentSlide].title}
                             </h1>
                             <p className="text-base md:text-xl text-slate-300 font-medium max-w-2xl leading-relaxed">
@@ -165,7 +166,7 @@ export const Home: React.FC = () => {
                                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/20 backdrop-blur-md rounded-full text-[10px] font-black text-red-500 uppercase tracking-widest mb-6 border border-red-500/20">
                                     <Activity size={12} /> 即時勤務中心
                                 </div>
-                                <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 leading-tight">緊急<br />通報專線</h3>
+                                <h3 className={`${typo.h2} md:text-5xl font-black tracking-tighter mb-4 leading-tight`}>緊急<br />通報專線</h3>
                                 <p className="text-slate-400 text-sm font-medium leading-relaxed mb-8">
                                     發現緊急生命救援需求？請優先撥打智慧勤務熱線，由全球調度員直接為您部署。
                                 </p>
@@ -193,7 +194,7 @@ export const Home: React.FC = () => {
                             <div className="flex items-end justify-between mb-10 border-b border-slate-50 pb-6">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between w-full">
                                     <div className="mb-6 md:mb-0">
-                                        <h3 className="text-2xl md:text-4xl font-black tracking-tighter text-slate-900 uppercase">案件通報</h3>
+                                        <h3 className={`${typo.h2} md:text-4xl font-black tracking-tighter text-slate-900 uppercase`}>案件通報</h3>
                                         <div className="flex items-center gap-3 mt-2">
                                             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">系統連線正常 • Sync: 100%</p>
@@ -204,7 +205,7 @@ export const Home: React.FC = () => {
                                             type="text"
                                             placeholder="輸入案件編號追蹤進度..."
                                             id="home-query-input"
-                                            className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-600/10 outline-none transition-all font-bold text-sm text-slate-900 placeholder:text-slate-400"
+                                            className={`${input.base} ${input.light} font-bold text-slate-900 placeholder:text-slate-400`}
                                         />
                                         <button
                                             onClick={() => {
@@ -252,7 +253,7 @@ export const Home: React.FC = () => {
             <section id="process-guide" className="py-10 bg-white overflow-hidden relative">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-10">
-                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 uppercase mb-8">
+                        <h2 className={`${typo.hero} md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 uppercase mb-8`}>
                             智慧通報引導
                         </h2>
                         <p className="text-slate-500 text-base md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
@@ -302,7 +303,7 @@ export const Home: React.FC = () => {
             <section className="relative h-[650px] flex items-center justify-center bg-fixed bg-center bg-cover" style={{ backgroundImage: `url(${bgMapNtpc})` }}>
                 <div className="relative z-10 max-w-5xl mx-auto px-6">
                     <div className="p-8 md:p-16 lg:p-20 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] md:rounded-[4rem] text-center shadow-2xl animate-in fade-in zoom-in duration-1000">
-                        <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter mb-6 md:mb-8 drop-shadow-md">
+                        <h2 className={`${typo.hero} md:text-6xl lg:text-8xl font-black text-white tracking-tighter mb-6 md:mb-8 drop-shadow-md`}>
                             即時動保地圖
                         </h2>
                         <p className="text-base md:text-xl lg:text-2xl text-white/90 font-bold mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../../components/common';
+import { input } from '../../utils/typography';
 
 const FAQ_SECTIONS = [
     {
@@ -81,7 +82,7 @@ export const FAQ: React.FC = () => {
                                 placeholder="搜尋智慧索引..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full px-8 py-5 bg-white border-2 border-slate-200 rounded-[2rem] text-slate-900 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-bold placeholder:text-slate-300 shadow-sm"
+                                className={`${input.base} bg-white border-2 border-slate-200 rounded-[2rem] text-slate-900 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 font-bold placeholder:text-slate-300 shadow-sm`}
                             />
                         </div>
                     </PageHeader>
