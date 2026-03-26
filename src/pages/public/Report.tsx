@@ -56,7 +56,7 @@ export const Report: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white overflow-hidden">
+        <div className="min-h-screen bg-slate-50 overflow-hidden">
             {/* Emergency Alert Banner */}
             {isEmergency && (
                 <div className="fixed top-20 left-0 right-0 z-40 bg-gradient-to-r from-red-600 to-rose-600 text-white py-4 px-6 shadow-2xl animate-in slide-in-from-top-5">
@@ -194,7 +194,7 @@ export const Report: React.FC = () => {
                             title="視覺影像上傳"
                             headerRight={
                                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                    ENCRYPTED CHANNEL
+                                    加密上傳通道
                                 </span>
                             }
                         >
@@ -207,7 +207,7 @@ export const Report: React.FC = () => {
                         {/* Submit Button */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pt-8 md:pt-10">
                             <Link to="/smart-guide" className={`w-full ${btn.lg} rounded-xl bg-white border border-slate-200 text-slate-600 uppercase tracking-[0.2em] flex items-center justify-center hover:border-slate-400 transition-all`}>
-                                STEP BACK
+                                返回上一步
                             </Link>
 
                             <button
@@ -228,7 +228,7 @@ export const Report: React.FC = () => {
 
                     <div className="mt-20 text-center">
                         <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">
-                            End-to-End Encryption Secured • Citizens Protection Protocol
+                            端對端加密保護 • 市民保護協定
                         </p>
                     </div>
                 </div>

@@ -55,7 +55,7 @@ const NEWS_ARTICLES = [
 
 export const News: React.FC = () => {
     return (
-        <div className="min-h-screen bg-white pt-24 pb-20 px-6">
+        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
             <div className="max-w-5xl mx-auto">
                 {/* Header Container */}
                 <div className="mb-12">
@@ -71,7 +71,8 @@ export const News: React.FC = () => {
                 </div>
 
                 {/* News List */}
-                <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+                <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                    <div className="h-1 bg-blue-600 w-full"></div>
                     <div className="divide-y divide-slate-100">
                         {NEWS_ARTICLES.map((article) => (
                             <div key={article.id} className="p-6 md:p-10 hover:bg-slate-50 transition-all group cursor-pointer">
@@ -91,7 +92,7 @@ export const News: React.FC = () => {
                                         </p>
                                     </div>
                                     <div className="flex-shrink-0 pt-1 opacity-0 group-hover:opacity-100 transition-all font-black text-[10px] text-blue-600 tracking-widest hidden md:block group-hover:translate-x-0 translate-x-4">
-                                        READ MORE
+                                        閱讀更多
                                     </div>
                                 </div>
                             </div>
@@ -101,8 +102,11 @@ export const News: React.FC = () => {
 
                 {/* Footer Actions */}
                 <div className="mt-20 text-center">
-                    <Link to="/" className="inline-flex items-center gap-2 text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:text-slate-900 transition-colors">
-                        RETURN TO PORTAL
+                    <Link to="/" className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm hover:bg-blue-600 transition-all shadow-lg">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        返回首頁
                     </Link>
                 </div>
             </div>

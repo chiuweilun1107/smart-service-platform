@@ -32,7 +32,7 @@ export const Resources: React.FC = () => {
     });
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-20 overflow-hidden">
+        <div className="min-h-screen bg-slate-50 pt-24 pb-20 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Header Section */}
@@ -82,7 +82,7 @@ export const Resources: React.FC = () => {
                 {/* Resource Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredResources.map(res => (
-                        <div key={res.id} className="group relative bg-white border border-slate-100 rounded-2xl p-8 hover:shadow-xl hover:border-blue-100 transition-all duration-500 flex flex-col justify-between min-h-[280px]">
+                        <div key={res.id} className="group relative bg-white border border-slate-200 rounded-2xl p-8 hover:shadow-xl hover:border-blue-100 transition-all duration-500 flex flex-col justify-between min-h-[280px]">
                             <div>
                                 <div className="flex items-center justify-between mb-8">
                                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${res.category === 'laws' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-600' : res.category === 'manuals' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-600' : 'bg-blue-50 text-blue-600 group-hover:bg-blue-600'} group-hover:text-white`}>
@@ -99,7 +99,7 @@ export const Resources: React.FC = () => {
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-slate-50 group-hover:bg-slate-900 text-slate-400 group-hover:text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3">
+                            <button className="w-full py-4 bg-slate-900 hover:bg-blue-600 text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3">
                                 <Download size={14} /> 立即下載資源
                             </button>
                         </div>
@@ -119,7 +119,7 @@ export const Resources: React.FC = () => {
                         <h2 className={`${typo.h2} md:text-4xl font-black tracking-tighter mb-4`}>還有其他疑問嗎？</h2>
                         <p className="text-slate-400 text-base md:text-lg font-medium">查看服務百科，了解更多關於系統運作、通報規範與相關權責說明。</p>
                     </div>
-                    <button className={`relative z-10 w-full md:w-auto ${btn.lg} bg-white text-slate-900 hover:bg-blue-600 hover:text-white shadow-xl flex items-center justify-center gap-3 transition-all`}>
+                    <button className={`relative z-10 w-full md:w-auto ${btn.lg} bg-blue-600 hover:bg-blue-700 text-white shadow-xl flex items-center justify-center gap-3 transition-all`}>
                         進入服務百科 <ArrowRight size={20} />
                     </button>
                     <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-600/10 blur-[100px] rounded-full group-hover:bg-blue-600/20 transition-all"></div>

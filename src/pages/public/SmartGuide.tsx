@@ -169,7 +169,7 @@ export const SmartGuide: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 relative overflow-hidden">
             {/* Minimalist Background Layout */}
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 blur-[150px] rounded-full pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-100/30 blur-[150px] rounded-full pointer-events-none"></div>
@@ -183,13 +183,13 @@ export const SmartGuide: React.FC = () => {
             {/* Global Overlay Elements */}
             <div className="fixed top-10 left-10 flex flex-col">
                 <Link to="/" className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] hover:text-blue-600 transition-all">
-                    EXIT GUIDE
+                    離開引導
                 </Link>
             </div>
 
             <div className="fixed bottom-10 right-10 text-right">
                 <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">
-                    SYSTEM PROTOCOL: {currentStep.toUpperCase().replace(/_/g, ' ')}
+                    目前步驟：{currentStep.toUpperCase().replace(/_/g, ' ')}
                 </p>
             </div>
         </div>

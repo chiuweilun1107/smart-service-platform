@@ -64,7 +64,7 @@ export const FAQ: React.FC = () => {
     );
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-20 px-6">
+        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
             <div>
                 <div className="max-w-6xl mx-auto">
                     {/* Header */}
@@ -126,7 +126,7 @@ export const FAQ: React.FC = () => {
                                             const id = `${sIdx}-${qIdx}`;
                                             const isOpen = openIndex === id;
                                             return (
-                                                <div key={qIdx} className={`group relative bg-white rounded-2xl border transition-all duration-500 overflow-hidden ${isOpen ? 'border-blue-600 shadow-xl shadow-blue-600/10 ring-1 ring-blue-400/20' : 'border-slate-100 hover:border-blue-200'}`}>
+                                                <div key={qIdx} className={`group relative bg-white rounded-2xl border transition-all duration-500 overflow-hidden ${isOpen ? 'border-blue-600 shadow-xl shadow-blue-600/10 ring-1 ring-blue-400/20' : 'border-slate-200 hover:border-blue-200'}`}>
                                                     <button
                                                         onClick={() => toggle(id)}
                                                         className="w-full text-left p-6 md:p-10 flex items-center justify-between gap-4 md:gap-8"
@@ -164,7 +164,7 @@ export const FAQ: React.FC = () => {
                         {/* Sidebar Widgets */}
                         <div className="lg:col-span-4 space-y-8">
                             {/* Fast Links Widget */}
-                            <div className="bg-white rounded-2xl border border-slate-100 shadow-xl p-10">
+                            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-10">
                                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.2em] mb-8">
                                     快速鏈結
                                 </h3>
@@ -177,7 +177,7 @@ export const FAQ: React.FC = () => {
                                     ].map((link, i) => (
                                         <button key={i} className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-all group">
                                             <span className="font-bold text-slate-600 group-hover:text-slate-900">{link.label}</span>
-                                            <span className="text-[10px] font-black text-slate-300 group-hover:text-blue-600 transition-all">VIEW</span>
+                                            <span className="text-[10px] font-black text-slate-300 group-hover:text-blue-600 transition-all">查看</span>
                                         </button>
                                     ))}
                                 </div>
@@ -205,8 +205,11 @@ export const FAQ: React.FC = () => {
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
                             </div>
 
-                            <Link to="/" className="flex items-center justify-center gap-4 py-6 bg-white border border-slate-100 rounded-2xl text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-slate-50 hover:text-slate-900 transition-all">
-                                RETURN TO PORTAL
+                            <Link to="/" className="flex items-center justify-center gap-3 py-4 px-6 bg-slate-900 text-white rounded-2xl font-black text-sm hover:bg-blue-600 transition-all shadow-lg">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                </svg>
+                                返回首頁
                             </Link>
                         </div>
                     </div>

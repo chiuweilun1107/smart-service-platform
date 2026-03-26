@@ -68,7 +68,7 @@ export const FieldworkReport: React.FC = () => {
 
 
     return (
-        <div className="min-h-screen bg-white font-sans flex flex-col pt-24 pb-20">
+        <div className="min-h-screen bg-slate-50 font-sans flex flex-col pt-24 pb-20">
 
             {/* Page header */}
             <div className="px-4 mb-6">
@@ -326,21 +326,24 @@ export const FieldworkReport: React.FC = () => {
                         </div>
 
                         {/* Summary */}
-                        <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2.5">
-                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">回報摘要</div>
-                            {[
-                                { label: '案件',   value: caseItem?.title ?? caseId },
-                                { label: '到場',   value: gpsTime },
-                                { label: '地點',   value: gpsCoords?.address ?? '-' },
-                                { label: '人員',   value: `${handlerName}（${handlerBadge}）` },
-                                { label: '處置',   value: processingResult || '（未填）' },
-                                { label: '備注',   value: note || '（無）' },
-                            ].map(row => (
-                                <div key={row.label} className="flex gap-3 text-sm">
-                                    <span className="text-slate-400 shrink-0 w-8 text-[11px] font-bold">{row.label}</span>
-                                    <span className="text-slate-700 leading-snug">{row.value}</span>
-                                </div>
-                            ))}
+                        <div className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="h-0.5 bg-blue-600 w-full"></div>
+                            <div className="p-4 space-y-2.5">
+                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">回報摘要</div>
+                                {[
+                                    { label: '案件',   value: caseItem?.title ?? caseId },
+                                    { label: '到場',   value: gpsTime },
+                                    { label: '地點',   value: gpsCoords?.address ?? '-' },
+                                    { label: '人員',   value: `${handlerName}（${handlerBadge}）` },
+                                    { label: '處置',   value: processingResult || '（未填）' },
+                                    { label: '備注',   value: note || '（無）' },
+                                ].map(row => (
+                                    <div key={row.label} className="flex gap-3 text-sm">
+                                        <span className="text-slate-400 shrink-0 w-8 text-[11px] font-bold">{row.label}</span>
+                                        <span className="text-slate-700 leading-snug">{row.value}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         <div>

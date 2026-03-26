@@ -18,7 +18,7 @@ export const ReportSuccess: React.FC = () => {
     if (!caseId) return null;
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-20">
+        <div className="min-h-screen bg-slate-50 pt-24 pb-20">
             <div className="max-w-5xl mx-auto px-6">
                 {/* Page Header */}
                 <div className="mb-12">
@@ -27,7 +27,8 @@ export const ReportSuccess: React.FC = () => {
                     <p className="mt-3 text-base text-slate-500 font-medium">系統已受理您的通報，以下為您的案件資訊。</p>
                 </div>
 
-            <div className="max-w-2xl w-full bg-white rounded-3xl shadow-xl border border-slate-100 p-8 md:p-16 text-center relative overflow-hidden">
+            <div className="max-w-2xl w-full bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-16 text-center relative overflow-hidden">
+                <div className="absolute top-0 left-0 h-1 bg-blue-600 w-full"></div>
 
                 {/* Decorative Background */}
                 <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-emerald-50 to-transparent left-0 z-0"></div>
@@ -46,13 +47,13 @@ export const ReportSuccess: React.FC = () => {
 
                     <div className="bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 mb-12 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
                         <div className="relative z-10">
-                            <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">您的案件編號 (Case ID)</p>
+                            <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">您的案件編號</p>
                             <p className="text-2xl md:text-4xl lg:text-5xl font-mono font-bold text-white tracking-widest select-all break-all">
                                 {caseId}
                             </p>
                             <div className="mt-4 flex items-center justify-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
                                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                System Processing
+                                系統處理中
                             </div>
                         </div>
                     </div>
@@ -60,7 +61,7 @@ export const ReportSuccess: React.FC = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
                             to="/"
-                            className={`${btn.primary} rounded-xl bg-white border border-slate-200 text-slate-600 uppercase tracking-widest hover:border-slate-400 hover:text-slate-900 flex items-center justify-center gap-3 transition-all`}
+                            className={`${btn.primary} rounded-2xl bg-slate-900 text-white uppercase tracking-widest hover:bg-blue-600 shadow-lg flex items-center justify-center gap-3 transition-all`}
                         >
                             <Home size={18} />
                             返回首頁
