@@ -61,10 +61,10 @@ export const News: React.FC = () => {
                     <div className="flex items-center gap-4 mb-6">
                         <SectionBadge label="官方新聞與即時通報" color="slate" />
                     </div>
-                    <h1 className="text-6xl font-black tracking-tighter text-slate-900 leading-none mb-6">
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-tight mb-6">
                         最新公告
                     </h1>
-                    <p className="text-slate-500 text-lg font-medium max-w-2xl leading-relaxed border-l-4 border-slate-200 pl-6">
+                    <p className="text-slate-500 text-base md:text-lg font-medium max-w-2xl leading-relaxed border-l-4 border-slate-200 pl-6">
                         即時發布新北市動物保護政策、緊急通報及各式成果快訊。我們致力於提供最透明、最高效率的資訊服務。
                     </p>
                 </div>
@@ -73,16 +73,16 @@ export const News: React.FC = () => {
                 <div className="bg-white rounded-[3rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
                     <div className="divide-y divide-slate-100">
                         {NEWS_ARTICLES.map((article) => (
-                            <div key={article.id} className="p-8 md:p-10 hover:bg-slate-50 transition-all group cursor-pointer">
-                                <div className="flex flex-col md:flex-row md:items-start gap-8">
-                                    <div className="w-32 flex-shrink-0 pt-1">
+                            <div key={article.id} className="p-6 md:p-10 hover:bg-slate-50 transition-all group cursor-pointer">
+                                <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                                    <div className="flex flex-row md:flex-col items-center md:items-start gap-3 md:gap-0 md:w-32 flex-shrink-0 pt-1">
                                         <div className="text-[11px] font-black text-slate-400 capitalize mb-2">{article.date}</div>
                                         <div className={`inline-block px-3 py-1 rounded text-[10px] font-black tracking-widest uppercase ${article.urgent ? 'bg-red-100 text-red-600' : 'bg-slate-100 text-slate-500'}`}>
                                             {article.category}
                                         </div>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-2xl font-black tracking-tight text-slate-900 mb-4 group-hover:text-blue-600 transition-colors leading-tight">
+                                        <h3 className="text-lg md:text-2xl font-black tracking-tight text-slate-900 mb-3 group-hover:text-blue-600 transition-colors leading-tight">
                                             {article.title}
                                         </h3>
                                         <p className="text-slate-500 font-medium leading-relaxed max-w-2xl">

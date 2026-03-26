@@ -106,15 +106,15 @@ export const Status: React.FC = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 animate-in fade-in slide-in-from-bottom-20 duration-1000">
                             {/* Mission Intelligence Overlay */}
                             <div className="lg:col-span-12">
-                                <div className="bg-white rounded-[4rem] border border-slate-100 shadow-2xl p-10 md:p-16 flex flex-col md:flex-row items-center gap-16 relative overflow-hidden">
+                                <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-2xl p-8 md:p-16 flex flex-col md:flex-row items-center gap-8 md:gap-16 relative overflow-hidden">
                                     <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left border-r-0 md:border-r border-slate-100 pr-0 md:pr-16 md:min-w-[300px]">
                                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 border border-blue-100 shadow-sm">
                                             LIVE STATUS
                                         </div>
-                                        <h2 className="text-6xl font-black tracking-tighter text-slate-900 mb-2 uppercase leading-none">{result.id}</h2>
+                                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 mb-2 uppercase leading-none break-all">{result.id}</h2>
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-10 pl-1">CASE IDENTIFIER</div>
 
-                                        <div className={`px-10 py-6 rounded-3xl font-black text-3xl tracking-tighter uppercase shadow-xl ${result.status === 'processing' ? 'bg-blue-600 text-white shadow-blue-600/30' : 'bg-slate-900 text-white'}`}>
+                                        <div className={`px-6 md:px-10 py-4 md:py-6 rounded-3xl font-black text-xl md:text-3xl tracking-tighter uppercase shadow-xl ${result.status === 'processing' ? 'bg-blue-600 text-white shadow-blue-600/30' : 'bg-slate-900 text-white'}`}>
                                             {result.status === 'processing' ? '執行中任務' : result.status === 'resolved' ? '已結案' : '待處理'}
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@ export const Status: React.FC = () => {
 
                             {/* Mission Timeline - Full Width */}
                             <div className="lg:col-span-12">
-                                <div className="bg-white rounded-[4rem] border border-slate-100 shadow-2xl p-10 md:p-20 relative overflow-hidden">
+                                <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-2xl p-8 md:p-20 relative overflow-hidden">
                                     <div className="flex items-center justify-between mb-20 relative z-10">
                                         <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.5em] flex items-center gap-4">
                                             歷程紀錄

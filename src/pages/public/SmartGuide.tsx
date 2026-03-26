@@ -14,7 +14,7 @@ const ChoiceCard: React.FC<{
 }> = ({ title, description, onClick, active, label, warning }) => (
     <button
         onClick={onClick}
-        className={`w-full group relative p-10 bg-white rounded-[3rem] border-2 transition-all duration-500 text-left overflow-hidden ${warning ? 'hover:border-rose-300' : 'hover:border-blue-300'} ${active ? 'border-blue-600 shadow-2xl shadow-blue-600/10' : 'border-slate-100'}`}
+        className={`w-full group relative p-6 md:p-10 bg-white rounded-[2rem] md:rounded-[3rem] border-2 transition-all duration-500 text-left overflow-hidden ${warning ? 'hover:border-rose-300' : 'hover:border-blue-300'} ${active ? 'border-blue-600 shadow-2xl shadow-blue-600/10' : 'border-slate-100'}`}
     >
         <div className="relative z-10">
             {label && (
@@ -22,8 +22,8 @@ const ChoiceCard: React.FC<{
                     {label}
                 </div>
             )}
-            <h3 className="text-3xl font-black tracking-tighter text-slate-900 mb-4 uppercase">{title}</h3>
-            <p className="text-slate-500 font-medium leading-relaxed text-lg">{description}</p>
+            <h3 className="text-xl md:text-3xl font-black tracking-tighter text-slate-900 mb-3 uppercase">{title}</h3>
+            <p className="text-slate-500 font-medium leading-relaxed text-sm md:text-lg">{description}</p>
         </div>
         <div className={`absolute bottom-[-20%] right-[-10%] w-[40%] h-[40%] blur-[80px] rounded-full transition-all duration-700 ${warning ? 'bg-rose-600/5' : 'bg-blue-600/5'} ${active ? 'opacity-100 scale-150' : 'opacity-0 scale-100'}`}></div>
     </button>
@@ -44,11 +44,11 @@ export const SmartGuide: React.FC = () => {
                             <div className="mb-10">
                                 <SectionBadge label="智慧通報引導方案" color="blue" />
                             </div>
-                            <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-slate-900 leading-[0.9] mb-12 uppercase">
+                            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-tight mb-8 md:mb-12 uppercase">
                                 您需要<br />
                                 <span className="text-blue-600">哪種協助？</span>
                             </h2>
-                            <p className="text-xl text-slate-500 font-medium mb-16 max-w-2xl leading-relaxed">
+                            <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl leading-relaxed">
                                 歡迎使用智慧勤務引導系統。請根據您現場觀察到的情況，選擇最符合的案件類型，我們將引導您完成正式通報。
                             </p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -76,8 +76,8 @@ export const SmartGuide: React.FC = () => {
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
                             </button>
-                            <h2 className="text-5xl font-black tracking-tighter text-slate-900 mb-6 uppercase">動物狀況評估</h2>
-                            <p className="text-xl text-slate-500 font-medium mb-16 max-w-2xl">請進一步描述動物目前的具體狀況，這將幫助我們判斷派遣優先級。</p>
+                            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6 uppercase">動物狀況評估</h2>
+                            <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl">請進一步描述動物目前的具體狀況，這將幫助我們判斷派遣優先級。</p>
 
                             <div className="grid grid-cols-1 gap-6">
                                 <ChoiceCard
@@ -111,8 +111,8 @@ export const SmartGuide: React.FC = () => {
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
                             </button>
-                            <h2 className="text-5xl font-black tracking-tighter text-slate-900 mb-6 uppercase">蜂蛇危害評估</h2>
-                            <p className="text-xl text-slate-500 font-medium mb-16 max-w-2xl">確認蜂巢或蛇類的位置與狀態，以利專業人員攜帶正確裝備。</p>
+                            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6 uppercase">蜂蛇危害評估</h2>
+                            <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl">確認蜂巢或蛇類的位置與狀態，以利專業人員攜帶正確裝備。</p>
 
                             <div className="grid grid-cols-1 gap-6">
                                 <ChoiceCard
@@ -142,21 +142,21 @@ export const SmartGuide: React.FC = () => {
             case 'result_emergency':
                 return (
                     <div className="animate-in zoom-in-95 duration-1000">
-                        <div className="max-w-4xl mx-auto text-center py-20 bg-rose-50 rounded-[5rem] border-2 border-rose-100 flex flex-col items-center">
-                            <div className="w-32 h-32 bg-rose-600 text-white rounded-[2.5rem] flex items-center justify-center mb-12 shadow-2xl shadow-rose-600/50 font-black text-2xl">
+                        <div className="max-w-4xl mx-auto text-center py-12 md:py-20 px-6 bg-rose-50 rounded-[3rem] md:rounded-[5rem] border-2 border-rose-100 flex flex-col items-center">
+                            <div className="w-24 h-24 md:w-32 md:h-32 bg-rose-600 text-white rounded-[2rem] md:rounded-[2.5rem] flex items-center justify-center mb-8 md:mb-12 shadow-2xl shadow-rose-600/50 font-black text-2xl">
                                 !!!
                             </div>
-                            <h2 className="text-6xl font-black tracking-tighter text-rose-950 mb-6 uppercase">緊急告警</h2>
-                            <p className="text-2xl text-rose-800 font-bold mb-12 max-w-2xl px-10">
+                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-rose-950 mb-6 uppercase">緊急告警</h2>
+                            <p className="text-lg md:text-2xl text-rose-800 font-bold mb-10 md:mb-12 max-w-2xl px-4 md:px-10">
                                 基於您的描述，當前情況被判定為「極高危險」。請立即撥打動保 24 小時專線進行即時調度。
                             </p>
-                            <div className="flex flex-col items-center gap-6">
+                            <div className="flex flex-col items-center gap-4 md:gap-6">
                                 <div className="text-[10px] font-black text-rose-400 uppercase tracking-[0.4em]">緊急調渡熱線</div>
-                                <div className="text-8xl font-black text-rose-600 tracking-tighter">1959</div>
+                                <div className="text-6xl md:text-8xl font-black text-rose-600 tracking-tighter">1959</div>
                             </div>
-                            <div className="mt-20 flex flex-wrap justify-center gap-6">
-                                <button onClick={() => goTo('start')} className="px-12 py-6 bg-white text-slate-400 rounded-3xl font-black text-sm uppercase tracking-widest border border-rose-100 hover:bg-rose-100 hover:text-rose-600 transition-all">返回首頁</button>
-                                <button onClick={() => navigate('/report/general?emergency=true')} className="px-12 py-6 bg-rose-600 text-white rounded-3xl font-black text-sm uppercase tracking-widest shadow-xl shadow-rose-600/30">仍要網頁通報</button>
+                            <div className="mt-12 md:mt-20 flex flex-wrap justify-center gap-4 md:gap-6">
+                                <button onClick={() => goTo('start')} className="px-8 md:px-12 py-5 md:py-6 bg-white text-slate-400 rounded-3xl font-black text-sm uppercase tracking-widest border border-rose-100 hover:bg-rose-100 hover:text-rose-600 transition-all">返回首頁</button>
+                                <button onClick={() => navigate('/report/general?emergency=true')} className="px-8 md:px-12 py-5 md:py-6 bg-rose-600 text-white rounded-3xl font-black text-sm uppercase tracking-widest shadow-xl shadow-rose-600/30">仍要網頁通報</button>
                             </div>
                         </div>
                     </div>

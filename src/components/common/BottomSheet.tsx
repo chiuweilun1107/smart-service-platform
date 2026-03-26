@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { X } from 'lucide-react';
 
 export type SnapPoint = 'peek' | 'half' | 'full';
 
@@ -151,9 +152,18 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         </div>
 
         {/* Title */}
-        {title && (
-          <div className="flex-shrink-0 px-5 pb-3 border-b border-white/10">
+        {title ? (
+          <div className="flex-shrink-0 px-5 pb-3 border-b border-white/10 flex items-center justify-between">
             <h3 className="text-base font-black text-white tracking-tight">{title}</h3>
+            <button onClick={onClose} className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-all">
+              <X size={16} />
+            </button>
+          </div>
+        ) : (
+          <div className="flex-shrink-0 flex justify-end px-5 pb-1">
+            <button onClick={onClose} className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-all">
+              <X size={16} />
+            </button>
           </div>
         )}
 

@@ -117,10 +117,10 @@ export const Home: React.FC = () => {
                                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                                 {HERO_SLIDES[currentSlide].tag}
                             </div>
-                            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-[0.9] uppercase mix-blend-overlay">
+                            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tighter leading-tight md:leading-[0.9] uppercase mix-blend-overlay">
                                 {HERO_SLIDES[currentSlide].title}
                             </h1>
-                            <p className="text-lg md:text-xl text-slate-300 font-medium max-w-2xl leading-relaxed">
+                            <p className="text-base md:text-xl text-slate-300 font-medium max-w-2xl leading-relaxed">
                                 {HERO_SLIDES[currentSlide].subtitle}
                             </p>
                             <div className="flex flex-wrap gap-4 pt-4">
@@ -160,12 +160,12 @@ export const Home: React.FC = () => {
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white rounded-[2.5rem] shadow-2xl p-4 flex flex-col md:flex-row overflow-hidden border border-slate-100">
                         {/* Emergency Lines */}
-                        <div className="bg-slate-950 rounded-[2rem] p-10 md:p-14 text-white md:w-1/3 flex flex-col justify-between relative overflow-hidden group">
+                        <div className="bg-slate-950 rounded-[2rem] p-8 md:p-14 text-white md:w-1/3 flex flex-col justify-between relative overflow-hidden group">
                             <div className="relative z-10">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/20 backdrop-blur-md rounded-full text-[10px] font-black text-red-500 uppercase tracking-widest mb-6 border border-red-500/20">
                                     <Activity size={12} /> 即時勤務中心
                                 </div>
-                                <h3 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 leading-none">緊急<br />通報專線</h3>
+                                <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 leading-tight">緊急<br />通報專線</h3>
                                 <p className="text-slate-400 text-sm font-medium leading-relaxed mb-8">
                                     發現緊急生命救援需求？請優先撥打智慧勤務熱線，由全球調度員直接為您部署。
                                 </p>
@@ -189,11 +189,11 @@ export const Home: React.FC = () => {
                         </div>
 
                         {/* Digital Reporting Field */}
-                        <div className="flex-1 p-10 md:p-14 bg-white">
+                        <div className="flex-1 p-6 md:p-14 bg-white">
                             <div className="flex items-end justify-between mb-10 border-b border-slate-50 pb-6">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between w-full">
                                     <div className="mb-6 md:mb-0">
-                                        <h3 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900 uppercase">案件通報</h3>
+                                        <h3 className="text-2xl md:text-4xl font-black tracking-tighter text-slate-900 uppercase">案件通報</h3>
                                         <div className="flex items-center gap-3 mt-2">
                                             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">系統連線正常 • Sync: 100%</p>
@@ -252,10 +252,10 @@ export const Home: React.FC = () => {
             <section id="process-guide" className="py-10 bg-white overflow-hidden relative">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-10">
-                        <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-slate-900 uppercase mb-8">
+                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 uppercase mb-8">
                             智慧通報引導
                         </h2>
-                        <p className="text-slate-500 text-xl font-medium leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-slate-500 text-base md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
                             不確定如何開始？智慧引導系統將協助您判斷案件類別、準備必要文件，並優化通報流程速率。
                         </p>
                     </div>
@@ -264,7 +264,7 @@ export const Home: React.FC = () => {
                         {/* Connecting Line (Desktop) */}
                         <div className="hidden md:block absolute top-24 left-0 right-0 h-[2px] border-t-2 border-dashed border-slate-200 z-0"></div>
 
-                        <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-12">
+                        <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
                             {steps.map((item, idx) => (
                                 <div key={idx} className="flex flex-col items-center">
                                     <div className="group relative mb-8">
@@ -274,7 +274,7 @@ export const Home: React.FC = () => {
                                         </div>
 
                                         {/* Circular Image Frame */}
-                                        <div className="w-48 h-48 rounded-full overflow-hidden border-8 border-white shadow-2xl relative transition-all duration-500 group-hover:scale-105 group-hover:border-slate-100">
+                                        <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-8 border-white shadow-2xl relative transition-all duration-500 group-hover:scale-105 group-hover:border-slate-100">
                                             <img src={item.image} className="absolute inset-0 w-full h-full object-cover transition-all duration-700" />
                                             <div className="absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors"></div>
                                         </div>
@@ -291,7 +291,7 @@ export const Home: React.FC = () => {
                     </div>
 
                     <div className="flex justify-center mt-10">
-                        <Link to="/guide" className="group flex items-center gap-6 py-6 px-10 bg-slate-900 text-white rounded-[2rem] font-black text-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95">
+                        <Link to="/guide" className="group flex items-center gap-4 py-5 px-8 md:py-6 md:px-10 bg-slate-900 text-white rounded-[2rem] font-black text-base md:text-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95">
                             開始智慧引導 <ArrowRight size={24} className="group-hover:translate-x-3 transition-transform" />
                         </Link>
                     </div>
@@ -301,11 +301,11 @@ export const Home: React.FC = () => {
             {/* 4. Global Map Experience */}
             <section className="relative h-[650px] flex items-center justify-center bg-fixed bg-center bg-cover" style={{ backgroundImage: `url(${bgMapNtpc})` }}>
                 <div className="relative z-10 max-w-5xl mx-auto px-6">
-                    <div className="p-12 md:p-20 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[4rem] text-center shadow-2xl animate-in fade-in zoom-in duration-1000">
-                        <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8 drop-shadow-md">
+                    <div className="p-8 md:p-16 lg:p-20 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] md:rounded-[4rem] text-center shadow-2xl animate-in fade-in zoom-in duration-1000">
+                        <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter mb-6 md:mb-8 drop-shadow-md">
                             即時動保地圖
                         </h2>
-                        <p className="text-xl md:text-2xl text-white/90 font-bold mb-12 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-base md:text-xl lg:text-2xl text-white/90 font-bold mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed">
                             即時掌握全新北市動保案件熱點與勤務車輛動態，<br className="hidden md:block" />透明化數據助您了解城市脈動。
                         </p>
                         <Link to="/map" className="inline-flex h-16 items-center justify-center rounded-full bg-white px-10 text-lg font-black text-slate-950 uppercase tracking-widest hover:bg-slate-100 transition-colors shadow-lg">

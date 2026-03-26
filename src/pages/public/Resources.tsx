@@ -40,11 +40,11 @@ export const Resources: React.FC = () => {
                         <div className="mb-6">
                             <SectionBadge label="Government Open Data &amp; resources" color="emerald" />
                         </div>
-                        <h1 className="text-6xl md:text-7xl font-black tracking-tighter text-slate-900 leading-[0.85] mb-8">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-tight mb-8">
                             便民服務<br />
                             <span className="text-emerald-500">資源中心</span>
                         </h1>
-                        <p className="text-slate-500 text-xl font-medium leading-relaxed">
+                        <p className="text-slate-500 text-base md:text-xl font-medium leading-relaxed">
                             我們致力於提供透明化資訊。您可以在此搜尋並下載最新的法令規章、通報手冊、以及各類行政案情報表。
                         </p>
                     </div>
@@ -112,12 +112,12 @@ export const Resources: React.FC = () => {
                 </div>
 
                 {/* FAQ Quick Link Banner */}
-                <div className="mt-32 p-12 bg-slate-950 rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden group">
+                <div className="mt-16 md:mt-32 p-8 md:p-12 bg-slate-950 rounded-[2rem] md:rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 relative overflow-hidden group">
                     <div className="relative z-10 text-center md:text-left">
-                        <h2 className="text-4xl font-black tracking-tighter mb-4">還有其他疑問嗎？</h2>
-                        <p className="text-slate-400 text-lg font-medium">查看服務百科，了解更多關於系統運作、通報規範與相關權責說明。</p>
+                        <h2 className="text-2xl md:text-4xl font-black tracking-tighter mb-4">還有其他疑問嗎？</h2>
+                        <p className="text-slate-400 text-base md:text-lg font-medium">查看服務百科，了解更多關於系統運作、通報規範與相關權責說明。</p>
                     </div>
-                    <button className="relative z-10 px-10 py-5 bg-white text-slate-950 rounded-2xl font-black text-lg hover:bg-emerald-500 hover:text-white transition-all shadow-xl flex items-center gap-3">
+                    <button className="relative z-10 w-full md:w-auto px-8 md:px-10 py-4 md:py-5 bg-white text-slate-950 rounded-2xl font-black text-base md:text-lg hover:bg-emerald-500 hover:text-white transition-all shadow-xl flex items-center justify-center gap-3">
                         進入服務百科 <ArrowRight size={20} />
                     </button>
                     <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-600/10 blur-[100px] rounded-full group-hover:bg-emerald-600/20 transition-all"></div>

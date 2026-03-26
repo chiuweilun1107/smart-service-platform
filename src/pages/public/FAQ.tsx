@@ -129,11 +129,11 @@ export const FAQ: React.FC = () => {
                                                 <div key={qIdx} className={`group relative bg-white rounded-[2.5rem] border transition-all duration-500 overflow-hidden ${isOpen ? 'border-blue-500 shadow-2xl shadow-blue-500/10 ring-1 ring-blue-400/20' : 'border-slate-100 hover:border-blue-200'}`}>
                                                     <button
                                                         onClick={() => toggle(id)}
-                                                        className="w-full text-left p-10 flex items-center justify-between gap-8"
+                                                        className="w-full text-left p-6 md:p-10 flex items-center justify-between gap-4 md:gap-8"
                                                     >
-                                                        <div className="flex items-center gap-6">
-                                                            <div className={`w-2 h-2 rounded-full transition-all duration-500 ${isOpen ? 'bg-blue-600 scale-150' : 'bg-slate-200'}`}></div>
-                                                            <span className={`text-xl font-black tracking-tight transition-all ${isOpen ? 'text-blue-600' : 'text-slate-800'}`}>
+                                                        <div className="flex items-center gap-4 md:gap-6">
+                                                            <div className={`w-2 h-2 flex-shrink-0 rounded-full transition-all duration-500 ${isOpen ? 'bg-blue-600 scale-150' : 'bg-slate-200'}`}></div>
+                                                            <span className={`text-base md:text-xl font-black tracking-tight transition-all ${isOpen ? 'text-blue-600' : 'text-slate-800'}`}>
                                                                 {q.q}
                                                             </span>
                                                         </div>
@@ -142,8 +142,8 @@ export const FAQ: React.FC = () => {
                                                         </div>
                                                     </button>
                                                     <div className={`transition-all duration-500 ${isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-                                                        <div className="px-10 pb-12 text-slate-500 font-medium leading-relaxed bg-slate-50/50 pt-6">
-                                                            <div className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-inner text-lg">
+                                                        <div className="px-6 md:px-10 pb-10 md:pb-12 text-slate-500 font-medium leading-relaxed bg-slate-50/50 pt-6">
+                                                            <div className="p-6 md:p-8 bg-white border border-slate-100 rounded-[2rem] shadow-inner text-base md:text-lg">
                                                                 {q.a}
                                                             </div>
                                                             <div className="mt-8 flex items-center gap-6">

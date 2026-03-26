@@ -63,8 +63,8 @@ export const Navbar: React.FC = () => {
                         </div>
                         
                         <div className="flex flex-col">
-                            <span className="text-[10px] md:text-xs font-bold tracking-[0.05em] text-slate-600 uppercase">新北市政府</span>
-                            <span className="font-black text-xl md:text-2xl tracking-tighter text-slate-900 leading-none">
+                            <span className="text-[9px] md:text-xs font-bold tracking-[0.05em] text-slate-600 uppercase">新北市政府</span>
+                            <span className="font-black text-base md:text-2xl tracking-tighter text-slate-900 leading-none">
                                 動物保護防疫處
                             </span>
                             <span className="hidden md:block text-[8px] font-medium text-slate-400 uppercase tracking-tighter">
@@ -146,7 +146,7 @@ export const Navbar: React.FC = () => {
 
             {/* Mobile Menu Dropdown (Animate in) */}
             {isOpen && (
-                <div className="absolute top-24 left-0 right-0 glass-panel rounded-3xl p-6 mx-0 md:hidden flex flex-col gap-2 shadow-2xl border-t border-slate-100 animate-in slide-in-from-top-4 duration-200 max-h-[80vh] overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 glass-panel rounded-b-3xl p-6 mx-0 md:hidden flex flex-col gap-2 shadow-2xl border-t border-slate-100 animate-in slide-in-from-top-4 duration-200 max-h-[80vh] overflow-y-auto bg-white/95 backdrop-blur-xl">
                     {/* Mobile Utility Row */}
                     <div className="flex items-center justify-between mb-6 pb-6 border-b border-slate-200">
                         <div className="flex gap-2">

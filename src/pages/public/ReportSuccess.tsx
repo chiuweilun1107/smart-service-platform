@@ -17,8 +17,8 @@ export const ReportSuccess: React.FC = () => {
     if (!caseId) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-            <div className="max-w-2xl w-full bg-white rounded-[3rem] shadow-2xl shadow-slate-200/50 p-12 md:p-16 text-center border border-slate-100 relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 md:p-6">
+            <div className="max-w-2xl w-full bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-slate-200/50 p-8 md:p-16 text-center border border-slate-100 relative overflow-hidden">
 
                 {/* Decorative Background */}
                 <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-emerald-50 to-transparent left-0 z-0"></div>
@@ -28,7 +28,7 @@ export const ReportSuccess: React.FC = () => {
                         <CheckCircle2 size={48} />
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6">
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6">
                         案件通報成功！
                     </h1>
                     <p className="text-slate-500 text-lg font-medium leading-relaxed mb-12 max-w-lg mx-auto">
@@ -39,7 +39,7 @@ export const ReportSuccess: React.FC = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-slate-800"></div>
                         <div className="relative z-10">
                             <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">您的案件編號 (Case ID)</p>
-                            <p className="text-4xl md:text-5xl font-mono font-bold text-white tracking-widest select-all">
+                            <p className="text-2xl md:text-4xl lg:text-5xl font-mono font-bold text-white tracking-widest select-all break-all">
                                 {caseId}
                             </p>
                             <div className="mt-4 flex items-center justify-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">

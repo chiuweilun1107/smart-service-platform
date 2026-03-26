@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Shield, Lock, User, Loader2, ArrowRight, Search, FileText, RefreshCw, Briefcase, Settings, ArrowLeft } from 'lucide-react';
+import { Shield, Lock, User, Loader2, ArrowRight, Search, FileText, RefreshCw, Briefcase, Settings, ArrowLeft, HardHat } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
 
-type LoginRole = 'citizen' | 'caseworker' | 'admin';
+type LoginRole = 'citizen' | 'caseworker' | 'admin' | 'contractor';
 
 export const AdminLogin: React.FC = () => {
     const navigate = useNavigate();
@@ -32,6 +32,9 @@ export const AdminLogin: React.FC = () => {
         } else if (activeTab === 'caseworker') {
             setUsername('caseworker01');
             setPassword('password123');
+        } else if (activeTab === 'contractor') {
+            setUsername('contractor01');
+            setPassword('contractor123');
         } else {
             setUsername('');
             setPassword('');
@@ -44,7 +47,7 @@ export const AdminLogin: React.FC = () => {
         setCaptcha(code);
     };
 
-    const handleLogin = async (e: React.FormEvent, role: 'caseworker' | 'admin') => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError('');
@@ -56,12 +59,15 @@ export const AdminLogin: React.FC = () => {
         }
 
         try {
-            const user = await mockApi.login(username);
-            if (user || username.includes('caseworker') || username === 'admin') {
-                const actualRole = username.toLowerCase() === 'admin' ? 'admin' : 'caseworker';
+            let actualRole: string | null = null;
+            if (username === 'admin') actualRole = 'admin';
+            else if (username.includes('caseworker')) actualRole = 'caseworker';
+            else if (username.includes('contractor')) actualRole = 'contractor';
+
+            if (actualRole) {
                 localStorage.setItem('auth_token', `mock_${actualRole}_token`);
                 localStorage.setItem('auth_role', actualRole);
-                navigate('/admin/dashboard');
+                navigate(actualRole === 'contractor' ? '/map' : '/admin/dashboard');
             } else {
                 setError('帳號或密碼錯誤');
             }
@@ -126,7 +132,7 @@ export const AdminLogin: React.FC = () => {
             <div className="w-full h-full grid grid-cols-1 lg:grid-cols-[1fr_1.3fr]">
 
                 {/* Left Side Visual */}
-                <div className="hidden lg:flex flex-col justify-between p-24 bg-slate-950 relative overflow-hidden">
+                <div className="hidden lg:flex flex-col justify-between p-16 xl:p-24 bg-slate-950 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                         <div className="absolute -top-[10%] -left-[10%] w-[80%] h-[80%] bg-blue-600/10 rounded-full blur-[150px]"></div>
                         <div className="absolute -bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-indigo-600/10 rounded-full blur-[150px]"></div>
@@ -136,14 +142,14 @@ export const AdminLogin: React.FC = () => {
                     </div>
 
                     <div className="relative z-10 pt-16">
-                        <div className="inline-block px-5 py-2 bg-blue-600/20 border border-blue-500/30 rounded-full text-[11px] font-black text-blue-400 uppercase tracking-[0.4em] mb-16">
+                        <div className="inline-block px-5 py-2 bg-blue-600/20 border border-blue-500/30 rounded-full text-[11px] font-black text-blue-400 uppercase tracking-[0.4em] mb-12">
                             Secure Access Portal
                         </div>
-                        <h1 className="text-8xl font-black text-white tracking-tighter leading-[0.8] mb-12">
+                        <h1 className="text-5xl xl:text-7xl 2xl:text-8xl font-black text-white tracking-tighter leading-tight mb-10">
                             智慧勤務<br />
                             <span className="text-blue-500">管理平台</span>
                         </h1>
-                        <p className="text-slate-400 text-xl leading-relaxed max-w-md font-medium">
+                        <p className="text-slate-400 text-lg xl:text-xl leading-relaxed max-w-md font-medium">
                             整合市民案件追蹤與內部公務執行的一站式入口，呈現數位效率與透明治理的極致平衡。
                         </p>
                     </div>
@@ -162,27 +168,34 @@ export const AdminLogin: React.FC = () => {
                 </div>
 
                 {/* Right Side Form */}
-                <div className="p-10 md:p-32 flex flex-col justify-center bg-white relative">
+                <div className="p-8 md:p-16 xl:p-24 flex flex-col justify-center bg-white relative">
                     <div className="max-w-2xl w-full mx-auto">
-                        <div className="mb-20">
-                            <div className="flex flex-wrap gap-12 border-b-2 border-slate-50">
+                        <div className="mb-10 md:mb-16">
+                            <div className="flex flex-wrap gap-4 md:gap-8 border-b-2 border-slate-50">
                                 {([
                                     { id: 'citizen', label: '民眾服務', icon: Search },
                                     { id: 'caseworker', label: '承辦人員', icon: Briefcase },
-                                    { id: 'admin', label: '系統管理員', icon: Settings }
-                                ] as const).map((tab) => (
-                                    <button
-                                        key={tab.id}
-                                        onClick={() => { setActiveTab(tab.id); }}
-                                        className={`pb-6 flex items-center gap-3 text-sm font-black tracking-[0.2em] uppercase transition-all relative ${activeTab === tab.id ? 'text-blue-600' : 'text-slate-300 hover:text-slate-400'}`}
-                                    >
-                                        <tab.icon size={16} />
-                                        {tab.label}
-                                        {activeTab === tab.id && (
-                                            <div className="absolute bottom-[-2px] left-0 w-full h-[3px] bg-blue-600 rounded-full animate-in slide-in-from-left duration-300"></div>
-                                        )}
-                                    </button>
-                                ))}
+                                    { id: 'admin', label: '系統管理員', icon: Settings },
+                                    { id: 'contractor', label: '外包人員', icon: HardHat }
+                                ] as const).map((tab) => {
+                                    const isActive = activeTab === tab.id;
+                                    const isContractorTab = tab.id === 'contractor';
+                                    const activeColor = isContractorTab ? 'text-orange-600' : 'text-blue-600';
+                                    const underlineColor = isContractorTab ? 'bg-orange-500' : 'bg-blue-600';
+                                    return (
+                                        <button
+                                            key={tab.id}
+                                            onClick={() => { setActiveTab(tab.id); }}
+                                            className={`pb-4 md:pb-6 flex items-center gap-2 text-xs md:text-sm font-black tracking-[0.1em] md:tracking-[0.2em] uppercase transition-all relative ${isActive ? activeColor : 'text-slate-300 hover:text-slate-400'}`}
+                                        >
+                                            <tab.icon size={16} />
+                                            {tab.label}
+                                            {isActive && (
+                                                <div className={`absolute bottom-[-2px] left-0 w-full h-[3px] ${underlineColor} rounded-full animate-in slide-in-from-left duration-300`}></div>
+                                            )}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
 
@@ -190,7 +203,7 @@ export const AdminLogin: React.FC = () => {
                             {activeTab === 'citizen' && (
                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className="text-5xl font-black tracking-tighter text-slate-900 mb-4">案件進度查詢</h2>
+                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-4">案件進度查詢</h2>
                                         <p className="text-slate-400 text-lg font-medium">請點擊下方按鈕直接體驗案件追蹤功能。</p>
                                     </div>
 
@@ -237,15 +250,12 @@ export const AdminLogin: React.FC = () => {
                             {(activeTab === 'caseworker' || activeTab === 'admin') && (
                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className="text-5xl font-black tracking-tighter text-slate-900 mb-4">
+                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-4">
                                             {activeTab === 'admin' ? '系統管理員' : '承備人員'}
                                         </h2>
-                                        <p className="text-slate-400 text-lg font-medium">
-                                            帳號密碼與驗證碼已自動填寫，請點擊登入按鈕。
-                                        </p>
                                     </div>
 
-                                    <form onSubmit={(e) => handleLogin(e, activeTab as 'caseworker' | 'admin')} className="space-y-8">
+                                    <form onSubmit={handleLogin} className="space-y-8">
                                         <div className="space-y-3">
                                             <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">帳號 (Account)</label>
                                             <div className="relative group">
@@ -286,9 +296,58 @@ export const AdminLogin: React.FC = () => {
                                     </form>
                                 </div>
                             )}
+
+                            {activeTab === 'contractor' && (
+                                <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                    <div>
+                                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 mb-4">外包人員</h2>
+                                        <p className="text-slate-400 text-lg font-medium">查看您的派工任務與案件地圖。</p>
+                                    </div>
+
+                                    <form onSubmit={handleLogin} className="space-y-8">
+                                        <div className="space-y-3">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">帳號 (Account)</label>
+                                            <div className="relative group">
+                                                <HardHat className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-orange-500 transition-colors" size={24} />
+                                                <input
+                                                    type="text"
+                                                    value={username}
+                                                    onChange={(e) => setUsername(e.target.value)}
+                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500 outline-none transition-all font-bold text-lg"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">密碼 (Password)</label>
+                                            <div className="relative group">
+                                                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-orange-500 transition-colors" size={24} />
+                                                <input
+                                                    type="password"
+                                                    value={password}
+                                                    onChange={(e) => setPassword(e.target.value)}
+                                                    className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500 outline-none transition-all font-bold text-lg"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <CaptchaField />
+
+                                        {error && <div className="p-5 bg-red-50 text-red-500 text-sm font-black rounded-2xl border border-red-100">{error}</div>}
+
+                                        <button
+                                            type="submit"
+                                            disabled={loading}
+                                            className="w-full py-6 text-white rounded-2xl font-black text-xl transition-all transform active:scale-[0.98] flex items-center justify-center gap-4 bg-orange-500 hover:bg-orange-400 hover:shadow-[0_20px_40px_rgba(249,115,22,0.25)]"
+                                        >
+                                            {loading ? <Loader2 size={28} className="animate-spin" /> : <>立即登入 <ArrowRight size={24} /></>}
+                                        </button>
+                                    </form>
+                                </div>
+                            )}
                         </div>
 
-                        <div className="mt-24 text-center">
+                        <div className="mt-12 md:mt-20 text-center">
                             <p className="text-[10px] font-black text-slate-200 uppercase tracking-[0.3em]">© 2024 New Taipei City Government • Dept. Animal Health</p>
                         </div>
                     </div>

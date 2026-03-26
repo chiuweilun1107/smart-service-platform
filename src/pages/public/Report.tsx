@@ -84,7 +84,7 @@ export const Report: React.FC = () => {
             <div className="relative z-10 px-6" style={{ paddingTop: isEmergency ? '8rem' : '8rem' }}>
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}
-                    <div className="flex flex-col md:flex-row items-center gap-12 mb-20 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                    <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 md:mb-20 animate-in fade-in slide-in-from-bottom-10 duration-1000">
                         <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-2xl font-black text-xl ${isEmergency
                             ? 'bg-red-600 shadow-red-600/50 animate-pulse'
                             : isBee
@@ -94,7 +94,7 @@ export const Report: React.FC = () => {
                             {isEmergency ? '!!!' : isBee ? 'B' : 'A'}
                         </div>
                         <div className="flex-1 text-center md:text-left">
-                            <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-white uppercase mb-4">
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white uppercase mb-4 leading-tight">
                                 {isEmergency ? '緊急案件' : isBee ? '蜂蛇移除' : '一般案件'}<br />
                                 <span className={isEmergency ? 'text-red-200' : isBee ? 'text-orange-200' : 'text-blue-500'}>通報程序系統</span>
                             </h1>
@@ -225,15 +225,15 @@ export const Report: React.FC = () => {
                         </FormSection>
 
                         {/* Submit Button */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10">
-                            <Link to="/smart-guide" className="w-full py-8 rounded-[2.5rem] bg-white border border-slate-100 font-black text-xl uppercase tracking-[0.3em] text-slate-400 flex items-center justify-center hover:bg-slate-50 transition-all">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pt-8 md:pt-10">
+                            <Link to="/smart-guide" className="w-full py-5 md:py-8 rounded-[2rem] md:rounded-[2.5rem] bg-white border border-slate-100 font-black text-base md:text-xl uppercase tracking-[0.2em] text-slate-400 flex items-center justify-center hover:bg-slate-50 transition-all">
                                 STEP BACK
                             </Link>
 
                             <button
                                 type="submit"
                                 disabled={isSubmitting || (isBee ? false : photos.length === 0)}
-                                className={`md:col-span-2 w-full py-8 rounded-[2.5rem] font-black text-xl uppercase tracking-[0.3em] text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-center justify-center gap-4 transition-all active:scale-95 
+                                className={`md:col-span-2 w-full py-5 md:py-8 rounded-[2rem] md:rounded-[2.5rem] font-black text-base md:text-xl uppercase tracking-[0.2em] text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-center justify-center gap-4 transition-all active:scale-95
                                     ${isSubmitting
                                         ? 'bg-slate-300 cursor-not-allowed'
                                         : isBee

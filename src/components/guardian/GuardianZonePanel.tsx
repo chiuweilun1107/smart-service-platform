@@ -62,12 +62,14 @@ export const GuardianZonePanel: React.FC<GuardianZonePanelProps> = ({
             </p>
           </div>
         </div>
-        <button
-          onClick={onClose}
-          className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-all"
-        >
-          <X size={16} />
-        </button>
+        {!isSheet && (
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-all"
+          >
+            <X size={16} />
+          </button>
+        )}
       </div>
 
       {/* Alert Banner */}
