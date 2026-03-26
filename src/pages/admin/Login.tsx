@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Loader2, ArrowRight, Search, Briefcase, Settings, ArrowLeft, HardHat } from 'lucide-react';
 import { mockApi } from '../../services/mockApi';
-import { typo, input, btn } from '../../utils/typography';
+import { input } from '../../utils/typography';
 
 type LoginRole = 'citizen' | 'caseworker' | 'admin' | 'contractor';
 
@@ -99,17 +99,21 @@ export const AdminLogin: React.FC = () => {
         }, 1200);
     };
 
+    // Compact form styles for login page
+    const fi = `w-full px-4 py-2.5 text-sm rounded-xl outline-none transition-all bg-slate-50 border border-slate-200 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 font-medium`;
+    const fb = `w-full px-6 py-3 text-sm font-black rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-3`;
+
     const CaptchaField = () => (
-        <div className="space-y-3">
-            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">驗證碼 (Captcha)</label>
-            <div className="flex gap-4">
+        <div className="space-y-2">
+            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證碼 (Captcha)</label>
+            <div className="flex gap-3">
                 <input
                     type="text"
                     value={captcha}
                     onChange={(e) => setCaptcha(e.target.value)}
                     placeholder="輸入驗證碼"
                     autoComplete="off"
-                    className={`flex-1 ${input.base} ${input.light} font-bold`}
+                    className={`flex-1 ${fi}`}
                 />
                 <div
                     onClick={refreshCaptcha}
@@ -173,8 +177,8 @@ export const AdminLogin: React.FC = () => {
                 </div>
 
                 {/* Right Side Form */}
-                <div className="p-8 md:p-16 xl:p-24 flex flex-col justify-center bg-white relative">
-                    <div className="max-w-2xl w-full mx-auto">
+                <div className="p-8 md:p-12 xl:p-16 flex flex-col justify-center bg-white relative">
+                    <div className="max-w-md w-full mx-auto">
                         <div className="mb-10 md:mb-16">
                             <div className="flex flex-wrap gap-4 md:gap-8 border-b-2 border-slate-50">
                                 {([
@@ -206,32 +210,32 @@ export const AdminLogin: React.FC = () => {
 
                         <div className="min-h-[500px] flex flex-col justify-center">
                             {activeTab === 'citizen' && (
-                                <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-4`}>案件進度查詢</h2>
-                                        <p className="text-slate-400 text-lg font-medium">請點擊下方按鈕直接體驗案件追蹤功能。</p>
+                                        <h2 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900 mb-1">案件進度查詢</h2>
+                                        <p className="text-slate-400 text-sm font-medium">請點擊下方按鈕直接體驗案件追蹤功能。</p>
                                     </div>
 
-                                    <form onSubmit={handleCitizenQueryFast} className="space-y-8">
-                                        <div className="space-y-3">
-                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">案件編號 (Case ID)</label>
+                                    <form onSubmit={handleCitizenQueryFast} className="space-y-4">
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">案件編號 (Case ID)</label>
                                             <input
                                                 type="text"
                                                 value={caseId}
                                                 onChange={(e) => setCaseId(e.target.value)}
                                                 autoComplete="off"
-                                                className={`${input.base} ${input.light} font-bold`}
+                                                className={fi}
                                             />
                                         </div>
 
-                                        <div className="space-y-3">
-                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">驗證資訊 (Phone)</label>
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">驗證資訊 (Phone)</label>
                                             <input
                                                 type="text"
                                                 value={phone}
                                                 onChange={(e) => setPhone(e.target.value)}
                                                 autoComplete="off"
-                                                className={`${input.base} ${input.light} font-bold`}
+                                                className={fi}
                                             />
                                         </div>
 
@@ -240,107 +244,107 @@ export const AdminLogin: React.FC = () => {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`w-full ${btn.lg} bg-slate-950 text-white hover:bg-blue-600 hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)] flex items-center justify-center gap-4`}
+                                            className={`${fb} bg-slate-950 text-white hover:bg-blue-600`}
                                         >
-                                            {loading ? <Loader2 size={28} className="animate-spin" /> : <>確認查詢 <ArrowRight size={24} /></>}
+                                            {loading ? <Loader2 size={18} className="animate-spin" /> : <>確認查詢 <ArrowRight size={16} /></>}
                                         </button>
                                     </form>
                                 </div>
                             )}
 
                             {(activeTab === 'caseworker' || activeTab === 'admin') && (
-                                <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-4`}>
-                                            {activeTab === 'admin' ? '系統管理員' : '承備人員'}
+                                        <h2 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900">
+                                            {activeTab === 'admin' ? '系統管理員' : '承辦人員'}
                                         </h2>
                                     </div>
 
-                                    <form onSubmit={handleLogin} className="space-y-8">
-                                        <div className="space-y-3">
-                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
+                                    <form onSubmit={handleLogin} className="space-y-4">
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
                                             <input
                                                 type="text"
                                                 value={username}
                                                 onChange={(e) => setUsername(e.target.value)}
                                                 autoComplete="username"
-                                                className={`${input.base} ${input.light} font-bold`}
+                                                className={fi}
                                             />
                                         </div>
 
-                                        <div className="space-y-3">
-                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
                                             <input
                                                 type="password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="current-password"
-                                                className={`${input.base} ${input.light} font-bold`}
+                                                className={fi}
                                             />
                                         </div>
 
                                         <CaptchaField />
 
-                                        {error && <div className="p-5 bg-red-50 text-red-500 text-sm font-black rounded-2xl border border-red-100">{error}</div>}
+                                        {error && <div className="p-3 bg-red-50 text-red-500 text-xs font-black rounded-xl border border-red-100">{error}</div>}
 
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`w-full ${btn.lg} text-white flex items-center justify-center gap-4 ${activeTab === 'admin' ? 'bg-indigo-600 hover:bg-indigo-500 hover:shadow-[0_20px_40px_rgba(79,70,229,0.25)]' : 'bg-blue-600 hover:bg-blue-500 hover:shadow-[0_20px_40px_rgba(37,99,235,0.25)]'}`}
+                                            className={`${fb} text-white ${activeTab === 'admin' ? 'bg-indigo-600 hover:bg-indigo-500' : 'bg-blue-600 hover:bg-blue-500'}`}
                                         >
-                                            {loading ? <Loader2 size={28} className="animate-spin" /> : <>立即登入 <ArrowRight size={24} /></>}
+                                            {loading ? <Loader2 size={18} className="animate-spin" /> : <>立即登入 <ArrowRight size={16} /></>}
                                         </button>
                                     </form>
                                 </div>
                             )}
 
                             {activeTab === 'contractor' && (
-                                <div className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                     <div>
-                                        <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-4`}>外包人員</h2>
-                                        <p className="text-slate-400 text-lg font-medium">查看您的派工任務與案件地圖。</p>
+                                        <h2 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900">外包人員</h2>
+                                        <p className="text-slate-400 text-sm font-medium mt-1">查看您的派工任務與案件地圖。</p>
                                     </div>
 
-                                    <form onSubmit={handleLogin} className="space-y-8">
-                                        <div className="space-y-3">
-                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
+                                    <form onSubmit={handleLogin} className="space-y-4">
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">帳號 (Account)</label>
                                             <input
                                                 type="text"
                                                 value={username}
                                                 onChange={(e) => setUsername(e.target.value)}
                                                 autoComplete="username"
-                                                className={`${input.base} font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
+                                                className={`${fi} focus:ring-orange-500/20 focus:border-orange-500`}
                                             />
                                         </div>
 
-                                        <div className="space-y-3">
-                                            <label className="text-xs md:text-sm font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400">密碼 (Password)</label>
                                             <input
                                                 type="password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="current-password"
-                                                className={`${input.base} font-bold bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-orange-500/5 focus:border-orange-500`}
+                                                className={`${fi} focus:ring-orange-500/20 focus:border-orange-500`}
                                             />
                                         </div>
 
                                         <CaptchaField />
 
-                                        {error && <div className="p-5 bg-red-50 text-red-500 text-sm font-black rounded-2xl border border-red-100">{error}</div>}
+                                        {error && <div className="p-3 bg-red-50 text-red-500 text-xs font-black rounded-xl border border-red-100">{error}</div>}
 
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`w-full ${btn.lg} text-white flex items-center justify-center gap-4 bg-orange-500 hover:bg-orange-400 hover:shadow-[0_20px_40px_rgba(249,115,22,0.25)]`}
+                                            className={`${fb} text-white bg-orange-500 hover:bg-orange-400`}
                                         >
-                                            {loading ? <Loader2 size={28} className="animate-spin" /> : <>立即登入 <ArrowRight size={24} /></>}
+                                            {loading ? <Loader2 size={18} className="animate-spin" /> : <>立即登入 <ArrowRight size={16} /></>}
                                         </button>
                                     </form>
                                 </div>
                             )}
                         </div>
 
-                        <div className="mt-12 md:mt-20 text-center">
+                        <div className="mt-8 text-center">
                             <p className="text-[10px] font-black text-slate-200 uppercase tracking-[0.3em]">© 2024 New Taipei City Government • Dept. Animal Health</p>
                         </div>
                     </div>

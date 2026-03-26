@@ -99,7 +99,7 @@ export const Home: React.FC = () => {
     return (
         <div className="min-h-screen bg-white selection:bg-slate-900 selection:text-white pb-0">
             {/* 1. HERO SECTION (Compact) */}
-            <section className="relative h-[550px] overflow-hidden bg-slate-950">
+            <section className="relative h-[calc(550px+72px)] -mt-[72px] overflow-hidden bg-slate-950">
                 {HERO_SLIDES.map((slide, index) => (
                     <div
                         key={slide.id}
