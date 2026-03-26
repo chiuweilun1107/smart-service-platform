@@ -41,7 +41,7 @@ export const SmartGuide: React.FC = () => {
             case 'start':
                 return (
                     <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
-                        <div className="max-w-5xl mx-auto">
+                        <div>
                             <div className="mb-4">
                                 <SectionBadge label="智慧通報引導方案" color="blue" />
                             </div>
@@ -73,7 +73,7 @@ export const SmartGuide: React.FC = () => {
             case 'animal_detail':
                 return (
                     <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
-                        <div className="max-w-5xl mx-auto">
+                        <div>
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
                             </button>
@@ -108,7 +108,7 @@ export const SmartGuide: React.FC = () => {
             case 'bee_detail':
                 return (
                     <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
-                        <div className="max-w-5xl mx-auto">
+                        <div>
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
                             </button>
@@ -143,7 +143,7 @@ export const SmartGuide: React.FC = () => {
             case 'result_emergency':
                 return (
                     <div className="animate-in zoom-in-95 duration-500">
-                        <div className="max-w-4xl mx-auto text-center py-12 md:py-20 px-6 bg-rose-50 rounded-3xl border-2 border-rose-100 flex flex-col items-center">
+                        <div className="text-center py-12 md:py-20 px-6 bg-rose-50 rounded-3xl border-2 border-rose-100 flex flex-col items-center">
                             <div className="w-24 h-24 md:w-32 md:h-32 bg-rose-600 text-white rounded-2xl flex items-center justify-center mb-8 md:mb-12 shadow-2xl shadow-rose-600/30 font-black text-2xl">
                                 !!!
                             </div>
@@ -169,13 +169,15 @@ export const SmartGuide: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white relative overflow-hidden flex items-center justify-center">
+        <div className="min-h-screen bg-white relative overflow-hidden">
             {/* Minimalist Background Layout */}
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 blur-[150px] rounded-full pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-100/30 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div className="relative z-10 w-full px-6 pt-24 pb-20">
-                {renderStep()}
+                <div className="max-w-5xl mx-auto">
+                    {renderStep()}
+                </div>
             </div>
 
             {/* Global Overlay Elements */}
