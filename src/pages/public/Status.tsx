@@ -147,56 +147,57 @@ export const Status: React.FC = () => {
 
                             {/* Mission Timeline - Full Width */}
                             <div className="lg:col-span-12">
-                                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 md:p-20 relative overflow-hidden">
-                                    <div className="flex items-center justify-between mb-20 relative z-10">
-                                        <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.5em] flex items-center gap-4">
+                                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-6 md:p-10 relative overflow-hidden">
+                                    <div className="flex items-center justify-between mb-6 relative z-10">
+                                        <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.5em]">
                                             歷程紀錄
                                         </h3>
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">REAL-TIME UPDATES</div>
                                     </div>
 
-                                    <div className="space-y-0 relative z-10">
+                                    <div className="relative z-10">
                                         {result.timeline.map((item, idx) => (
-                                            <div key={idx} className="relative pl-16 md:pl-24 pb-20 last:pb-0 group">
-                                                {/* Vertical Connector */}
-                                                {idx !== result.timeline.length - 1 && (
-                                                    <div className={`absolute left-5 md:left-[27px] top-6 w-[2px] h-full ${item.done ? 'bg-blue-600' : 'bg-slate-100'}`}></div>
-                                                )}
-
-                                                {/* Node Indicator */}
-                                                <div className={`absolute left-0 md:left-[10px] top-1 w-[36px] h-[36px] rounded-2xl border-2 flex items-center justify-center transition-all bg-white z-10 ${item.done ? 'border-blue-600 shadow-lg shadow-blue-600/20' : 'border-slate-100'}`}>
-                                                    {item.done ? (
-                                                        <div className="w-5 h-5 bg-blue-600 rounded-lg flex items-center justify-center text-white scale-110">
-                                                            DONE
-                                                        </div>
-                                                    ) : (
-                                                        <div className="w-2 h-2 bg-slate-200 rounded-full"></div>
+                                            <div key={idx} className="relative flex gap-4 md:gap-6 pb-4 last:pb-0 group">
+                                                {/* Left Column: connector + node */}
+                                                <div className="flex flex-col items-center flex-shrink-0 w-8">
+                                                    <div className={`w-8 h-8 rounded-xl border-2 flex items-center justify-center bg-white z-10 flex-shrink-0 transition-all ${item.done ? 'border-blue-600 shadow-md shadow-blue-600/20' : 'border-slate-200'}`}>
+                                                        {item.done ? (
+                                                            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                        ) : (
+                                                            <div className="w-2 h-2 bg-slate-200 rounded-full"></div>
+                                                        )}
+                                                    </div>
+                                                    {idx !== result.timeline.length - 1 && (
+                                                        <div className={`w-[2px] flex-1 mt-1 min-h-[16px] ${item.done ? 'bg-blue-200' : 'bg-slate-100'}`}></div>
                                                     )}
                                                 </div>
 
-                                                <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-20">
-                                                    <div className="md:w-40 py-1">
-                                                        <div className={`text-sm font-black tracking-widest uppercase ${item.done ? 'text-slate-900' : 'text-slate-300'}`}>{item.date}</div>
-                                                        <div className={`text-[10px] font-black uppercase tracking-widest mt-1 ${item.done ? 'text-blue-600' : 'text-slate-200'}`}>{item.time}</div>
-                                                    </div>
-                                                    <div className="flex-1 bg-slate-50 p-8 rounded-2xl border border-transparent group-hover:border-slate-100 group-hover:bg-white transition-all">
-                                                        <h4 className={`text-xl font-black tracking-tight mb-3 uppercase ${item.done ? 'text-slate-900' : 'text-slate-300'}`}>{item.title}</h4>
-                                                        <p className={`text-lg font-medium leading-relaxed max-w-2xl ${item.done ? 'text-slate-500' : 'text-slate-200'}`}>{item.desc}</p>
-                                                    </div>
-                                                    {item.done && (
-                                                        <div className="hidden lg:flex shrink-0 mt-8">
-                                                            <div className="flex items-center gap-2 text-blue-600 font-black text-[10px] uppercase tracking-[0.3em] bg-blue-50 px-6 py-2 rounded-full border border-blue-100">
-                                                                VERIFIED
+                                                {/* Right Column: content */}
+                                                <div className={`flex-1 pb-4 last:pb-0 ${idx !== result.timeline.length - 1 ? 'mb-0' : ''}`}>
+                                                    <div className={`rounded-xl border p-4 md:p-5 transition-all ${item.done ? 'bg-white border-slate-100 group-hover:border-blue-100 group-hover:shadow-sm' : 'bg-slate-50 border-transparent'} ${!item.done && idx === result.timeline.findIndex(t => !t.done) ? 'border-l-2 border-l-blue-400 bg-blue-50/30' : ''}`}>
+                                                        <div className="flex items-start justify-between gap-4 mb-1">
+                                                            <h4 className={`text-sm font-black tracking-tight uppercase ${item.done ? 'text-slate-900' : 'text-slate-400'}`}>{item.title}</h4>
+                                                            <div className="flex items-center gap-3 flex-shrink-0">
+                                                                {item.done && (
+                                                                    <span className="hidden sm:inline-flex text-[9px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">VERIFIED</span>
+                                                                )}
+                                                                <div className="text-right">
+                                                                    <div className={`text-[10px] font-black uppercase tracking-wider ${item.done ? 'text-slate-500' : 'text-slate-300'}`}>{item.date}</div>
+                                                                    <div className={`text-[10px] font-black uppercase tracking-wider ${item.done ? 'text-blue-500' : 'text-slate-300'}`}>{item.time}</div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    )}
+                                                        <p className={`text-sm font-medium leading-relaxed ${item.done ? 'text-slate-500' : 'text-slate-400'}`}>{item.desc}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
 
                                     {/* Visual Backdrop */}
-                                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/5 blur-[100px] -mr-40 -mb-40 rounded-full"></div>
+                                    <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/5 blur-[80px] -mr-20 -mb-20 rounded-full pointer-events-none"></div>
                                 </div>
                             </div>
 
