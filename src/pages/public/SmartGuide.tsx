@@ -187,7 +187,14 @@ export const SmartGuide: React.FC = () => {
 
             <div className="fixed bottom-10 right-10 text-right">
                 <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">
-                    目前步驟：{currentStep.toUpperCase().replace(/_/g, ' ')}
+                    目前步驟：{{
+                        start: '選擇類型',
+                        animal_v_bee: '動保或蜂蛇',
+                        animal_detail: '動物狀況評估',
+                        bee_detail: '蜂蛇狀況評估',
+                        result_emergency: '緊急情況',
+                        result_normal: '一般通報',
+                    }[currentStep]}
                 </p>
             </div>
         </div>

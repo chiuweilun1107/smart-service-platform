@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { CheckCircle2, Home, Search } from 'lucide-react';
+import { PageHeader } from '../../components/common';
 import { typo, btn } from '../../utils/typography';
 
 export const ReportSuccess: React.FC = () => {
@@ -18,14 +19,15 @@ export const ReportSuccess: React.FC = () => {
     if (!caseId) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20">
-            <div className="max-w-5xl mx-auto px-6">
-                {/* Page Header */}
-                <div className="mb-12">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.3em] border bg-blue-50 text-blue-600 border-blue-100 mb-4">通報完成</div>
-                    <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900">案件已成功送出</h1>
-                    <p className="mt-3 text-base text-slate-500 font-medium">系統已受理您的通報，以下為您的案件資訊。</p>
-                </div>
+        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
+            <div className="max-w-5xl mx-auto">
+                <PageHeader
+                    badge="通報完成"
+                    badgeColor="blue"
+                    title={<>案件已 <span className="text-blue-600">成功送出</span></>}
+                    subtitle="系統已受理您的通報，以下為您的案件資訊。"
+                    layout="split"
+                />
 
             <div className="max-w-2xl w-full bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-16 text-center relative overflow-hidden">
                 <div className="absolute top-0 left-0 h-1 bg-blue-600 w-full"></div>

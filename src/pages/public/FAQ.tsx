@@ -65,15 +65,14 @@ export const FAQ: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
-            <div>
-                <div className="max-w-6xl mx-auto">
+            <div className="max-w-5xl mx-auto">
                     {/* Header */}
                     <PageHeader
                         badge="智慧服務門戶"
                         badgeColor="blue"
-                        title={<>服務<br /><span className="text-blue-600">百科手冊</span></>}
-                        subtitle="智慧服務百科：整合新北市動保處所有業務流程、法規諮詢與常見問答，為您提供最即時的知識支援。"
-                        subtitleBorderColor="blue"
+                        title={<>服務 <span className="text-blue-600">百科手冊</span></>}
+                        subtitle="整合新北市動保處所有業務流程、法規諮詢與常見問答，為您提供最即時的知識支援。"
+                        layout="split"
                     >
                         <SearchInput
                             value={searchTerm}
@@ -215,7 +214,6 @@ export const FAQ: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     );
 };
