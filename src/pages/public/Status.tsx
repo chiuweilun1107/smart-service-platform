@@ -88,7 +88,7 @@ export const Status: React.FC = () => {
                                 <button
                                     onClick={() => mockFetchStatus(caseId)}
                                     disabled={!caseId || loading}
-                                    className="px-6 py-3 md:py-4 bg-blue-600 text-white rounded-2xl hover:bg-slate-900 transition-all font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-600/20 disabled:opacity-50"
+                                    className="px-6 py-3 md:py-4 bg-blue-600 text-white rounded-xl hover:bg-slate-900 transition-all font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-600/20 disabled:opacity-50"
                                 >
                                     {loading ? 'LOADING' : 'SEARCH'}
                                 </button>

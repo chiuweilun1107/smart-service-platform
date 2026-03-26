@@ -56,16 +56,16 @@ const NEWS_ARTICLES = [
 export const News: React.FC = () => {
     return (
         <div className="min-h-screen bg-white pt-24 pb-20 px-6">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-5xl mx-auto">
                 {/* Header Container */}
-                <div className="mb-16">
-                    <div className="flex items-center gap-4 mb-6">
+                <div className="mb-12">
+                    <div className="flex items-center gap-4 mb-4">
                         <SectionBadge label="官方新聞與即時通報" color="blue" />
                     </div>
-                    <h1 className={`${typo.hero} md:text-6xl font-black tracking-tighter text-slate-900 mb-6`}>
+                    <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6">
                         最新公告
                     </h1>
-                    <p className="text-slate-500 text-base md:text-lg font-medium max-w-2xl leading-relaxed border-l-4 border-blue-600 pl-6">
+                    <p className="text-slate-500 text-base md:text-lg font-medium max-w-2xl leading-relaxed border-l-4 border-blue-600 pl-5">
                         即時發布新北市動物保護政策、緊急通報及各式成果快訊。我們致力於提供最透明、最高效率的資訊服務。
                     </p>
                 </div>

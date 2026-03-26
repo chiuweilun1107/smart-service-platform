@@ -91,7 +91,7 @@ export const FAQ: React.FC = () => {
                     <div className="flex flex-wrap gap-4 mb-16">
                         <button
                             onClick={() => setActiveSection('all')}
-                            className={`px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${activeSection === 'all'
+                            className={`px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${activeSection === 'all'
                                     ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20'
                                     : 'bg-slate-100 border border-slate-200 text-slate-400 hover:text-slate-900 hover:bg-slate-200'
                                 }`}
@@ -102,7 +102,7 @@ export const FAQ: React.FC = () => {
                             <button
                                 key={s.id}
                                 onClick={() => setActiveSection(s.id)}
-                                className={`px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${activeSection === s.id
+                                className={`px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${activeSection === s.id
                                         ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20'
                                         : 'bg-slate-100 border border-slate-200 text-slate-400 hover:text-slate-900 hover:bg-slate-200'
                                     }`}

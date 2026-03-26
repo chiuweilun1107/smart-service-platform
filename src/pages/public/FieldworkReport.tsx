@@ -72,6 +72,7 @@ export const FieldworkReport: React.FC = () => {
 
             {/* Page header */}
             <div className="px-4 mb-6">
+                <div className="max-w-5xl mx-auto">
                 <div className="max-w-lg mx-auto">
                     <div className="flex items-center gap-3 mb-4">
                         <button
@@ -81,7 +82,7 @@ export const FieldworkReport: React.FC = () => {
                             <ArrowLeft size={16} />
                         </button>
                         <div className="flex-1 min-w-0">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-100 mb-1">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.3em] border bg-blue-50 text-blue-600 border-blue-100 mb-1">
                                 外勤回報作業
                             </div>
                             <div className="text-sm font-black text-slate-900 leading-tight truncate">
@@ -102,6 +103,7 @@ export const FieldworkReport: React.FC = () => {
                             />
                         ))}
                     </div>
+                </div>
                 </div>
             </div>
 

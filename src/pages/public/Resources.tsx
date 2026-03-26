@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Download, FileText, Book, Shield, ArrowRight, Layers } from 'lucide-react';
 import { SectionBadge } from '../../components/common';
-import { typo, input, btn } from '../../utils/typography';
+import { input, btn } from '../../utils/typography';
 
 const CATEGORIES = [
     { id: 'all', label: '全部資源', icon: Layers },
@@ -36,12 +36,12 @@ export const Resources: React.FC = () => {
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Header Section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
                     <div className="max-w-2xl">
                         <div className="mb-6">
                             <SectionBadge label="Government Open Data &amp; resources" color="blue" />
                         </div>
-                        <h1 className={`${typo.hero} md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 mb-8`}>
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-8">
                             便民服務<br />
                             <span className="text-blue-600">資源中心</span>
                         </h1>
@@ -98,7 +98,7 @@ export const Resources: React.FC = () => {
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-slate-50 group-hover:bg-slate-900 text-slate-400 group-hover:text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3">
+                            <button className="w-full py-4 bg-slate-50 group-hover:bg-slate-900 text-slate-400 group-hover:text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3">
                                 <Download size={14} /> 立即下載資源
                             </button>
                         </div>

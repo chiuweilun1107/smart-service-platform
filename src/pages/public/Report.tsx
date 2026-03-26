@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { FormSection, FieldLabel, PhotoUpload } from '../../components/common';
-import { typo, input, btn } from '../../utils/typography';
+import { FormSection, FieldLabel, PhotoUpload, PageHeader } from '../../components/common';
+import { input, btn } from '../../utils/typography';
 
 export const Report: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -56,7 +56,7 @@ export const Report: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white pb-40 overflow-hidden">
+        <div className="min-h-screen bg-white overflow-hidden">
             {/* Emergency Alert Banner */}
             {isEmergency && (
                 <div className="fixed top-20 left-0 right-0 z-40 bg-gradient-to-r from-red-600 to-rose-600 text-white py-4 px-6 shadow-2xl animate-in slide-in-from-top-5">
@@ -75,34 +75,18 @@ export const Report: React.FC = () => {
                 </div>
             )}
 
-            <div className="relative z-10 px-6" style={{ paddingTop: isEmergency ? '8rem' : '6rem' }}>
-                <div className="max-w-4xl mx-auto">
+            <div className="relative z-10 pt-24 pb-20 px-6">
+                <div className="max-w-5xl mx-auto">
                     {/* Header */}
-                    <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 md:mb-20 animate-in fade-in slide-in-from-bottom-6 duration-500">
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-xl font-black text-xl ${isEmergency
-                            ? 'bg-red-600 animate-pulse'
-                            : isBee
-                                ? 'bg-orange-500'
-                                : 'bg-slate-900'
-                            }`}>
-                            {isEmergency ? '!!!' : isBee ? 'B' : 'A'}
-                        </div>
-                        <div className="flex-1 text-center md:text-left">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-100 mb-4">
-                                {isEmergency ? '緊急案件通道' : isBee ? '蜂蛇移除通報' : '一般案件通報'}
-                            </div>
-                            <h1 className={`${typo.h1} lg:text-5xl font-black tracking-tighter text-slate-900 uppercase mb-4`}>
-                                {isEmergency ? '緊急案件' : isBee ? '蜂蛇移除' : '一般案件'}<br />
-                                <span className={isEmergency ? 'text-red-600' : isBee ? 'text-orange-500' : 'text-blue-600'}>通報程序系統</span>
-                            </h1>
-                            <p className="text-slate-500 font-medium">
-                                {isEmergency
-                                    ? '此為高優先級緊急案件，系統將優先調度並立即派遣最近單位處置。'
-                                    : '請提供詳細資訊，系統將自動分析並指派最合適的勤務單位進行處置。'
-                                }
-                            </p>
-                        </div>
-                    </div>
+                    <PageHeader
+                        badge={isEmergency ? '緊急案件通道' : isBee ? '蜂蛇移除通報' : '一般案件通報'}
+                        badgeColor={isEmergency ? 'rose' : isBee ? 'amber' : 'blue'}
+                        title={isEmergency ? '緊急案件通報' : isBee ? '蜂蛇移除通報' : '一般案件通報'}
+                        subtitle={isEmergency
+                            ? '此為高優先級緊急案件，系統將優先調度並立即派遣最近單位處置。'
+                            : '請提供詳細資訊，系統將自動分析並指派最合適的勤務單位進行處置。'
+                        }
+                    />
 
                     <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-500">
                         {/* Section 01: Location */}
