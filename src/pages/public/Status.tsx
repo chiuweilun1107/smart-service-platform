@@ -65,8 +65,8 @@ export const Status: React.FC = () => {
     }, [searchParams]);
 
     return (
-        <div className="min-h-screen bg-[#FDFDFD] pb-40">
-            <div className="pt-32 px-6">
+        <div className="min-h-screen bg-white pb-40">
+            <div className="pt-24 px-6">
                 <div className="max-w-6xl mx-auto">
                     {/* Header Command Area */}
                     <PageHeader
@@ -75,7 +75,7 @@ export const Status: React.FC = () => {
                         title={<>案件進度<br /><span className="text-blue-600">查詢中心</span></>}
                     >
                         <div>
-                            <div className="bg-white border-2 border-slate-200 p-2 pr-2 rounded-[2.5rem] flex items-center shadow-xl">
+                            <div className="bg-white border-2 border-slate-200 p-2 pr-2 rounded-3xl flex items-center shadow-sm">
                                 <div className="relative flex-1 group pl-4">
                                     <input
                                         type="text"
@@ -88,26 +88,26 @@ export const Status: React.FC = () => {
                                 <button
                                     onClick={() => mockFetchStatus(caseId)}
                                     disabled={!caseId || loading}
-                                    className="px-10 py-5 bg-blue-600 text-white rounded-[2rem] hover:bg-blue-500 transition-all font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-600/30 disabled:opacity-50"
+                                    className="px-6 py-3 md:py-4 bg-blue-600 text-white rounded-2xl hover:bg-slate-900 transition-all font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-600/20 disabled:opacity-50"
                                 >
                                     {loading ? 'LOADING' : 'SEARCH'}
                                 </button>
                             </div>
-                            {error && <p className="mt-6 text-rose-500 font-bold flex items-center gap-2 animate-in fade-in slide-in-from-top-2 ml-6 text-sm">{error}</p>}
+                            {error && <p className="mt-6 text-red-600 font-bold flex items-center gap-2 animate-in fade-in slide-in-from-top-2 ml-6 text-sm">{error}</p>}
                         </div>
                     </PageHeader>
 
                     {!result && !loading && !error && (
-                        <div className="flex flex-col items-center justify-center py-40 border-2 border-dashed border-slate-200 rounded-[4rem] animate-in fade-in duration-1000">
+                        <div className="flex flex-col items-center justify-center py-40 border-2 border-dashed border-slate-200 rounded-3xl animate-in fade-in duration-500">
                             <p className="text-xl font-black text-slate-400 uppercase tracking-widest">等待案件編號輸入</p>
                         </div>
                     )}
 
                     {result && (
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 animate-in fade-in slide-in-from-bottom-20 duration-1000">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 animate-in fade-in slide-in-from-bottom-6 duration-500">
                             {/* Mission Intelligence Overlay */}
                             <div className="lg:col-span-12">
-                                <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-2xl p-8 md:p-16 flex flex-col md:flex-row items-center gap-8 md:gap-16 relative overflow-hidden">
+                                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 md:p-16 flex flex-col md:flex-row items-center gap-8 md:gap-16 relative overflow-hidden">
                                     <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left border-r-0 md:border-r border-slate-100 pr-0 md:pr-16 md:min-w-[300px]">
                                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 border border-blue-100 shadow-sm">
                                             LIVE STATUS
@@ -115,7 +115,7 @@ export const Status: React.FC = () => {
                                         <h2 className={`${typo.h1} lg:text-6xl font-black tracking-tighter text-slate-900 mb-2 uppercase leading-none break-all`}>{result.id}</h2>
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-10 pl-1">CASE IDENTIFIER</div>
 
-                                        <div className={`px-6 md:px-10 py-4 md:py-6 rounded-3xl font-black text-xl md:text-3xl tracking-tighter uppercase shadow-xl ${result.status === 'processing' ? 'bg-blue-600 text-white shadow-blue-600/30' : 'bg-slate-900 text-white'}`}>
+                                        <div className={`px-6 md:px-10 py-4 md:py-6 rounded-3xl font-black text-xl md:text-3xl tracking-tighter uppercase shadow-xl ${result.status === 'processing' ? 'bg-blue-600 text-white shadow-blue-600/20' : 'bg-slate-900 text-white'}`}>
                                             {result.status === 'processing' ? '執行中任務' : result.status === 'resolved' ? '已結案' : '待處理'}
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@ export const Status: React.FC = () => {
                                                 <p className="text-xl font-black text-slate-900">{result.createDate}</p>
                                             </div>
                                         </div>
-                                        <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 relative group overflow-hidden transition-all hover:bg-white hover:border-blue-100 cursor-default">
+                                        <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100 relative group overflow-hidden transition-all hover:bg-white hover:border-blue-100 cursor-default">
                                             <div className="relative z-10">
                                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">情況摘要</p>
                                                 <p className="text-lg font-medium text-slate-600 leading-relaxed italic">{result.description}</p>
@@ -147,7 +147,7 @@ export const Status: React.FC = () => {
 
                             {/* Mission Timeline - Full Width */}
                             <div className="lg:col-span-12">
-                                <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-2xl p-8 md:p-20 relative overflow-hidden">
+                                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 md:p-20 relative overflow-hidden">
                                     <div className="flex items-center justify-between mb-20 relative z-10">
                                         <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.5em] flex items-center gap-4">
                                             歷程紀錄
@@ -177,11 +177,11 @@ export const Status: React.FC = () => {
                                                 <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-20">
                                                     <div className="md:w-40 py-1">
                                                         <div className={`text-sm font-black tracking-widest uppercase ${item.done ? 'text-slate-900' : 'text-slate-300'}`}>{item.date}</div>
-                                                        <div className={`text-[10px] font-black uppercase tracking-widest mt-1 ${item.done ? 'text-blue-400' : 'text-slate-200'}`}>{item.time}</div>
+                                                        <div className={`text-[10px] font-black uppercase tracking-widest mt-1 ${item.done ? 'text-blue-600' : 'text-slate-200'}`}>{item.time}</div>
                                                     </div>
-                                                    <div className="flex-1 bg-slate-50/50 p-8 rounded-[2rem] border border-transparent group-hover:border-slate-100 group-hover:bg-white transition-all">
+                                                    <div className="flex-1 bg-slate-50 p-8 rounded-2xl border border-transparent group-hover:border-slate-100 group-hover:bg-white transition-all">
                                                         <h4 className={`text-xl font-black tracking-tight mb-3 uppercase ${item.done ? 'text-slate-900' : 'text-slate-300'}`}>{item.title}</h4>
-                                                        <p className={`text-lg font-medium leading-relaxed max-w-2x ${item.done ? 'text-slate-500' : 'text-slate-200'}`}>{item.desc}</p>
+                                                        <p className={`text-lg font-medium leading-relaxed max-w-2xl ${item.done ? 'text-slate-500' : 'text-slate-200'}`}>{item.desc}</p>
                                                     </div>
                                                     {item.done && (
                                                         <div className="hidden lg:flex shrink-0 mt-8">
@@ -201,7 +201,7 @@ export const Status: React.FC = () => {
                             </div>
 
                             <div className="lg:col-span-12">
-                                <Link to="/" className="w-full py-8 bg-white border border-slate-100 rounded-[3rem] text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-slate-900 hover:text-white transition-all shadow-xl shadow-slate-200/20 flex items-center justify-center gap-4">
+                                <Link to="/" className="w-full py-8 bg-white border border-slate-100 rounded-3xl text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-slate-900 hover:text-white transition-all shadow-sm flex items-center justify-center gap-4">
                                     EXIT SYSTEM
                                 </Link>
                             </div>

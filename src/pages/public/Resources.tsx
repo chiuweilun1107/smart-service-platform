@@ -32,18 +32,18 @@ export const Resources: React.FC = () => {
     });
 
     return (
-        <div className="min-h-screen bg-white pt-32 pb-20 overflow-hidden">
+        <div className="min-h-screen bg-white pt-24 pb-20 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                     <div className="max-w-2xl">
                         <div className="mb-6">
-                            <SectionBadge label="Government Open Data &amp; resources" color="emerald" />
+                            <SectionBadge label="Government Open Data &amp; resources" color="blue" />
                         </div>
                         <h1 className={`${typo.hero} md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 mb-8`}>
                             便民服務<br />
-                            <span className="text-emerald-500">資源中心</span>
+                            <span className="text-blue-600">資源中心</span>
                         </h1>
                         <p className="text-slate-500 text-base md:text-xl font-medium leading-relaxed">
                             我們致力於提供透明化資訊。您可以在此搜尋並下載最新的法令規章、通報手冊、以及各類行政案情報表。
@@ -52,13 +52,13 @@ export const Resources: React.FC = () => {
 
                     <div className="w-full md:w-96">
                         <div className="relative group">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" size={20} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={20} />
                             <input
                                 type="text"
                                 placeholder="搜尋關鍵字 (例如: 法令、報表)..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className={`${input.base} pl-12 pr-4 bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 font-bold`}
+                                className={`${input.base} pl-12 pr-4 bg-slate-50 border border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-600/5 focus:border-blue-600 font-bold`}
                             />
                         </div>
                     </div>
@@ -70,7 +70,7 @@ export const Resources: React.FC = () => {
                         <button
                             key={cat.id}
                             onClick={() => setActiveCat(cat.id)}
-                            className={`flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-black tracking-tight transition-all ${activeCat === cat.id ? 'bg-slate-900 text-white shadow-xl shadow-slate-900/20' : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-400 hover:text-slate-600'}`}
+                            className={`flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-black tracking-tight transition-all ${activeCat === cat.id ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20' : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-400 hover:text-slate-600'}`}
                         >
                             <cat.icon size={16} />
                             {cat.label}
@@ -81,10 +81,10 @@ export const Resources: React.FC = () => {
                 {/* Resource Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredResources.map(res => (
-                        <div key={res.id} className="group relative bg-white border border-slate-100 rounded-[2rem] p-8 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 flex flex-col justify-between min-h-[280px]">
+                        <div key={res.id} className="group relative bg-white border border-slate-100 rounded-2xl p-8 hover:shadow-xl hover:border-blue-100 transition-all duration-500 flex flex-col justify-between min-h-[280px]">
                             <div>
                                 <div className="flex items-center justify-between mb-8">
-                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${res.category === 'laws' ? 'bg-indigo-50 text-indigo-500 group-hover:bg-indigo-500' : res.category === 'manuals' ? 'bg-blue-50 text-blue-500 group-hover:bg-blue-500' : 'bg-emerald-50 text-emerald-500 group-hover:bg-emerald-500'} group-hover:text-white`}>
+                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${res.category === 'laws' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-600' : res.category === 'manuals' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-600' : 'bg-blue-50 text-blue-600 group-hover:bg-blue-600'} group-hover:text-white`}>
                                         {res.category === 'laws' ? <Shield size={24} /> : res.category === 'manuals' ? <Book size={24} /> : <FileText size={24} />}
                                     </div>
                                     <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest">{res.date}</div>
@@ -113,15 +113,15 @@ export const Resources: React.FC = () => {
                 </div>
 
                 {/* FAQ Quick Link Banner */}
-                <div className="mt-16 md:mt-32 p-8 md:p-12 bg-slate-950 rounded-[2rem] md:rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 relative overflow-hidden group">
+                <div className="mt-16 md:mt-32 p-8 md:p-12 bg-slate-900 rounded-3xl text-white flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 relative overflow-hidden group">
                     <div className="relative z-10 text-center md:text-left">
                         <h2 className={`${typo.h2} md:text-4xl font-black tracking-tighter mb-4`}>還有其他疑問嗎？</h2>
                         <p className="text-slate-400 text-base md:text-lg font-medium">查看服務百科，了解更多關於系統運作、通報規範與相關權責說明。</p>
                     </div>
-                    <button className={`relative z-10 w-full md:w-auto ${btn.lg} bg-white text-slate-950 hover:bg-emerald-500 hover:text-white shadow-xl flex items-center justify-center gap-3`}>
+                    <button className={`relative z-10 w-full md:w-auto ${btn.lg} bg-white text-slate-900 hover:bg-blue-600 hover:text-white shadow-xl flex items-center justify-center gap-3 transition-all`}>
                         進入服務百科 <ArrowRight size={20} />
                     </button>
-                    <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-600/10 blur-[100px] rounded-full group-hover:bg-emerald-600/20 transition-all"></div>
+                    <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-600/10 blur-[100px] rounded-full group-hover:bg-blue-600/20 transition-all"></div>
                 </div>
 
             </div>

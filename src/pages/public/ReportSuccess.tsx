@@ -18,14 +18,14 @@ export const ReportSuccess: React.FC = () => {
     if (!caseId) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 md:p-6">
-            <div className="max-w-2xl w-full bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-slate-200/50 p-8 md:p-16 text-center border border-slate-100 relative overflow-hidden">
+        <div className="min-h-screen bg-white flex items-center justify-center p-4 md:p-6">
+            <div className="max-w-2xl w-full bg-white rounded-3xl shadow-xl border border-slate-100 p-8 md:p-16 text-center relative overflow-hidden">
 
                 {/* Decorative Background */}
                 <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-emerald-50 to-transparent left-0 z-0"></div>
 
                 <div className="relative z-10">
-                    <div className="w-24 h-24 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-500/40 animate-in zoom-in duration-500">
+                    <div className="w-24 h-24 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-emerald-500/30 animate-in zoom-in duration-500">
                         <CheckCircle2 size={48} />
                     </div>
 
@@ -36,8 +36,7 @@ export const ReportSuccess: React.FC = () => {
                         感謝您的熱心通報。我們已收到您的案件資訊，系統將立即通知轄區勤務中心進行派案。
                     </p>
 
-                    <div className="bg-slate-950 p-8 rounded-[2rem] shadow-xl shadow-slate-900/20 mb-12 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-slate-800"></div>
+                    <div className="bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 mb-12 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
                         <div className="relative z-10">
                             <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">您的案件編號 (Case ID)</p>
                             <p className="text-2xl md:text-4xl lg:text-5xl font-mono font-bold text-white tracking-widest select-all break-all">
@@ -53,14 +52,14 @@ export const ReportSuccess: React.FC = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
                             to="/"
-                            className={`${btn.primary} border border-slate-200 text-slate-400 uppercase tracking-widest hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 flex items-center justify-center gap-3`}
+                            className={`${btn.primary} bg-white border border-slate-200 text-slate-600 uppercase tracking-widest hover:border-slate-400 hover:text-slate-900 flex items-center justify-center gap-3 transition-all`}
                         >
                             <Home size={18} />
                             返回首頁
                         </Link>
                         <Link
                             to={`/status?id=${caseId}`}
-                            className={`${btn.primary} bg-emerald-500 text-white uppercase tracking-widest hover:bg-emerald-600 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-3`}
+                            className={`${btn.primary} bg-emerald-500 text-white uppercase tracking-widest hover:bg-emerald-600 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-3 transition-all`}
                         >
                             <Search size={18} />
                             查詢處理進度

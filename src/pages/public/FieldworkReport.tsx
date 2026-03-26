@@ -65,50 +65,54 @@ export const FieldworkReport: React.FC = () => {
 
     const isBee = caseItem?.type === 'bee';
 
-    const fieldStyle = 'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all';
+    const fieldStyle = 'w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/20 transition-all';
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white font-sans flex flex-col">
+        <div className="min-h-screen bg-white font-sans flex flex-col pt-24 pb-20">
 
-            {/* Sticky header */}
-            <div className="sticky top-0 z-10 bg-slate-950/95 backdrop-blur-xl border-b border-white/10 px-4 py-3">
-                <div className="max-w-lg mx-auto flex items-center gap-3">
-                    <button
-                        onClick={() => navigate(-1)}
-                        className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 transition-all shrink-0"
-                    >
-                        <ArrowLeft size={16} />
-                    </button>
-                    <div className="flex-1 min-w-0">
-                        <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">外勤回報作業</div>
-                        <div className="text-sm font-black text-white leading-tight truncate">
-                            {caseItem?.title ?? `案件 ${caseId}`}
+            {/* Page header */}
+            <div className="px-4 mb-6">
+                <div className="max-w-lg mx-auto">
+                    <div className="flex items-center gap-3 mb-4">
+                        <button
+                            onClick={() => navigate(-1)}
+                            className="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-all shrink-0"
+                        >
+                            <ArrowLeft size={16} />
+                        </button>
+                        <div className="flex-1 min-w-0">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-100 mb-1">
+                                外勤回報作業
+                            </div>
+                            <div className="text-sm font-black text-slate-900 leading-tight truncate">
+                                {caseItem?.title ?? `案件 ${caseId}`}
+                            </div>
+                        </div>
+                        <div className="text-[10px] font-bold text-slate-400 shrink-0">
+                            步驟 {stepIndex + 1} / {STEPS.length}
                         </div>
                     </div>
-                    <div className="text-[10px] font-bold text-slate-500 shrink-0">
-                        步驟 {stepIndex + 1} / {STEPS.length}
-                    </div>
-                </div>
 
-                {/* Progress bar */}
-                <div className="max-w-lg mx-auto mt-3 flex gap-1">
-                    {STEPS.map((s, i) => (
-                        <div
-                            key={s.id}
-                            className={`flex-1 h-1 rounded-full transition-all duration-300 ${i <= stepIndex ? 'bg-emerald-500' : 'bg-white/10'}`}
-                        />
-                    ))}
+                    {/* Progress bar */}
+                    <div className="flex gap-1">
+                        {STEPS.map((s, i) => (
+                            <div
+                                key={s.id}
+                                className={`flex-1 h-1 rounded-full transition-all duration-300 ${i <= stepIndex ? 'bg-blue-600' : 'bg-slate-200'}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
 
-            <div className="flex-1 px-4 py-6 max-w-lg mx-auto w-full">
+            <div className="flex-1 px-4 max-w-lg mx-auto w-full">
 
                 {/* Step labels */}
                 <div className="flex gap-4 mb-8 overflow-x-auto">
                     {STEPS.map((s, i) => (
                         <div key={s.id} className={`flex items-center gap-1.5 text-[11px] font-bold shrink-0 transition-colors ${
-                            i < stepIndex  ? 'text-emerald-400' :
-                            i === stepIndex ? 'text-white'       : 'text-slate-600'
+                            i < stepIndex  ? 'text-emerald-500' :
+                            i === stepIndex ? 'text-slate-900'   : 'text-slate-300'
                         }`}>
                             {i < stepIndex ? <Check size={12} /> : s.icon}
                             {s.label}
@@ -118,34 +122,34 @@ export const FieldworkReport: React.FC = () => {
 
                 {/* ── Step 1: GPS 現場簽到 ─────────────────────────────────────── */}
                 {step === 'gps' && (
-                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
                         <div>
-                            <h2 className="text-2xl font-black tracking-tighter mb-1">現場簽到</h2>
-                            <p className="text-slate-400 text-sm">取得當前 GPS 位置，確認已到達案件現場。</p>
+                            <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">現場簽到</h2>
+                            <p className="text-slate-500 text-sm">取得當前 GPS 位置，確認已到達案件現場。</p>
                         </div>
 
                         {gpsStatus !== 'done' ? (
                             <button
                                 onClick={handleGpsCapture}
                                 disabled={gpsStatus === 'loading'}
-                                className="w-full py-10 rounded-2xl border-2 border-dashed border-white/15 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all flex flex-col items-center gap-3 text-slate-400 hover:text-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-10 rounded-2xl border-2 border-dashed border-slate-300 hover:border-blue-600 hover:bg-blue-50 transition-all flex flex-col items-center gap-3 text-slate-400 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {gpsStatus === 'loading' ? (
                                     <>
-                                        <Loader2 size={36} className="animate-spin text-emerald-400" />
+                                        <Loader2 size={36} className="animate-spin text-blue-600" />
                                         <span className="text-sm font-bold">定位中，請稍候…</span>
                                     </>
                                 ) : (
                                     <>
                                         <MapPin size={36} />
                                         <span className="text-sm font-bold">點擊取得 GPS 位置</span>
-                                        <span className="text-[11px] text-slate-600">需要開啟定位與相機權限</span>
+                                        <span className="text-[11px] text-slate-400">需要開啟定位與相機權限</span>
                                     </>
                                 )}
                             </button>
                         ) : (
-                            <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-3">
-                                <div className="flex items-center gap-2 text-emerald-400 font-black text-sm">
+                            <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 space-y-3">
+                                <div className="flex items-center gap-2 text-blue-600 font-black text-sm">
                                     <Check size={16} />
                                     到場簽到完成
                                 </div>
@@ -156,8 +160,8 @@ export const FieldworkReport: React.FC = () => {
                                         { label: '時間', value: gpsTime },
                                     ].map(row => (
                                         <div key={row.label} className="flex gap-3 text-sm">
-                                            <span className="text-slate-500 shrink-0 text-[11px] font-bold uppercase w-10">{row.label}</span>
-                                            <span className={`${row.mono ? 'font-mono text-xs text-slate-400' : 'text-slate-200'}`}>{row.value}</span>
+                                            <span className="text-slate-400 shrink-0 text-[11px] font-bold uppercase w-10">{row.label}</span>
+                                            <span className={`${row.mono ? 'font-mono text-xs text-slate-500' : 'text-slate-700'}`}>{row.value}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -167,7 +171,7 @@ export const FieldworkReport: React.FC = () => {
                         <button
                             onClick={() => setStep('form')}
                             disabled={gpsStatus !== 'done'}
-                            className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                            className="w-full py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white font-black text-sm transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
                         >
                             下一步：填寫稽查紀錄單 →
                         </button>
@@ -176,12 +180,12 @@ export const FieldworkReport: React.FC = () => {
 
                 {/* ── Step 2: 動物保護稽查紀錄單 (三聯單) ────────────────────── */}
                 {step === 'form' && (
-                    <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    <div className="space-y-5 animate-in fade-in slide-in-from-bottom-6 duration-500">
                         <div>
-                            <h2 className="text-2xl font-black tracking-tighter mb-1">動物保護稽查紀錄單</h2>
-                            <p className="text-slate-400 text-sm">
+                            <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">動物保護稽查紀錄單</h2>
+                            <p className="text-slate-500 text-sm">
                                 案件 {caseId} ·{' '}
-                                <span className={`font-bold ${isBee ? 'text-orange-400' : 'text-blue-400'}`}>
+                                <span className={`font-bold ${isBee ? 'text-orange-500' : 'text-blue-600'}`}>
                                     {isBee ? '捕蜂抓蛇' : '一般救援'}
                                 </span>
                             </p>
@@ -190,17 +194,17 @@ export const FieldworkReport: React.FC = () => {
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5">處理人員</label>
+                                    <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">處理人員</label>
                                     <input type="text" value={handlerName} onChange={e => setHandlerName(e.target.value)} className={fieldStyle} />
                                 </div>
                                 <div>
-                                    <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5">識別編號</label>
+                                    <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">識別編號</label>
                                     <input type="text" value={handlerBadge} onChange={e => setHandlerBadge(e.target.value)} className={fieldStyle} />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5">
+                                <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">
                                     {isBee ? '蜂窩數量（巢）' : '出動人數'}
                                 </label>
                                 <input
@@ -213,7 +217,7 @@ export const FieldworkReport: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5">處置方式</label>
+                                <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">處置方式</label>
                                 <div className="grid grid-cols-2 gap-2">
                                     {(isBee
                                         ? ['現場摘除', '誘捕籠安置', '藥劑處理', '轉介專業廠商']
@@ -225,8 +229,8 @@ export const FieldworkReport: React.FC = () => {
                                             onClick={() => setProcessingResult(opt)}
                                             className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all text-left ${
                                                 processingResult === opt
-                                                    ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300'
-                                                    : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
+                                                    ? 'bg-blue-50 border-blue-600 text-blue-600'
+                                                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-400'
                                             }`}
                                         >
                                             {opt}
@@ -236,7 +240,7 @@ export const FieldworkReport: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5">現場備注</label>
+                                <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">現場備注</label>
                                 <textarea
                                     value={note}
                                     onChange={e => setNote(e.target.value)}
@@ -248,10 +252,10 @@ export const FieldworkReport: React.FC = () => {
                         </div>
 
                         <div className="flex gap-3 pt-1">
-                            <button onClick={() => setStep('gps')} className="py-3 px-5 rounded-xl bg-white/5 border border-white/10 text-sm font-bold text-slate-300 hover:bg-white/10 transition-all">
+                            <button onClick={() => setStep('gps')} className="py-3 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-600 hover:border-slate-400 transition-all">
                                 上一步
                             </button>
-                            <button onClick={() => setStep('photo')} className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm transition-all active:scale-95">
+                            <button onClick={() => setStep('photo')} className="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white font-black text-sm transition-all active:scale-95">
                                 下一步：上傳現場照片 →
                             </button>
                         </div>
@@ -260,25 +264,25 @@ export const FieldworkReport: React.FC = () => {
 
                 {/* ── Step 3: 現場照片 ──────────────────────────────────────────── */}
                 {step === 'photo' && (
-                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
                         <div>
-                            <h2 className="text-2xl font-black tracking-tighter mb-1">現場照片</h2>
-                            <p className="text-slate-400 text-sm">照片將自動壓印 GPS 座標與時間浮水印。</p>
+                            <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">現場照片</h2>
+                            <p className="text-slate-500 text-sm">照片將自動壓印 GPS 座標與時間浮水印。</p>
                         </div>
 
                         {!photoMock ? (
                             <button
                                 type="button"
                                 onClick={() => setPhotoMock(true)}
-                                className="w-full h-44 rounded-2xl border-2 border-dashed border-white/15 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all flex flex-col items-center justify-center gap-3 text-slate-400 hover:text-emerald-400"
+                                className="w-full h-44 rounded-2xl border-2 border-dashed border-slate-300 hover:border-blue-600 hover:bg-blue-50 transition-all flex flex-col items-center justify-center gap-3 text-slate-400 hover:text-blue-600"
                             >
                                 <Camera size={36} />
                                 <span className="text-sm font-bold">點擊拍照 / 上傳（模擬）</span>
                             </button>
                         ) : (
-                            <div className="relative rounded-2xl overflow-hidden border border-emerald-500/30">
-                                <div className="aspect-video bg-slate-800 flex items-center justify-center">
-                                    <Camera size={48} className="text-slate-700" />
+                            <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+                                <div className="aspect-video bg-slate-100 flex items-center justify-center">
+                                    <Camera size={48} className="text-slate-300" />
                                 </div>
                                 {/* Simulated GPS+time watermark overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-3 py-2 flex items-center justify-between">
@@ -299,13 +303,13 @@ export const FieldworkReport: React.FC = () => {
                         )}
 
                         <div className="flex gap-3">
-                            <button onClick={() => setStep('form')} className="py-3 px-5 rounded-xl bg-white/5 border border-white/10 text-sm font-bold text-slate-300 hover:bg-white/10 transition-all">
+                            <button onClick={() => setStep('form')} className="py-3 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-600 hover:border-slate-400 transition-all">
                                 上一步
                             </button>
                             <button
                                 onClick={() => setStep('sign')}
                                 disabled={!photoMock}
-                                className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                                className="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white font-black text-sm transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
                             >
                                 下一步：電子簽核 →
                             </button>
@@ -315,15 +319,15 @@ export const FieldworkReport: React.FC = () => {
 
                 {/* ── Step 4: 電子簽核 ──────────────────────────────────────────── */}
                 {step === 'sign' && (
-                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
                         <div>
-                            <h2 className="text-2xl font-black tracking-tighter mb-1">電子簽核</h2>
-                            <p className="text-slate-400 text-sm">確認資料無誤後輸入姓名完成電子簽核並送出。</p>
+                            <h2 className="text-2xl font-black tracking-tighter text-slate-900 mb-1">電子簽核</h2>
+                            <p className="text-slate-500 text-sm">確認資料無誤後輸入姓名完成電子簽核並送出。</p>
                         </div>
 
                         {/* Summary */}
-                        <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2.5">
-                            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">回報摘要</div>
+                        <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2.5">
+                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">回報摘要</div>
                             {[
                                 { label: '案件',   value: caseItem?.title ?? caseId },
                                 { label: '到場',   value: gpsTime },
@@ -333,14 +337,14 @@ export const FieldworkReport: React.FC = () => {
                                 { label: '備注',   value: note || '（無）' },
                             ].map(row => (
                                 <div key={row.label} className="flex gap-3 text-sm">
-                                    <span className="text-slate-500 shrink-0 w-8 text-[11px] font-bold">{row.label}</span>
-                                    <span className="text-slate-300 leading-snug">{row.value}</span>
+                                    <span className="text-slate-400 shrink-0 w-8 text-[11px] font-bold">{row.label}</span>
+                                    <span className="text-slate-700 leading-snug">{row.value}</span>
                                 </div>
                             ))}
                         </div>
 
                         <div>
-                            <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5">
+                            <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">
                                 簽核人姓名（電子簽核）
                             </label>
                             <input
@@ -353,7 +357,7 @@ export const FieldworkReport: React.FC = () => {
                         </div>
 
                         <div className="flex gap-3">
-                            <button onClick={() => setStep('photo')} className="py-3 px-5 rounded-xl bg-white/5 border border-white/10 text-sm font-bold text-slate-300 hover:bg-white/10 transition-all">
+                            <button onClick={() => setStep('photo')} className="py-3 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-600 hover:border-slate-400 transition-all">
                                 上一步
                             </button>
                             <button

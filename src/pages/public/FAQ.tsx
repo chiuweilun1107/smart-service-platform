@@ -65,8 +65,8 @@ export const FAQ: React.FC = () => {
     );
 
     return (
-        <div className="min-h-screen bg-[#FDFDFD] pb-40">
-            <div className="pt-32 px-6">
+        <div className="min-h-screen bg-white pb-40">
+            <div className="pt-24 px-6">
                 <div className="max-w-6xl mx-auto">
                     {/* Header */}
                     <PageHeader
@@ -82,7 +82,7 @@ export const FAQ: React.FC = () => {
                                 placeholder="搜尋智慧索引..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className={`${input.base} bg-white border-2 border-slate-200 rounded-[2rem] text-slate-900 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 font-bold placeholder:text-slate-300 shadow-sm`}
+                                className={`${input.base} bg-white border-2 border-slate-200 rounded-xl text-slate-900 focus:ring-4 focus:ring-blue-600/20 focus:border-blue-600 font-bold placeholder:text-slate-300 shadow-sm`}
                             />
                         </div>
                     </PageHeader>
@@ -92,7 +92,7 @@ export const FAQ: React.FC = () => {
                         <button
                             onClick={() => setActiveSection('all')}
                             className={`px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${activeSection === 'all'
-                                    ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/30'
+                                    ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20'
                                     : 'bg-slate-100 border border-slate-200 text-slate-400 hover:text-slate-900 hover:bg-slate-200'
                                 }`}
                         >
@@ -103,7 +103,7 @@ export const FAQ: React.FC = () => {
                                 key={s.id}
                                 onClick={() => setActiveSection(s.id)}
                                 className={`px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${activeSection === s.id
-                                        ? 'bg-slate-900 border border-blue-500 text-white shadow-xl shadow-blue-500/10'
+                                        ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20'
                                         : 'bg-slate-100 border border-slate-200 text-slate-400 hover:text-slate-900 hover:bg-slate-200'
                                     }`}
                             >
@@ -116,7 +116,7 @@ export const FAQ: React.FC = () => {
                         {/* Main Questions List */}
                         <div className="lg:col-span-8 space-y-12">
                             {filteredSections.map((section, sIdx) => (
-                                <div key={sIdx} className="space-y-6 animate-in fade-in slide-in-from-bottom-10 duration-700">
+                                <div key={sIdx} className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
                                     <h2 className="text-[10px] font-black tracking-[0.4em] text-slate-500 uppercase flex items-center gap-4">
                                         <span className="w-8 h-[1px] bg-slate-800"></span>
                                         {section.title}
@@ -127,7 +127,7 @@ export const FAQ: React.FC = () => {
                                             const id = `${sIdx}-${qIdx}`;
                                             const isOpen = openIndex === id;
                                             return (
-                                                <div key={qIdx} className={`group relative bg-white rounded-[2.5rem] border transition-all duration-500 overflow-hidden ${isOpen ? 'border-blue-500 shadow-2xl shadow-blue-500/10 ring-1 ring-blue-400/20' : 'border-slate-100 hover:border-blue-200'}`}>
+                                                <div key={qIdx} className={`group relative bg-white rounded-2xl border transition-all duration-500 overflow-hidden ${isOpen ? 'border-blue-600 shadow-xl shadow-blue-600/10 ring-1 ring-blue-400/20' : 'border-slate-100 hover:border-blue-200'}`}>
                                                     <button
                                                         onClick={() => toggle(id)}
                                                         className="w-full text-left p-6 md:p-10 flex items-center justify-between gap-4 md:gap-8"
@@ -143,8 +143,8 @@ export const FAQ: React.FC = () => {
                                                         </div>
                                                     </button>
                                                     <div className={`transition-all duration-500 ${isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-                                                        <div className="px-6 md:px-10 pb-10 md:pb-12 text-slate-500 font-medium leading-relaxed bg-slate-50/50 pt-6">
-                                                            <div className="p-6 md:p-8 bg-white border border-slate-100 rounded-[2rem] shadow-inner text-base md:text-lg">
+                                                        <div className="px-6 md:px-10 pb-10 md:pb-12 text-slate-500 font-medium leading-relaxed bg-slate-50 pt-6">
+                                                            <div className="p-6 md:p-8 bg-white border border-slate-100 rounded-2xl shadow-sm text-base md:text-lg">
                                                                 {q.a}
                                                             </div>
                                                             <div className="mt-8 flex items-center gap-6">
@@ -165,7 +165,7 @@ export const FAQ: React.FC = () => {
                         {/* Sidebar Widgets */}
                         <div className="lg:col-span-4 space-y-8">
                             {/* Fast Links Widget */}
-                            <div className="bg-white rounded-[3rem] border border-slate-100 shadow-xl p-10">
+                            <div className="bg-white rounded-2xl border border-slate-100 shadow-xl p-10">
                                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.2em] mb-8">
                                     快速鏈結
                                 </h3>
@@ -185,7 +185,7 @@ export const FAQ: React.FC = () => {
                             </div>
 
                             {/* Help Banner Widget */}
-                            <div className="bg-slate-900 rounded-[3rem] p-10 text-white relative overflow-hidden">
+                            <div className="bg-slate-900 rounded-2xl p-10 text-white relative overflow-hidden">
                                 <div className="relative z-10">
                                     <h3 className="text-3xl font-black tracking-tighter mb-4">仍有疑問？</h3>
                                     <p className="text-slate-400 text-sm font-medium leading-relaxed mb-10">
@@ -206,7 +206,7 @@ export const FAQ: React.FC = () => {
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
                             </div>
 
-                            <Link to="/" className="flex items-center justify-center gap-4 py-6 bg-white border border-slate-100 rounded-[2rem] text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-slate-50 hover:text-slate-900 transition-all">
+                            <Link to="/" className="flex items-center justify-center gap-4 py-6 bg-white border border-slate-100 rounded-2xl text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-slate-50 hover:text-slate-900 transition-all">
                                 RETURN TO PORTAL
                             </Link>
                         </div>

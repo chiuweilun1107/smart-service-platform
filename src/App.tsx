@@ -41,7 +41,7 @@ function App() {
         <Route path="/faq" element={<Layout><FAQ /></Layout>} />
         <Route path="/news" element={<Layout><News /></Layout>} />
         <Route path="/smart-guide" element={<Layout><SmartGuide /></Layout>} />
-        <Route path="/report/fieldwork/:caseId" element={<FieldworkReport />} />
+        <Route path="/report/fieldwork/:caseId" element={<Layout><FieldworkReport /></Layout>} />
 
         {/* 登入 */}
         <Route path="/login" element={<AdminLogin />} />

@@ -56,7 +56,7 @@ export const Report: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] pb-40 overflow-hidden">
+        <div className="min-h-screen bg-white pb-40 overflow-hidden">
             {/* Emergency Alert Banner */}
             {isEmergency && (
                 <div className="fixed top-20 left-0 right-0 z-40 bg-gradient-to-r from-red-600 to-rose-600 text-white py-4 px-6 shadow-2xl animate-in slide-in-from-top-5">
@@ -75,31 +75,27 @@ export const Report: React.FC = () => {
                 </div>
             )}
 
-            {/* Dynamic Background */}
-            <div className={`fixed top-0 left-0 w-full h-[500px] pointer-events-none transition-all duration-1000 ${isEmergency ? 'bg-red-600' : isBee ? 'bg-orange-600' : 'bg-slate-900'
-                }`}>
-                <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"></div>
-                <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-            </div>
-
-            <div className="relative z-10 px-6" style={{ paddingTop: isEmergency ? '8rem' : '8rem' }}>
+            <div className="relative z-10 px-6" style={{ paddingTop: isEmergency ? '8rem' : '6rem' }}>
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}
-                    <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 md:mb-20 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-2xl font-black text-xl ${isEmergency
-                            ? 'bg-red-600 shadow-red-600/50 animate-pulse'
+                    <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 md:mb-20 animate-in fade-in slide-in-from-bottom-6 duration-500">
+                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-xl font-black text-xl ${isEmergency
+                            ? 'bg-red-600 animate-pulse'
                             : isBee
-                                ? 'bg-orange-500 shadow-orange-500/50'
-                                : 'bg-slate-800 shadow-slate-900/50'
+                                ? 'bg-orange-500'
+                                : 'bg-slate-900'
                             }`}>
                             {isEmergency ? '!!!' : isBee ? 'B' : 'A'}
                         </div>
                         <div className="flex-1 text-center md:text-left">
-                            <h1 className={`${typo.h1} lg:text-6xl font-black tracking-tighter text-white uppercase mb-4`}>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-100 mb-4">
+                                {isEmergency ? '緊急案件通道' : isBee ? '蜂蛇移除通報' : '一般案件通報'}
+                            </div>
+                            <h1 className={`${typo.h1} lg:text-5xl font-black tracking-tighter text-slate-900 uppercase mb-4`}>
                                 {isEmergency ? '緊急案件' : isBee ? '蜂蛇移除' : '一般案件'}<br />
-                                <span className={isEmergency ? 'text-red-200' : isBee ? 'text-orange-200' : 'text-blue-500'}>通報程序系統</span>
+                                <span className={isEmergency ? 'text-red-600' : isBee ? 'text-orange-500' : 'text-blue-600'}>通報程序系統</span>
                             </h1>
-                            <p className="text-slate-400 font-medium">
+                            <p className="text-slate-500 font-medium">
                                 {isEmergency
                                     ? '此為高優先級緊急案件，系統將優先調度並立即派遣最近單位處置。'
                                     : '請提供詳細資訊，系統將自動分析並指派最合適的勤務單位進行處置。'
@@ -108,7 +104,7 @@ export const Report: React.FC = () => {
                         </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in slide-in-from-bottom-20 duration-1000 delay-300">
+                    <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-500">
                         {/* Section 01: Location */}
                         <FormSection
                             number="01"
@@ -118,11 +114,11 @@ export const Report: React.FC = () => {
                                     type="button"
                                     onClick={handleGeoDetect}
                                     disabled={isDetecting}
-                                    className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${isDetecting
-                                        ? 'bg-blue-500 text-white cursor-wait'
+                                    className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${isDetecting
+                                        ? 'bg-blue-600 text-white cursor-wait'
                                         : detectionSuccess
                                             ? 'bg-emerald-500 text-white'
-                                            : 'bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white'
+                                            : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-400 hover:text-slate-900'
                                         }`}
                                 >
                                     {isDetecting ? (
@@ -150,7 +146,7 @@ export const Report: React.FC = () => {
                                         <select
                                             value={region}
                                             onChange={(e) => setRegion(e.target.value)}
-                                            className={`${input.base} ${input.light} font-bold rounded-3xl`}
+                                            className={`${input.base} ${input.light} font-bold`}
                                         >
                                             <option>新北市 - 板橋區</option>
                                             <option>新北市 - 新莊區</option>
@@ -165,7 +161,7 @@ export const Report: React.FC = () => {
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                             placeholder="例如：四川路一段 157 巷口..."
-                                            className={`${input.base} ${input.light} font-bold rounded-3xl placeholder:text-slate-300`}
+                                            className={`${input.base} ${input.light} font-bold placeholder:text-slate-300`}
                                         />
                                     </div>
                                 </div>
@@ -182,7 +178,7 @@ export const Report: React.FC = () => {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         placeholder="請描述現場動物狀況、數量、種類，或蜂巢概略位置高度..."
-                                        className={`${input.base} ${input.light} font-bold rounded-3xl placeholder:text-slate-300`}
+                                        className={`${input.base} ${input.light} font-bold placeholder:text-slate-300`}
                                     />
                                 </div>
 
@@ -193,7 +189,7 @@ export const Report: React.FC = () => {
                                             type="text"
                                             value={contactName}
                                             onChange={(e) => setContactName(e.target.value)}
-                                            className={`${input.base} ${input.light} font-bold rounded-3xl`}
+                                            className={`${input.base} ${input.light} font-bold`}
                                         />
                                     </div>
                                     <div className="space-y-3">
@@ -202,7 +198,7 @@ export const Report: React.FC = () => {
                                             type="tel"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
-                                            className={`${input.base} ${input.light} font-bold rounded-3xl`}
+                                            className={`${input.base} ${input.light} font-bold`}
                                         />
                                     </div>
                                 </div>
@@ -214,7 +210,7 @@ export const Report: React.FC = () => {
                             number="03"
                             title="視覺影像上傳"
                             headerRight={
-                                <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest flex items-center gap-2">
+                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                                     ENCRYPTED CHANNEL
                                 </span>
                             }
@@ -227,19 +223,19 @@ export const Report: React.FC = () => {
 
                         {/* Submit Button */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pt-8 md:pt-10">
-                            <Link to="/smart-guide" className={`w-full ${btn.lg} rounded-[2rem] md:rounded-[2.5rem] bg-white border border-slate-100 uppercase tracking-[0.2em] text-slate-400 flex items-center justify-center hover:bg-slate-50`}>
+                            <Link to="/smart-guide" className={`w-full ${btn.lg} rounded-xl bg-white border border-slate-200 text-slate-600 uppercase tracking-[0.2em] flex items-center justify-center hover:border-slate-400 transition-all`}>
                                 STEP BACK
                             </Link>
 
                             <button
                                 type="submit"
                                 disabled={isSubmitting || (isBee ? false : photos.length === 0)}
-                                className={`md:col-span-2 w-full ${btn.lg} rounded-[2rem] md:rounded-[2.5rem] uppercase tracking-[0.2em] text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-center justify-center gap-4 active:scale-95
+                                className={`md:col-span-2 w-full ${btn.lg} rounded-xl uppercase tracking-[0.2em] text-white shadow-xl flex items-center justify-center gap-4 active:scale-95 transition-all
                                     ${isSubmitting
                                         ? 'bg-slate-300 cursor-not-allowed'
                                         : isBee
-                                            ? 'bg-orange-600 hover:bg-orange-500 shadow-orange-600/30'
-                                            : 'bg-slate-900 hover:bg-blue-600 shadow-blue-600/30'
+                                            ? 'bg-orange-600 hover:bg-orange-500'
+                                            : 'bg-slate-900 hover:bg-blue-600'
                                     }`}
                             >
                                 {isSubmitting ? '正在提交...' : '發送正式通報單'}
@@ -248,7 +244,7 @@ export const Report: React.FC = () => {
                     </form>
 
                     <div className="mt-20 text-center">
-                        <p className="text-slate-300 text-[10px] font-black uppercase tracking-[0.4em]">
+                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">
                             End-to-End Encryption Secured • Citizens Protection Protocol
                         </p>
                     </div>

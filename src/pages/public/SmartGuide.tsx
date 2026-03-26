@@ -15,7 +15,7 @@ const ChoiceCard: React.FC<{
 }> = ({ title, description, onClick, active, label, warning }) => (
     <button
         onClick={onClick}
-        className={`w-full group relative p-6 md:p-10 bg-white rounded-[2rem] md:rounded-[3rem] border-2 transition-all duration-500 text-left overflow-hidden ${warning ? 'hover:border-rose-300' : 'hover:border-blue-300'} ${active ? 'border-blue-600 shadow-2xl shadow-blue-600/10' : 'border-slate-100'}`}
+        className={`w-full group relative p-6 md:p-10 bg-white rounded-2xl border-2 transition-all duration-500 text-left overflow-hidden ${warning ? 'hover:border-rose-300' : 'hover:border-blue-300'} ${active ? 'border-blue-600 shadow-xl shadow-blue-600/10' : 'border-slate-100'}`}
     >
         <div className="relative z-10">
             {label && (
@@ -40,7 +40,7 @@ export const SmartGuide: React.FC = () => {
         switch (currentStep) {
             case 'start':
                 return (
-                    <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                    <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
                         <div className="max-w-4xl mx-auto">
                             <div className="mb-10">
                                 <SectionBadge label="智慧通報引導方案" color="blue" />
@@ -72,7 +72,7 @@ export const SmartGuide: React.FC = () => {
 
             case 'animal_detail':
                 return (
-                    <div className="animate-in fade-in slide-in-from-right-10 duration-700">
+                    <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
                         <div className="max-w-4xl mx-auto">
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
@@ -107,7 +107,7 @@ export const SmartGuide: React.FC = () => {
 
             case 'bee_detail':
                 return (
-                    <div className="animate-in fade-in slide-in-from-right-10 duration-700">
+                    <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
                         <div className="max-w-4xl mx-auto">
                             <button onClick={() => goTo('start')} className="mb-12 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-all flex items-center gap-2">
                                 返回上一步
@@ -142,9 +142,9 @@ export const SmartGuide: React.FC = () => {
 
             case 'result_emergency':
                 return (
-                    <div className="animate-in zoom-in-95 duration-1000">
-                        <div className="max-w-4xl mx-auto text-center py-12 md:py-20 px-6 bg-rose-50 rounded-[3rem] md:rounded-[5rem] border-2 border-rose-100 flex flex-col items-center">
-                            <div className="w-24 h-24 md:w-32 md:h-32 bg-rose-600 text-white rounded-[2rem] md:rounded-[2.5rem] flex items-center justify-center mb-8 md:mb-12 shadow-2xl shadow-rose-600/50 font-black text-2xl">
+                    <div className="animate-in zoom-in-95 duration-500">
+                        <div className="max-w-4xl mx-auto text-center py-12 md:py-20 px-6 bg-rose-50 rounded-3xl border-2 border-rose-100 flex flex-col items-center">
+                            <div className="w-24 h-24 md:w-32 md:h-32 bg-rose-600 text-white rounded-2xl flex items-center justify-center mb-8 md:mb-12 shadow-2xl shadow-rose-600/30 font-black text-2xl">
                                 !!!
                             </div>
                             <h2 className={`${typo.h1} md:text-6xl font-black tracking-tighter text-rose-950 mb-6 uppercase`}>緊急告警</h2>
@@ -157,7 +157,7 @@ export const SmartGuide: React.FC = () => {
                             </div>
                             <div className="mt-12 md:mt-20 flex flex-wrap justify-center gap-4 md:gap-6">
                                 <button onClick={() => goTo('start')} className="px-8 md:px-12 py-5 md:py-6 bg-white text-slate-400 rounded-3xl font-black text-sm uppercase tracking-widest border border-rose-100 hover:bg-rose-100 hover:text-rose-600 transition-all">返回首頁</button>
-                                <button onClick={() => navigate('/report/general?emergency=true')} className="px-8 md:px-12 py-5 md:py-6 bg-rose-600 text-white rounded-3xl font-black text-sm uppercase tracking-widest shadow-xl shadow-rose-600/30">仍要網頁通報</button>
+                                <button onClick={() => navigate('/report/general?emergency=true')} className="px-8 md:px-12 py-5 md:py-6 bg-rose-600 text-white rounded-3xl font-black text-sm uppercase tracking-widest shadow-xl shadow-rose-600/20 transition-all hover:bg-rose-500">仍要網頁通報</button>
                             </div>
                         </div>
                     </div>
@@ -169,11 +169,10 @@ export const SmartGuide: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 relative overflow-hidden flex items-center justify-center">
+        <div className="min-h-screen bg-white relative overflow-hidden flex items-center justify-center">
             {/* Minimalist Background Layout */}
-            <div className="absolute inset-0 bg-white pointer-events-none"></div>
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 blur-[150px] rounded-full"></div>
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-100/30 blur-[150px] rounded-full"></div>
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 blur-[150px] rounded-full pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-100/30 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div className="relative z-10 w-full px-6 py-20">
                 {renderStep()}
