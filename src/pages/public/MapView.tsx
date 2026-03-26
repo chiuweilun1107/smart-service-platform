@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { CaseMap, type MapHotspot, type CaseMarker } from '../../components/map/CaseMap';
 import {
     Layers, ArrowLeft, Shield, Zap, AlertCircle, MessageSquare,
-    Camera, BookOpen, Filter, X, MapPin, List, Plus, Minus
+    Camera, BookOpen, Filter, X, MapPin, List, Plus, Minus, Eye, EyeOff
 } from 'lucide-react';
 import { type Map as LeafletMap } from 'leaflet';
 import { Link, useNavigate } from 'react-router-dom';
@@ -492,15 +492,19 @@ export const MapView: React.FC = () => {
                         {/* 民眾端才顯示危險熱點與守護範圍 */}
                         {!isAdmin && !isContractor && (
                             <>
-                                <button
-                                    onClick={() => setShowHotspots(v => !v)}
-                                    className={`w-full flex items-center gap-3 px-2 py-1.5 rounded-xl transition-all text-left group ${showHotspots ? 'hover:bg-white/5' : 'opacity-40 hover:opacity-60'}`}
-                                    title={showHotspots ? '點擊隱藏' : '點擊顯示'}
-                                >
-                                    <span className={`w-3 h-3 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_8px_rgba(249,115,22,0.5)] shrink-0 ${showHotspots ? '' : 'grayscale'}`}></span>
-                                    <span className="text-sm font-bold text-white">危險熱點預警</span>
-                                    {!showHotspots && <span className="ml-auto text-[10px] text-slate-500 font-bold">隱藏</span>}
-                                </button>
+                                <div className={`flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-all group ${showHotspots ? '' : 'opacity-50'}`}>
+                                    <button
+                                        className="flex items-center gap-3 flex-1 text-left"
+                                        onClick={() => { setShowHotspots(true); mapRef.current?.flyTo(beeHotspots[0].center, 15); }}
+                                        title="定位到熱點"
+                                    >
+                                        <span className={`w-3 h-3 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_8px_rgba(249,115,22,0.5)] shrink-0 ${showHotspots ? '' : 'grayscale'}`}></span>
+                                        <span className="text-sm font-bold text-white">危險熱點預警</span>
+                                    </button>
+                                    <button onClick={() => setShowHotspots(v => !v)} className="opacity-0 group-hover:opacity-100 transition-opacity text-slate-500 hover:text-white" title={showHotspots ? '隱藏' : '顯示'}>
+                                        {showHotspots ? <Eye size={13} /> : <EyeOff size={13} />}
+                                    </button>
+                                </div>
                                 <button
                                     className="w-full flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-all group"
                                     onClick={() => { setShowGuardianPanel(true); setShowFilterPanel(false); setIsAddingZone(false); }}
@@ -581,6 +585,7 @@ export const MapView: React.FC = () => {
                             onToggleVisibility={toggleVisibility}
                             onOpenAlerts={() => { setShowAlertPanel(true); setShowGuardianPanel(false); }}
                             onClose={() => setShowGuardianPanel(false)}
+                            onFlyTo={(center) => { mapRef.current?.flyTo(center, 16); setShowGuardianPanel(false); }}
                         />
                     </div>
                 )}
@@ -812,17 +817,21 @@ export const MapView: React.FC = () => {
                     {/* 民眾端：熱點與守護範圍 */}
                     {!isAdmin && !isContractor && (
                         <>
-                            <button
-                                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all active:bg-white/10 ${showHotspots ? 'bg-white/5' : 'bg-white/5 opacity-50'}`}
-                                onClick={() => setShowHotspots(v => !v)}
-                            >
-                                <span className={`w-4 h-4 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.5)] shrink-0 ${showHotspots ? '' : 'grayscale'}`}></span>
-                                <div className="flex-1 text-left">
-                                    <div className="text-sm font-bold text-white">危險熱點預警</div>
-                                    <div className="text-[11px] text-slate-400 mt-0.5">虎頭蜂、流浪犬等已知危險活躍區域</div>
-                                </div>
-                                <span className="text-[10px] font-bold text-slate-500">{showHotspots ? '顯示中' : '隱藏'}</span>
-                            </button>
+                            <div className={`flex items-center gap-3 p-3 rounded-xl bg-white/5 ${showHotspots ? '' : 'opacity-50'}`}>
+                                <button
+                                    className="flex items-center gap-3 flex-1 text-left active:opacity-70"
+                                    onClick={() => { setShowHotspots(true); mapRef.current?.flyTo(beeHotspots[0].center, 15); closeSheet(); }}
+                                >
+                                    <span className={`w-4 h-4 rounded-full bg-orange-500 ring-2 ring-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.5)] shrink-0 ${showHotspots ? '' : 'grayscale'}`}></span>
+                                    <div>
+                                        <div className="text-sm font-bold text-white">危險熱點預警</div>
+                                        <div className="text-[11px] text-slate-400 mt-0.5">虎頭蜂、流浪犬等已知危險活躍區域</div>
+                                    </div>
+                                </button>
+                                <button onClick={() => setShowHotspots(v => !v)} className="text-slate-500 active:text-white p-1" title={showHotspots ? '隱藏' : '顯示'}>
+                                    {showHotspots ? <Eye size={15} /> : <EyeOff size={15} />}
+                                </button>
+                            </div>
                             <button
                                 className="w-full flex items-center gap-3 p-3 rounded-xl bg-white/5 active:bg-white/10 transition-all"
                                 onClick={() => { closeSheet(); setTimeout(() => openGuardianSheet(), 100); }}
@@ -946,6 +955,7 @@ export const MapView: React.FC = () => {
                         setShowAlertPanel(true);
                     }}
                     onClose={closeSheet}
+                    onFlyTo={(center) => { mapRef.current?.flyTo(center, 16); closeSheet(); }}
                 />
             </BottomSheet>
 

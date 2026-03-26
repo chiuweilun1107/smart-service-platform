@@ -8,6 +8,7 @@ import {
   Bell,
   X,
   ShieldCheck,
+  Crosshair,
 } from 'lucide-react';
 import type { GuardianZone, GuardianZoneAlert } from '../../types/guardianZone';
 
@@ -20,6 +21,7 @@ interface GuardianZonePanelProps {
   onToggleVisibility: (id: string) => void;
   onOpenAlerts: () => void;
   onClose: () => void;
+  onFlyTo?: (center: [number, number]) => void;
   variant?: 'floating' | 'sheet';
 }
 
@@ -37,6 +39,7 @@ export const GuardianZonePanel: React.FC<GuardianZonePanelProps> = ({
   onToggleVisibility,
   onOpenAlerts,
   onClose,
+  onFlyTo,
   variant = 'floating',
 }) => {
   const isSheet = variant === 'sheet';
@@ -57,9 +60,6 @@ export const GuardianZonePanel: React.FC<GuardianZonePanelProps> = ({
             <h3 className="text-sm font-black text-white tracking-tight">
               我的守護範圍
             </h3>
-            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-              Guardian Zones
-            </p>
           </div>
         </div>
         {!isSheet && (
@@ -123,8 +123,12 @@ export const GuardianZonePanel: React.FC<GuardianZonePanelProps> = ({
                       : 'bg-blue-500 shadow-[0_0_8px_rgba(37,99,235,0.3)]'
                   }`}
                 />
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-bold text-white truncate">
+                <button
+                  className="flex-1 min-w-0 text-left"
+                  onClick={() => onFlyTo?.(zone.center)}
+                  title="定位到此範圍"
+                >
+                  <div className="text-sm font-bold text-white truncate group-hover:text-blue-300 transition-colors">
                     {zone.name}
                   </div>
                   <div className="text-[10px] text-slate-400 font-medium">
@@ -135,8 +139,17 @@ export const GuardianZonePanel: React.FC<GuardianZonePanelProps> = ({
                       </span>
                     )}
                   </div>
-                </div>
+                </button>
                 <div className={`flex items-center gap-1 transition-opacity ${isSheet ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                  {onFlyTo && (
+                    <button
+                      onClick={() => onFlyTo(zone.center)}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-blue-400 transition-all"
+                      title="定位"
+                    >
+                      <Crosshair size={14} />
+                    </button>
+                  )}
                   <button
                     onClick={() => onToggleVisibility(zone.id)}
                     className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-all"
