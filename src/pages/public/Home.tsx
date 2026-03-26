@@ -11,7 +11,7 @@ import photoStepAnalysis from '../../assets/images/photo_step_analysis.png';
 import photoStepDocs from '../../assets/images/photo_step_docs.png';
 import photoStepRescue from '../../assets/images/photo_step_rescue.png';
 import imgStepDispatch from '../../assets/images/img_step_dispatch.png';
-import bgMapNtpc from '../../assets/images/bg_map_ntpc_ultra.png';
+import bgMapNtpc from '../../assets/images/bg_map_ntpc.png';
 
 const HERO_SLIDES = [
     {
