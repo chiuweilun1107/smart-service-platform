@@ -73,23 +73,24 @@ export const Status: React.FC = () => {
                         badge="案件查詢系統"
                         badgeColor="blue"
                         title={<>案件進度 <span className="text-blue-600">查詢中心</span></>}
+                        subtitle="輸入案件編號，即時查詢處理進度與完整歷程紀錄。"
                         layout="split"
                     >
                         <div>
-                            <div className="bg-white border-2 border-slate-200 p-2 pr-2 rounded-3xl flex items-center shadow-sm">
-                                <div className="relative flex-1 group pl-4">
+                            <div className="bg-white border-2 border-slate-200 p-1.5 rounded-2xl flex items-center shadow-sm">
+                                <div className="relative flex-1 group pl-2">
                                     <input
                                         type="text"
                                         value={caseId}
                                         onChange={(e) => setCaseId(e.target.value)}
                                         placeholder="輸入案件編號..."
-                                        className="w-full px-6 py-3 md:py-4 bg-transparent text-slate-900 font-black text-base md:text-xl tracking-tight outline-none placeholder:text-slate-300"
+                                        className="w-full px-4 py-2.5 bg-transparent text-slate-900 font-black text-base tracking-tight outline-none placeholder:text-slate-300"
                                     />
                                 </div>
                                 <button
                                     onClick={() => mockFetchStatus(caseId)}
                                     disabled={!caseId || loading}
-                                    className="px-6 py-3 md:py-4 bg-blue-600 text-white rounded-xl hover:bg-slate-900 transition-all font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-600/20 disabled:opacity-50"
+                                    className="px-5 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-slate-900 transition-all font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-600/20 disabled:opacity-50"
                                 >
                                     {loading ? 'LOADING' : 'SEARCH'}
                                 </button>

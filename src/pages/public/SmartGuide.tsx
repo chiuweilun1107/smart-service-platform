@@ -49,7 +49,7 @@ export const SmartGuide: React.FC = () => {
                                 您需要<br />
                                 <span className="text-blue-600">哪種協助？</span>
                             </h2>
-                            <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl leading-relaxed">
+                            <p className="text-base md:text-lg text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl leading-relaxed border-l-4 border-blue-600 pl-5">
                                 歡迎使用智慧勤務引導系統。請根據您現場觀察到的情況，選擇最符合的案件類型，我們將引導您完成正式通報。
                             </p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -78,7 +78,7 @@ export const SmartGuide: React.FC = () => {
                                 返回上一步
                             </button>
                             <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-6 uppercase`}>動物狀況評估</h2>
-                            <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl">請進一步描述動物目前的具體狀況，這將幫助我們判斷派遣優先級。</p>
+                            <p className="text-base md:text-lg text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl border-l-4 border-blue-600 pl-5">請進一步描述動物目前的具體狀況，這將幫助我們判斷派遣優先級。</p>
 
                             <div className="grid grid-cols-1 gap-6">
                                 <ChoiceCard
@@ -113,7 +113,7 @@ export const SmartGuide: React.FC = () => {
                                 返回上一步
                             </button>
                             <h2 className={`${typo.h1} font-black tracking-tighter text-slate-900 mb-6 uppercase`}>蜂蛇危害評估</h2>
-                            <p className="text-base md:text-xl text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl">確認蜂巢或蛇類的位置與狀態，以利專業人員攜帶正確裝備。</p>
+                            <p className="text-base md:text-lg text-slate-500 font-medium mb-10 md:mb-16 max-w-2xl border-l-4 border-blue-600 pl-5">確認蜂巢或蛇類的位置與狀態，以利專業人員攜帶正確裝備。</p>
 
                             <div className="grid grid-cols-1 gap-6">
                                 <ChoiceCard
