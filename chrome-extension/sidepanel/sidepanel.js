@@ -212,6 +212,12 @@
         { key: 'extra', question: '還有其他要補充的嗎？\n（例如：動物外觀特徵、是否有項圈等，沒有可以直接按「跳過」）', buttons: [
           { label: '跳過', value: '__SKIP__' }
         ]},
+        { key: 'region', question: '請選擇通報區域：', buttons: [
+          { label: '新北市 - 板橋區', value: '新北市 - 板橋區' },
+          { label: '新北市 - 新莊區', value: '新北市 - 新莊區' },
+          { label: '新北市 - 中和區', value: '新北市 - 中和區' },
+          { label: '新北市 - 永和區', value: '新北市 - 永和區' }
+        ]},
         { key: 'reporterName', question: '請問您的姓名？（通報人聯絡用）', buttons: null },
         { key: 'phone', question: '請留下您的手機號碼，方便後續聯繫：', buttons: null }
       ]
@@ -242,6 +248,12 @@
           { label: '沒有', value: '目前無人被螫傷' },
           { label: '有人被螫', value: '已有人被螫傷' }
         ]},
+        { key: 'region', question: '請選擇通報區域：', buttons: [
+          { label: '新北市 - 板橋區', value: '新北市 - 板橋區' },
+          { label: '新北市 - 新莊區', value: '新北市 - 新莊區' },
+          { label: '新北市 - 中和區', value: '新北市 - 中和區' },
+          { label: '新北市 - 永和區', value: '新北市 - 永和區' }
+        ]},
         { key: 'reporterName', question: '請問您的姓名？', buttons: null },
         { key: 'phone', question: '請留下您的手機號碼：', buttons: null }
       ]
@@ -266,6 +278,12 @@
         { key: 'extra', question: '還有其他補充嗎？（沒有可按「跳過」）', buttons: [
           { label: '跳過', value: '__SKIP__' }
         ]},
+        { key: 'region', question: '請選擇通報區域：', buttons: [
+          { label: '新北市 - 板橋區', value: '新北市 - 板橋區' },
+          { label: '新北市 - 新莊區', value: '新北市 - 新莊區' },
+          { label: '新北市 - 中和區', value: '新北市 - 中和區' },
+          { label: '新北市 - 永和區', value: '新北市 - 永和區' }
+        ]},
         { key: 'reporterName', question: '請問您的姓名？', buttons: null },
         { key: 'phone', question: '請留下您的手機號碼：', buttons: null }
       ]
@@ -289,6 +307,12 @@
         { key: 'address', question: '噪音來源的位置在哪裡？', buttons: null },
         { key: 'extra', question: '還有其他補充嗎？（沒有可按「跳過」）', buttons: [
           { label: '跳過', value: '__SKIP__' }
+        ]},
+        { key: 'region', question: '請選擇通報區域：', buttons: [
+          { label: '新北市 - 板橋區', value: '新北市 - 板橋區' },
+          { label: '新北市 - 新莊區', value: '新北市 - 新莊區' },
+          { label: '新北市 - 中和區', value: '新北市 - 中和區' },
+          { label: '新北市 - 永和區', value: '新北市 - 永和區' }
         ]},
         { key: 'reporterName', question: '請問您的姓名？', buttons: null },
         { key: 'phone', question: '請留下您的手機號碼：', buttons: null }
@@ -498,6 +522,7 @@
     };
     if (collectedData.address) formData.location = collectedData.address;
     if (collectedData.location) formData.location = collectedData.location;
+    if (collectedData.region) formData.region = collectedData.region;
     if (collectedData.reporterName) formData.reporterName = collectedData.reporterName;
     if (collectedData.phone) formData.phone = collectedData.phone;
 
@@ -645,7 +670,7 @@
 
     var labelMap = {
       category: '通報類型', description: '狀況描述', priority: '緊急程度', location: '地點',
-      reporterName: '通報人', phone: '聯絡電話'
+      region: '通報區域', reporterName: '通報人', phone: '聯絡電話'
     };
 
     for (var key in formData) {
