@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>智慧服務平台 AI 填表助手 - 設定</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-app">
+    <!-- Header -->
+    <div class="options-header">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="#10B981"/>
+        <path d="M8 22V12l4-4h8l4 4v10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 22v-6h8v6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="16" cy="12" r="2" fill="white"/>
+      </svg>
+      <div>
+        <h1>AI 填表助手設定</h1>
+        <span class="options-subtitle">智慧服務平台</span>
+      </div>
+    </div>
+
+    <!-- Mode Switch -->
+    <div class="section mode-section">
+      <h2 class="section-title">運作模式</h2>
+      <div class="mode-options">
+        <label class="mode-card" id="mode-card-llm">
+          <input type="radio" name="mode" value="llm">
+          <div class="mode-card-inner">
+            <div class="mode-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a5 5 0 0 1 5 5v3a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5z"/>
+                <path d="M17 10a5 5 0 0 1-10 0"/>
+                <circle cx="9" cy="8" r="1" fill="currentColor"/>
+                <circle cx="15" cy="8" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="mode-info">
+              <span class="mode-label">Azure OpenAI 模式</span>
+              <span class="mode-desc">接真正的 LLM，對話更自然智能</span>
+            </div>
+            <div class="mode-check">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+          </div>
+        </label>
+        <label class="mode-card" id="mode-card-demo">
+          <input type="radio" name="mode" value="demo" checked>
+          <div class="mode-card-inner">
+            <div class="mode-icon demo-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 8v4M12 16h.01"/>
+              </svg>
+            </div>
+            <div class="mode-info">
+              <span class="mode-label">Demo 展示模式</span>
+              <span class="mode-desc">使用內建引導式問答，離線可用，適合展示</span>
+            </div>
+            <div class="mode-check">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Azure OpenAI Settings -->
+    <div class="section azure-section" id="azure-settings">
+      <h2 class="section-title">Azure OpenAI 設定</h2>
+
+      <div class="field">
+        <label for="endpoint">Endpoint URL</label>
+        <input type="text" id="endpoint" placeholder="https://your-resource.openai.azure.com">
+        <div class="hint">Azure OpenAI 資源端點網址</div>
+      </div>
+
+      <div class="field">
+        <label for="deployment">Deployment Name</label>
+        <input type="text" id="deployment" placeholder="gpt-4.1">
+      </div>
+
+      <div class="field">
+        <label for="apiKey">API Key</label>
+        <input type="password" id="apiKey" placeholder="your-api-key">
+      </div>
+
+      <div class="field">
+        <label for="apiVersion">API Version</label>
+        <input type="text" id="apiVersion" placeholder="2025-01-01-preview">
+      </div>
+
+      <div class="btn-group">
+        <button id="btn-test" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          測試連線
+        </button>
+        <button id="btn-save" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          儲存設定
+        </button>
+      </div>
+
+      <div id="status" class="status"></div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

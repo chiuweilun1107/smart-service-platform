@@ -1,0 +1,79 @@
+{
+  "report": {
+    "name": "案件通報",
+    "url_pattern": "/report/",
+    "fields": [
+      {
+        "id": "reporterName",
+        "label": "通報人姓名",
+        "type": "text",
+        "selector": "input[name='reporterName'], input[placeholder*='姓名'], input[name='contactName']"
+      },
+      {
+        "id": "phone",
+        "label": "聯絡電話",
+        "type": "tel",
+        "selector": "input[name='phone'], input[type='tel']"
+      },
+      {
+        "id": "email",
+        "label": "電子郵件",
+        "type": "email",
+        "selector": "input[name='email'], input[type='email']"
+      },
+      {
+        "id": "location",
+        "label": "事件地點",
+        "type": "text",
+        "selector": "input[name='location'], input[placeholder*='地點'], input[placeholder*='地址'], input[name='address']"
+      },
+      {
+        "id": "region",
+        "label": "通報區域",
+        "type": "select",
+        "selector": "select[name='region'], select"
+      },
+      {
+        "id": "description",
+        "label": "問題描述",
+        "type": "textarea",
+        "selector": "textarea[name='description'], textarea"
+      },
+      {
+        "id": "category",
+        "label": "通報類型",
+        "type": "select",
+        "selector": "select[name='category']"
+      }
+    ]
+  },
+  "smart-guide": {
+    "name": "智慧引導",
+    "url_pattern": "/smart-guide",
+    "fields": []
+  },
+  "bee-report": {
+    "name": "蜂蛇移除通報",
+    "url_pattern": "/report/?type=bee",
+    "fields": [
+      {
+        "id": "location",
+        "label": "事件地點",
+        "type": "text",
+        "selector": "input[name='location'], input[placeholder*='地址']"
+      },
+      {
+        "id": "description",
+        "label": "問題描述",
+        "type": "textarea",
+        "selector": "textarea"
+      },
+      {
+        "id": "phone",
+        "label": "聯絡電話",
+        "type": "tel",
+        "selector": "input[type='tel']"
+      }
+    ]
+  }
+}

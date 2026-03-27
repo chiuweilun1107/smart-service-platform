@@ -1,0 +1,790 @@
+/* ============================================================
+   智慧服務平台 AI 填表助手 — Side Panel CSS
+   Theme: Green (#10B981 Emerald)
+   ============================================================ */
+
+:root {
+  --green-50: #ecfdf5;
+  --green-100: #d1fae5;
+  --green-200: #a7f3d0;
+  --green-300: #6ee7b7;
+  --green-400: #34d399;
+  --green-500: #10b981;
+  --green-600: #059669;
+  --green-700: #047857;
+  --green-800: #065f46;
+  --green-900: #064e3b;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  --white: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+}
+
+/* ─── Reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--slate-800);
+  background: var(--slate-50);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* ─── App Layout ────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 360px;
+  max-width: 100vw;
+  background: var(--white);
+}
+
+/* ─── Header ────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, var(--green-600), var(--green-700));
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-400), var(--green-300), var(--green-400));
+  opacity: 0.6;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+
+.header-logo svg {
+  width: 28px;
+  height: 28px;
+}
+
+.header-text h1 {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.8;
+  letter-spacing: 0.05em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Mode Badge ───────────────────────────────────────── */
+.mode-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.mode-badge.llm-mode {
+  background: rgba(52, 211, 153, 0.3);
+  color: var(--green-100);
+}
+
+/* ─── Settings Button ──────────────────────────────────── */
+.btn-settings {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-settings:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--white);
+  transform: rotate(30deg);
+}
+
+.connection-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.connection-dot.connected {
+  background: var(--green-300);
+  border-color: var(--green-300);
+  box-shadow: 0 0 8px var(--green-300);
+}
+
+.connection-dot.disconnected {
+  background: var(--slate-400);
+  border-color: var(--slate-400);
+}
+
+/* ─── Messages ──────────────────────────────────────────── */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+  background: var(--slate-50);
+}
+
+.messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: var(--slate-300);
+  border-radius: 4px;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: var(--slate-400);
+}
+
+/* ─── Message Bubble ────────────────────────────────────── */
+.message {
+  display: flex;
+  gap: 10px;
+  max-width: 100%;
+  animation: messageSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.assistant {
+  align-self: flex-start;
+  flex-direction: row;
+}
+
+.message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.message.assistant .message-avatar {
+  background: linear-gradient(135deg, var(--green-500), var(--green-600));
+  color: var(--white);
+}
+
+.message.user .message-avatar {
+  background: linear-gradient(135deg, var(--slate-600), var(--slate-700));
+  color: var(--white);
+}
+
+.message-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: calc(100% - 44px);
+}
+
+.message-content {
+  padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  font-size: 13.5px;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+.message.assistant .message-content {
+  background: var(--white);
+  color: var(--slate-800);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.message.user .message-content {
+  background: linear-gradient(135deg, var(--green-500), var(--green-600));
+  color: var(--white);
+  border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─── Fill Button ───────────────────────────────────────── */
+.btn-fill-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  margin-top: 4px;
+  background: linear-gradient(135deg, var(--green-500), var(--green-600));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-fill-form:hover {
+  background: linear-gradient(135deg, var(--green-600), var(--green-700));
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-fill-form:active {
+  transform: translateY(0);
+}
+
+.btn-fill-form:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-fill-form svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Filled success state */
+.btn-fill-form.filled {
+  background: var(--green-100);
+  color: var(--green-700);
+  cursor: default;
+}
+
+/* ─── Quick Action Buttons ──────────────────────────────── */
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--green-50);
+  color: var(--green-700);
+  border: 1px solid var(--green-200);
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.quick-btn:hover {
+  background: var(--green-100);
+  border-color: var(--green-300);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+}
+
+.quick-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.quick-btn.selected {
+  background: var(--green-500);
+  color: var(--white);
+  border-color: var(--green-500);
+}
+
+.quick-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ─── Typing Indicator ──────────────────────────────────── */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.typing-indicator span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green-400);
+  animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+/* ─── Form Data Preview Card ────────────────────────────── */
+.form-preview {
+  background: var(--white);
+  border: 1px solid var(--green-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.form-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--green-50);
+  border-bottom: 1px solid var(--green-200);
+}
+
+.form-preview-header svg {
+  width: 16px;
+  height: 16px;
+  color: var(--green-600);
+}
+
+.form-preview-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green-700);
+  letter-spacing: 0.02em;
+}
+
+.form-preview-fields {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-preview-field {
+  display: flex;
+  gap: 8px;
+  font-size: 12.5px;
+}
+
+.form-preview-label {
+  color: var(--slate-500);
+  font-weight: 500;
+  min-width: 72px;
+  flex-shrink: 0;
+}
+
+.form-preview-value {
+  color: var(--slate-800);
+  font-weight: 600;
+}
+
+/* ─── Input Area ────────────────────────────────────────── */
+.input-area {
+  padding: 12px 16px 16px;
+  background: var(--white);
+  border-top: 1px solid var(--slate-200);
+  flex-shrink: 0;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  background: var(--slate-50);
+  border: 2px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 6px 6px 6px 14px;
+  transition: all 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+  border-color: var(--green-500);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.input-wrapper textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--slate-800);
+  resize: none;
+  max-height: 100px;
+  padding: 6px 0;
+}
+
+.input-wrapper textarea::placeholder {
+  color: var(--slate-400);
+}
+
+.btn-send {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--green-500), var(--green-600));
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-send:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--green-600), var(--green-700));
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-send:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.btn-send:disabled {
+  background: var(--slate-300);
+  cursor: not-allowed;
+}
+
+.btn-send svg {
+  width: 16px;
+  height: 16px;
+}
+
+.input-hint {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--slate-400);
+  letter-spacing: 0.02em;
+}
+
+/* ─── Typewriter effect ─────────────────────────────────── */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--green-500);
+  margin-left: 2px;
+  animation: cursorBlink 0.8s infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ─── Fill Progress Indicator ───────────────────────────── */
+.fill-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--green-50);
+  border-radius: var(--radius-sm);
+  margin-top: 6px;
+  animation: progressPulse 2s infinite;
+}
+
+@keyframes progressPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.fill-progress-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--green-200);
+  border-top-color: var(--green-600);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fill-progress-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green-700);
+}
+
+/* ─── Field Highlight Flash (used by content script) ──── */
+@keyframes fieldHighlight {
+  0% {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.6);
+    border-color: #10b981;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    border-color: inherit;
+  }
+}
+
+/* ─── Inline Buttons (flow step choices) ───────────────── */
+.inline-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.inline-btn {
+  padding: 8px 14px;
+  border: 1.5px solid var(--green-300);
+  border-radius: 20px;
+  background: white;
+  color: var(--green-700);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.inline-btn:hover:not(:disabled) {
+  background: var(--green-50);
+  border-color: var(--green-500);
+  transform: translateY(-1px);
+}
+
+.inline-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.inline-btn.selected {
+  background: var(--green-500);
+  color: white;
+  border-color: var(--green-500);
+  opacity: 1;
+}
+
+/* ─── Confirm / Edit Button Group ──────────────────────── */
+.confirm-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-confirm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--green-500), var(--green-600));
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-confirm:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.btn-confirm:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.btn-confirm svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 12px;
+  background: white;
+  color: var(--gray-600);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover {
+  border-color: var(--gray-400);
+  background: var(--gray-50);
+}
+
+.btn-edit svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ─── Mic Button ───────────────────────────────────────── */
+.btn-mic {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--gray-100);
+  color: var(--gray-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.btn-mic:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.btn-mic.recording {
+  background: #fee2e2;
+  color: #ef4444;
+  animation: pulse-mic 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-mic {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .app {
+    width: 100vw;
+  }
+}
