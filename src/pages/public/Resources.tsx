@@ -32,7 +32,7 @@ export const Resources: React.FC = () => {
     });
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20 overflow-hidden">
+        <div className="min-h-screen bg-slate-50 pt-20 pb-20 overflow-hidden">
             <div className="max-w-5xl mx-auto px-6">
 
                 <PageHeader

@@ -65,7 +65,7 @@ export const Status: React.FC = () => {
     }, [searchParams]);
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
+        <div className="min-h-screen bg-slate-50 pt-20 pb-20 px-6">
             <div>
                 <div className="max-w-5xl mx-auto">
                     {/* Header Command Area */}

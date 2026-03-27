@@ -172,7 +172,7 @@ export const SmartGuide: React.FC = () => {
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 blur-[150px] rounded-full pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-100/30 blur-[150px] rounded-full pointer-events-none"></div>
 
-            <div className="relative z-10 w-full px-6 pt-24 pb-20">
+            <div className="relative z-10 w-full px-6 pt-20 pb-20">
                 <div className="max-w-5xl mx-auto">
                     {renderStep()}
                 </div>

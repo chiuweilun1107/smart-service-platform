@@ -19,7 +19,7 @@ export const ReportSuccess: React.FC = () => {
     if (!caseId) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
+        <div className="min-h-screen bg-slate-50 pt-20 pb-20 px-6">
             <div className="max-w-5xl mx-auto">
                 <PageHeader
                     badge="通報完成"

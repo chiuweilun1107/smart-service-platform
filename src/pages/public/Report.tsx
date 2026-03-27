@@ -75,7 +75,7 @@ export const Report: React.FC = () => {
                 </div>
             )}
 
-            <div className="relative z-10 pt-24 pb-20 px-6">
+            <div className="relative z-10 pt-20 pb-20 px-6">
                 <div className="max-w-5xl mx-auto">
                     {/* Header */}
                     <PageHeader

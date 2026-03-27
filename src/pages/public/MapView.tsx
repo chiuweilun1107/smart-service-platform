@@ -164,18 +164,14 @@ const DispatchDialog: React.FC<DispatchDialogProps> = ({ caseItem, onClose }) =>
 export const MapView: React.FC = () => {
     const navigate = useNavigate();
 
-    // Auth
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [isContractor, setIsContractor] = useState(false);
-    const [contractorId, setContractorId] = useState<string | null>(null);
-    useEffect(() => {
-        const role = localStorage.getItem('auth_role');
-        setIsAdmin(role === 'admin' || role === 'caseworker');
-        setIsContractor(role === 'contractor');
-        if (role === 'contractor') {
-            setContractorId(localStorage.getItem('auth_username'));
-        }
-    }, []);
+    // Auth — 直接從 localStorage 初始化，避免第一次 render 因 useEffect 尚未執行
+    // 而造成身份判斷錯誤（例如外勤人員看到守護範圍閃現）
+    const _initRole = localStorage.getItem('auth_role');
+    const [isAdmin] = useState(_initRole === 'admin' || _initRole === 'caseworker');
+    const [isContractor] = useState(_initRole === 'contractor');
+    const [contractorId] = useState<string | null>(
+        _initRole === 'contractor' ? localStorage.getItem('auth_username') : null
+    );
 
     // Map layer
     const [activeLayer, setActiveLayer] = useState<'osm' | 'satellite' | 'dark'>('osm');
@@ -435,8 +431,8 @@ export const MapView: React.FC = () => {
                     cases={filteredCases}
                     activeLayer={activeLayer}
                     hotspots={isAdmin || isContractor ? [] : (showHotspots ? beeHotspots : [])}
-                    guardianZones={zones}
-                    guardianAlerts={guardianAlerts}
+                    guardianZones={isAdmin || isContractor ? [] : zones}
+                    guardianAlerts={isAdmin || isContractor ? [] : guardianAlerts}
                     isAddingZone={isAddingZone}
                     onMapClickForZone={handleMapClickForZone}
                     pendingZoneCenter={pendingZoneCenter}

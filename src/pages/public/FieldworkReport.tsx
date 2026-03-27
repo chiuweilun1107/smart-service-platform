@@ -65,7 +65,7 @@ export const FieldworkReport: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-20 px-6">
+        <div className="min-h-screen bg-slate-50 pt-20 pb-20 px-6">
             <div className="max-w-5xl mx-auto">
 
                 {/* ── Page Header ─────────────────────────────────────────────── */}
@@ -77,61 +77,49 @@ export const FieldworkReport: React.FC = () => {
                     layout="split"
                 >
                     {/* 步驟計數 */}
-                    <div className="flex items-center gap-4 pl-5 pr-6 py-4 bg-white rounded-2xl border border-slate-200 shadow-sm border-l-4 border-l-amber-500">
-                        <div>
-                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">目前步驟</div>
+                    <div className="flex items-center gap-2 sm:gap-4 pl-4 sm:pl-5 pr-4 sm:pr-6 py-3 sm:py-4 bg-white rounded-2xl border border-slate-200 shadow-sm border-l-4 border-l-amber-500">
+                        <div className="shrink-0">
+                            <div className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">目前步驟</div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900 leading-none">{stepIndex + 1}</span>
-                                <span className="text-base font-bold text-slate-400">/ {STEPS.length}</span>
+                                <span className="text-2xl sm:text-3xl font-black text-slate-900 leading-none">{stepIndex + 1}</span>
+                                <span className="text-sm sm:text-base font-bold text-slate-400">/ {STEPS.length}</span>
                             </div>
                         </div>
-                        <div className="w-px h-10 bg-slate-100"></div>
-                        <div>
+                        <div className="hidden sm:block w-px h-10 bg-slate-100"></div>
+                        <div className="hidden sm:block shrink-0">
                             <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">當前</div>
                             <div className="text-sm font-black text-slate-700">{STEPS[stepIndex].label}</div>
                         </div>
-                        {/* Mini progress dots */}
-                        <div className="flex items-center gap-1.5 ml-2">
-                            {STEPS.map((_, i) => (
-                                <div key={i} className={`rounded-full transition-all duration-300 ${
-                                    i < stepIndex  ? 'w-2 h-2 bg-emerald-400' :
-                                    i === stepIndex ? 'w-3 h-3 bg-blue-600' :
-                                                      'w-2 h-2 bg-slate-200'
-                                }`} />
+                        {/* Step strip */}
+                        <div className="flex items-start ml-auto">
+                            {STEPS.map((s, i) => (
+                                <React.Fragment key={s.id}>
+                                    <div className="flex flex-col items-center gap-1">
+                                        <div className={`w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-300 ${
+                                            i < stepIndex
+                                                ? 'bg-emerald-500 text-white shadow-sm shadow-emerald-500/30'
+                                                : i === stepIndex
+                                                ? 'bg-slate-900 text-white shadow-sm shadow-slate-900/20'
+                                                : 'bg-white border border-slate-200 text-slate-300'
+                                        }`}>
+                                            {i < stepIndex ? <Check size={12} /> : s.icon}
+                                        </div>
+                                        <span className={`hidden sm:block text-[9px] font-black tracking-wide whitespace-nowrap transition-colors ${
+                                            i < stepIndex ? 'text-emerald-500' :
+                                            i === stepIndex ? 'text-slate-800' : 'text-slate-300'
+                                        }`}>{s.label}</span>
+                                    </div>
+                                    {i < STEPS.length - 1 && (
+                                        <div className={`w-3 sm:w-6 h-px mt-[14px] sm:mt-[18px] mx-1 sm:mx-1.5 transition-all duration-300 ${
+                                            i < stepIndex ? 'bg-emerald-300' : 'bg-slate-200'
+                                        }`} />
+                                    )}
+                                </React.Fragment>
                             ))}
                         </div>
                     </div>
                 </PageHeader>
 
-                {/* ── Step Indicator ──────────────────────────────────────────── */}
-                <div className="flex items-start gap-0 mb-10">
-                    {STEPS.map((s, i) => (
-                        <React.Fragment key={s.id}>
-                            <div className="flex flex-col items-center gap-2 shrink-0">
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                                    i < stepIndex
-                                        ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30'
-                                        : i === stepIndex
-                                        ? 'bg-slate-900 text-white shadow-md shadow-slate-900/20'
-                                        : 'bg-white border border-slate-200 text-slate-300'
-                                }`}>
-                                    {i < stepIndex ? <Check size={15} /> : s.icon}
-                                </div>
-                                <span className={`text-[10px] font-black tracking-wide text-center whitespace-nowrap transition-colors ${
-                                    i < stepIndex ? 'text-emerald-500' :
-                                    i === stepIndex ? 'text-slate-900' : 'text-slate-300'
-                                }`}>
-                                    {s.label}
-                                </span>
-                            </div>
-                            {i < STEPS.length - 1 && (
-                                <div className={`flex-1 h-px mt-5 mx-3 transition-all duration-300 ${
-                                    i < stepIndex ? 'bg-emerald-300' : 'bg-slate-200'
-                                }`} />
-                            )}
-                        </React.Fragment>
-                    ))}
-                </div>
 
                 {/* ── Step Content Card ────────────────────────────────────────── */}
                 <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
@@ -220,7 +208,7 @@ export const FieldworkReport: React.FC = () => {
                                     </div>
 
                                     <div className="space-y-4">
-                                        <div className="grid grid-cols-2 gap-3">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                             <div>
                                                 <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">處理人員</label>
                                                 <TextInput type="text" value={handlerName} onChange={e => setHandlerName(e.target.value)} />
